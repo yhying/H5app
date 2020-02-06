@@ -1,0 +1,210 @@
+{
+  "index.html": {
+    "resources": [
+      "top.html",
+      "foot.html"
+    ],
+    "refer": [
+      "top.html",
+      "shop.html",
+      "repository.html",
+      "my.html",
+      "chat.html",
+      "search.html",
+      "detail.html",
+      "indexDetail.html"
+    ]
+  },
+  "login.html": {
+    "refer": [
+      "regist.html",
+      "fast_login.html",
+      "forget.html",
+      "index.html"
+    ],
+    "resources": []
+  },
+  "repository.html": {
+    "refer": [
+      "chat.html",
+      "index.html",
+      "shop.html",
+      "repository_classify.html",
+      "my.html",
+      "repositoryClassify.html",
+      "detail.html",
+      "repositoryDetail.html"
+    ]
+  },
+  "shop.html": {
+    "refer": [
+      "repository.html",
+      "index.html",
+      "chat.html",
+      "my.html",
+      "shop/groupShop.html",
+      "shop/desenoShop.html",
+      "shop/shopping.html",
+      "shop/shopDetail.html",
+      "shopCart.html"
+    ]
+  },
+  "my.html": {
+    "refer": [
+      "index.html",
+      "chat.html",
+      "login.html",
+      "personData.html",
+      "set.html",
+      "center/inform.html",
+      "center/vipApply.html",
+      "center/personData.html",
+      "center/like.html",
+      "center/address.html",
+      "center/set.html",
+      "center/collect.html",
+      "center/order.html",
+      "repository.html",
+      "shop.html",
+      "center/myFeedback.html"
+    ]
+  },
+  "chat.html": {
+    "refer": [
+      "my.html",
+      "index.html",
+      "shop.html",
+      "repository.html",
+      "chatDetail.html"
+    ],
+    "resources": [
+      "images/*\u0007ý-4-02.jpg",
+      "images/*\u0007ý-4-02.jpg"
+    ]
+  },
+  "search.html": {
+    "refer": [
+      "index.html"
+    ]
+  },
+  "set.html": {
+    "refer": [
+      "aboutUs.html"
+    ]
+  },
+  "center/vipApply.html": {
+    "refer": [
+      "center/serviceProvider.html",
+      "center/serviceProvider_msg.html"
+    ]
+  },
+  "center/serviceProvider.html": {
+    "resources": [
+      "js/mui.min.js",
+      "js/jquery-2.1.3.min.js"
+    ],
+    "refer": [
+      "center/vipSubmitErr.html"
+    ]
+  },
+  "center/set.html": {
+    "refer": [
+      "center/aboutUs.html",
+      "center/personData.html",
+      "center/changePwd.html",
+      "login.html",
+      "center/RefundSchedule.html",
+      "center/estimate.html",
+      "center/refund.html",
+      "detail.html",
+      "center/add_Addr.html",
+      "center/orderDetails.html",
+      "center/vipUser/serviceProvider_index.html",
+      "center/vipUser/new_file.html",
+      "center/serviceProvider/download.html",
+      "center/serviceProvider/new_file1.html",
+      "center/serviceProvider/new_file.html",
+      "center/social_publish.html",
+      "center/problemFeedback.html"
+    ]
+  },
+  "regist.html": {
+    "refer": [
+      "login.html"
+    ]
+  },
+  "center/myFeedback.html": {
+    "refer": [
+      "center/problemFeedback.html",
+      "center/feedbackContent.html"
+    ]
+  },
+  "center/problemFeedback.html": {
+    "refer": [
+      "center/problemTypes .html",
+      "center/problemTypes.html"
+    ]
+  },
+  "center/changePwd.html": {
+    "refer": [
+      "index.html"
+    ]
+  },
+  "shop/shopDetail.html": {
+    "refer": [
+      "shop.html",
+      "shop/confirmOrder.html"
+    ]
+  },
+  "repositoryClassify.html": {
+    "resources": [
+      "images/ý)\u0005.png"
+    ]
+  },
+  "center/address.html": {
+    "refer": [
+      "center/add_Addr.html"
+    ]
+  },
+  "center/add_Addr.html": {
+    "refer": [
+      "center/address.html"
+    ]
+  },
+  "center/order.html": {
+    "refer": [
+      "center/orderDetails.html",
+      "center/refund.html"
+    ]
+  },
+  "center/problemTypes.html": {
+    "refer": [
+      "center/problemFeedback.html"
+    ]
+  },
+  "center/vipUser/serviceProvider_index.html": {
+    "refer": [
+      "center/vipUser/feedbackTypes.html"
+    ]
+  },
+  "center/vipUser/feedbackTypes.html": {
+    "refer": [
+      "center/vipUser/serviceProvider_index.html"
+    ]
+  },
+  "shop/confirmOrder.html": {
+    "refer": [
+      "center/address.html",
+      "login.html"
+    ]
+  },
+  "center/estimate.html": {
+    "resources": [
+      "js/common.js",
+      "js/mui.min.js",
+      "js/jquery-2.1.3.min.js",
+      "fonts/mui.ttf",
+      "images/news1.jpg"
+    ]
+  }
+}

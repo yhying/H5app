@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的反馈</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/problemTypes.css" />
+		<script type="text/javascript" src="../../js/jquery-2.1.3.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">问题反馈</h1>
+		</header>
+		<div style="height: 50px;"></div>
+		<div class="page-box">
+			<div class="msg">
+				<span class="msg1">请选择问题发生的场景</span>
+			</div>
+			<div class="page-list" data-page="serviceProvider_index.html">
+				<div class="page-list-l">个性化推荐</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<div class="page-list" data-page="serviceProvider_index.html">
+				<div class="page-list-l">账号相关</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<div class="page-list" data-page="serviceProvider_index.html">
+				<div class="page-list-l">互动交流（评论、点赞、私信）</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<div class="page-list" data-page="serviceProvider_index.html">
+				<div class="page-list-l">播放故障（点赞、收藏、分享）</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<div class="page-list" data-page="serviceProvider_index.html">
+				<div class="page-list-l">功能故障（收藏、分享）</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<div class="page-list" data-page="serviceProvider_index.html">
+				<div class="page-list-l">软件故障（闪退、卡顿、卡死、刷不出来）</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<div class="page-list" data-page="serviceProvider_index.html">
+				<div class="page-list-l">其他问题</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+		</div>
+		</div>
+		<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type=" text/javascript ">
+			mui.init();
+			//列表url跳转
+			mui('.page-box').on('tap', '.page-list', function(e) {       
+				var targetTab = this.getAttribute('data-page');
+				let typeText = $(this).text()
+				let type = $(this).index()
+				if(targetTab) {
+					window.localStorage.setItem("QLfeedbackType",{"typeText":typeText});
+					mui.openWindow({
+						url: targetTab
+					});
+				}     
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>收货地址</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/add_Addr.css"/>
+		<script src="../js/jquery-2.1.3.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">新建收货地址</h1>
+		</header>
+		<div style="height:45px;"></div>
+		<div class="">
+			<div class="mui-input-row">
+		        <label>收货人</label>
+		    	<input type="text" class="mui-input-clear addr-name" placeholder="请填写收货人姓名">
+		    </div>
+		    <div class="mui-input-row">
+		        <label>手机号码</label>
+		    	<input type="text" class="mui-input-clear addr-phone" placeholder="固定/手机号">
+		    </div>
+		    <div class="mui-input-row">
+		        <label>所在地区</label>
+			    <input id='showCityPicker3' type="button" value="请选择所在地区">
+		    </div>
+		    <div class="mui-input-row">
+		        <label>详细地址</label>
+		    	<input type="text" class="mui-input-clear addr-addr" placeholder="请填写详细地址">
+		    </div>
+		    <div class="mui-input-row mui-checkbox mui-right">
+			  	<label>设置默认地址</label>
+			  	<input name="checkbox1" value="Item 1" type="checkbox" id="isDefault">
+			</div>
+		</div>
+		<!--底部-->
+		<footer class="foot">
+			<button type="button" class="mui-btn">保存</button>
+		</footer>
+		<!--底部-->
+		<script src="js/mui.picker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//location_p  省
+			//location_c  市
+			//location_a  区
+			//isDefault   是否默认地址
+			var location_p,location_c,location_a,isDefault;
+			var addr_name_trim,addr_phone_trim,showCityPicker3,addr_addr_trim ;
+			var token = localStorage.getItem('Token');
+			var editorId = decodeData('editorId').editorId;
+//			地区选择器三级联动
+			(function($, doc) {
+				$.ready(function() {
+					/**
+					 * 获取对象属性的值
+					 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+					 * @param {Object} obj 对象
+					 * @param {String} param 属性名
+					 */
+					var _getParam = function(obj, param) {
+						return obj[param] || '';
+					};
+					//					//级联示例
+					var cityPicker3 = new $.PopPicker({
+						layer: 3
+					});
+					cityPicker3.setData(cityData3);
+					//设置第1项默认地址的初始值
+					cityPicker3.pickers[0].setSelectedIndex(12);
+					//设置第2项默认地址的初始值
+					cityPicker3.pickers[1].setSelectedIndex(1);
+					//设置第3项默认地址的初始值
+					cityPicker3.pickers[2].setSelectedIndex(2);
+					var showCityPickerButton = doc.getElementById('showCityPicker3');
+					showCityPickerButton.addEventListener('tap', function(event) {
+						cityPicker3.show(function(items) {
+							let addr = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+							showCityPickerButton.value = addr;
+							location_p = _getParam(items[0], 'text');
+							location_c = _getParam(items[1], 'text');
+							location_a = _getParam(items[2], 'text');
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+				});
+			})(mui, document);
+			if(!editorId){
+			//保存
+			var disabled = true;//防止多次点击求情数据
+			mui('.foot').on('tap','.mui-btn',function(){
+				let err_msg = checkAddr();
+				if (err_msg.length != 0) {
+					mui.alert(err_msg);
+		        return;
+		      	}else{
+		      		if(!disabled){
+		        		mui.alert('操作频繁');
+		        	}
+		      		else{
+		      			disabled = false;
+		      			addr_name_trim = $(".addr-name").val().trim();
+		      			addr_phone_trim = $(".addr-phone").val().trim();
+		      			showCityPicker3 = $("#showCityPicker3").val().trim();
+		      			addr_addr_trim = $(".addr-addr").val().trim();
+		      			//执行接口			
+						mui.ajax(baseUrl + '/api/mall/address',{
+							data:{
+								name:addr_name_trim,
+								location_p:location_p,
+								location_c:location_c,
+								location_a:location_a,
+								address:addr_addr_trim,
+								phone:addr_phone_trim,
+								is_default:isDefault
+							},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							headers:{
+								'Api-Version':'v1_0',
+								'Api-Token':token
+							},	              
+							success:function(data){
+								//重启点击事件
+								disabled = true;
+								if(data.code == 1000){
+									mui.alert("添加成功");
+									//跳转收货地址页面
+									setTimeout(function () {
+										mui.openWindow({
+									    	url:'address.html'
+										});
+									}, 1000);
+								}else{
+									mui.alert(data.msg);
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								//重启点击事件
+								disabled = true;
+								mui.alert('请求超时');
+							}
+						});
+		      		}
+					
+				}
+			})
+			}
+			else{
+				//获取要编辑的地址的内容
+				mui.ajax(baseUrl + '/api/mall/address/' + editorId, {
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Api-Token': token
+					},
+					success: function(data) {
+						if(data.code == 1000) {
+							showAdress(data.data)
+							updateAdress();
+						} else {}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.alert('请求超时');
+					}
+				});
+			}
+			
+			//默认地址状态
+			mui('.mui-checkbox').on('change', 'input', function() {
+				isDefault = this.checked?1:0;
+			});
+	
+			//表单校验
+		    function checkAddr() {
+		      let err_msg = "";
+		      const reg = /^1\d{10}$/;
+			  const reg2 = /0\d{2}-\d{7,8}/;
+			  
+		      addr_name_trim = $(".addr-name").val().trim();
+		      addr_phone_trim = $(".addr-phone").val().trim();
+		      showCityPicker3 = $("#showCityPicker3").val().trim();
+		      addr_addr_trim = $(".addr-addr").val().trim();
+		      if (addr_name_trim.length == 0) {
+		      	err_msg = "收货人姓名不能为空";
+		      } else if (addr_name_trim.length > 12) {
+		      	err_msg = "请填写12字以内的姓名";
+		      } else if (addr_phone_trim.length == 0) {
+		        err_msg = "手机号不能为空";
+		      } else if (!reg.test(addr_phone_trim) && !reg2.test(addr_phone_trim)) {
+		        err_msg = "固定/手机号不正确";
+		      } else if (showCityPicker3 == "请选择所在地区") {
+		      	err_msg = "请选择所在地区";
+		      } else if (addr_addr_trim.length == 0) {
+		        err_msg = "详细地址不能为空";
+		      }
+		      return err_msg;
+		    }
+		    
+		    function showAdress(data){
+		    	$(".addr-name").val(data.name);
+		      	$(".addr-phone").val(data.phone);
+		      	$("#showCityPicker3").val(data.location_p + ' ' + data.location_c + ' ' + data.location_a);
+		      	$(".addr-addr").val(data.address);
+		      	$(".mui-title").text("更改收货地址");
+		      	location_p = data.location_p;
+		      	location_c = data.location_c;
+		      	location_a = data.location_a;
+		      	if(data.is_default == 1){
+		      		$("#isDefault").prop("checked",true);
+		      		isDefault = 1;
+		      	}
+		      	else{
+		      		isDefault = 0;
+		      	}
+		    }
+		    function updateAdress(){
+		    		//修改
+			var disabled = true;//防止多次点击求情数据
+			mui('.foot').on('tap','.mui-btn',function(){
+				let err_msg = checkAddr();
+				if (err_msg.length != 0) {
+					mui.alert(err_msg);
+		        return;
+		      	}else{
+		      		if(!disabled){
+		        		mui.alert('操作频繁');
+		        	}
+		      		else{
+		      			disabled = false;
+		      			addr_name_trim = $(".addr-name").val().trim();
+		      			addr_phone_trim = $(".addr-phone").val().trim();
+		      			showCityPicker3 = $("#showCityPicker3").val().trim();
+		      			addr_addr_trim = $(".addr-addr").val().trim();
+		      			//执行接口
+						mui.ajax(baseUrl + '/api/mall/address/'+ editorId,{
+							data:{
+								name:addr_name_trim,
+								phone:addr_phone_trim,
+								location_p:location_p,
+								location_c:location_c,
+								location_a:location_a,
+								address:addr_addr_trim,
+								is_default:isDefault
+								
+							},
+							dataType:'json',//服务器返回json格式数据
+							type:'PUT',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							headers:{
+								'Api-Token':token
+							},	              
+							success:function(data){
+								//重启点击事件
+								disabled = true;
+								console.log(JSON.stringify(data));
+								if(data.code == 1000){
+									//跳转收货地址页面
+									setTimeout(function () {
+										mui.openWindow({
+									    	url:'address.html'
+										});
+									}, 1000);
+								}else{
+									mui.alert(data.msg);
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理；
+								//重启点击事件
+								disabled = true;
+								mui.alert('请求超时');
+							}
+						});
+		      		}
+					
+				}
+			})
+		    }
+		</script>
+	</body>
+</html>

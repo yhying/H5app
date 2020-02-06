@@ -1,0 +1,399 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../plug/swiper-4.5.0/dist/css/swiper.min.css">
+		<link rel="stylesheet" type="text/css" href="../../css/topandfoot.css" />
+		<link rel="stylesheet" type="text/css" href="css/serviceProvider_index.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">服务商</h1>
+		</header>
+		<div style="height: 55px;"></div>
+		<!--导航栏-->
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<div class="gopage">
+						<img src="../../images/repos1.png" alt="" />
+						<p>这是第一个</p>
+					</div>
+					<div class="gopage">
+						<img src="../../images/repos2.png" alt="" />
+						<p>这是第二个</p>
+					</div>
+					<div class="gopage">
+						<img src="../../images/repos3.png" alt="" />
+						<p>这是第三个</p>
+					</div>
+					<div class="gopage">
+						<img src="../../images/repos4.png" alt="" />
+						<p>这是第四个</p>
+					</div>
+					<div class="gopage">
+						<img src="../../images/repos5.png" alt="" />
+						<p>这是第五个</p>
+					</div>
+					<div class="gopage">
+						<img src="../../images/repos6.png" alt="" />
+						<p>这是第六个</p>
+					</div>
+				</div>
+			</div>
+			<!-- Add Arrows -->
+			<div class="swiper-button-next"><i class="mui-icon mui-icon-forward"></i></div>
+			<div class="swiper-button-prev"><i class="mui-icon mui-icon-back"></i></div>
+		</div>
+		<!--导航栏结束-->
+
+		<div class="hot">
+			<div id="slider" class="mui-slider mui-fullscreen nav">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a class="mui-control-item mui-active">
+							产品拓扑图
+						</a>
+						<a class="mui-control-item">
+							规格书
+						</a>
+						<a class="mui-control-item">
+							孔位图
+						</a>
+						<a class="mui-control-item">
+							产品动态
+						</a>
+						<a class="mui-control-item">
+							产品介绍资料
+						</a>
+						<a class="mui-control-item">
+							娱乐
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--------------------------------------问题反馈-------------------------------------------->
+		<div class="page-box">
+			<div class="page-list" data-page="feedbackTypes.html">
+				<div class="page-list-l">请选择问题发生的场景</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<div class="iptFeedback">
+				<div class="msg">
+					<span class="msg1">请描述具体问题</span>
+					<span class="msg2" id="msg2">0/300</span>
+				</div>
+				<div class="mui-input-row mui-content">
+					<textarea id="textarea" rows="5" placeholder="请输入上传内容，如需上传图片，点击下方"></textarea>
+					<div class="mui-content">
+						<!--放图片元素-->
+						<span id="imgaes">
+							
+						</span>
+						<div class="addPocture" id="headImage"></div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div style="height: 45px;"></div>
+		<footer class="problemFoot">
+			<button type="button" id="uploadImage" class="mui-btn foot-btn" data-page="">提交</button>
+		</footer>
+
+		<!---------------------------------------------压缩包------------------------------------------------>
+		<!--<ul class="zipList">
+			<li class="contentList">
+				<div class="mui-card">
+					<div class="mui-card-content">
+						<div>
+							<div class="cardTitle doctitle">
+								技术|LED显示屏不得不知道的老化常识技术|LED显示屏不得不知道的老化常识 技术|LED显示屏不得不知道的老化常识技术|LED显示屏不得不知道的老化常识
+							</div>
+							<div class='package'>
+								<img src="../../images/zip.png" />
+							</div>
+						</div>
+						<div class="cardTime">
+							2019-06-25&#x3000;19:20
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>-->
+		<!---------------------------------------文章------------------------------------->
+		<!--<div class="repository">
+			<div class="re-list">
+				<div class="re-list-title">
+					LED显示屏的像素知识点解析
+				</div>
+				<div class="re-list-img">
+					<img src="../../images/repos_news.jpg" alt="" />
+				</div>
+				<div class="re-list-bottom">
+					<div>10分钟前</div>
+					<div>来源：强力巨彩</div>
+				</div>
+			</div>
+			<div class="re-list">
+				<div class="re-list-title">
+					LED显示屏的像素知识点解析
+				</div>
+				<div class="re-list-img">
+					<img src="../../images/repos _news1.jpg" alt="" />
+				</div>
+				<div class="re-list-bottom">
+					<div>10分钟前</div>
+					<div>来源：强力巨彩</div>
+				</div>
+			</div>
+		</div>-->
+		<div class="foot">
+			<p class="foot-btn">
+				<img src="../../images/Alipay.png" />
+				<p class="foottext">上传案例</p>
+			</p>
+		</div>
+
+		<script type="text/javascript" src="../../js/jquery-2.1.3.min.js"></script>
+		<script src="../../plug/swiper-4.5.0/dist/js/swiper.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			var token = localStorage.getItem('Token');
+			//防止软键盘调起时，底部内容随之挤上
+			//获取原始窗口的高度
+			var originalHeight = document.documentElement.clientHeight || document.body.clientHeight;
+			window.onresize = function() {
+				//软键盘弹起与隐藏  都会引起窗口的高度发生变化
+				var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
+				if(resizeHeight * 1 < originalHeight * 1) { //resizeHeight<originalHeight证明窗口被挤压了
+					$('.foot-btn').css('display', 'none');
+				} else {
+					$('.foot-btn').css('display', 'block');
+				}
+			}
+			//进入页面获取页面数据
+			//			(function() {
+			//				mui.ajax(baseUrl + '/api/knows/home/index', {
+			//					dataType: 'json', //服务器返回json格式数据
+			//					type: 'post', //HTTP请求类型
+			//					timeout: 10000, //超时时间设置为10秒；
+			//					headers: {
+			//						'Api-Token': 'xx'
+			//					},
+			//					success: function(data) {
+			//						if(data.code == 1000) {
+			//							classifyShow(data);		//分类栏渲染函数
+			//							contentShow(data);		//内容渲染函数
+			//						} else {}
+			//
+			//					},
+			//					error: function(xhr, type, errorThrown) {
+			//						mui.alert('请求超时');
+			//					}
+			//				});
+			//			})()
+			//分类栏渲染函数
+			function classifyShow(data) {
+				//				let datas = data.data.knows_type_list;
+				//				var classifyInner = "";
+				//				var datasLength = Object.keys(datas).length; 
+				//				console.log(datasLength); //3
+				//				mui.each(datas, function(index, item) {
+				//					//索引为1,外层添加一个滑动的盒子元素开头
+				//					if(index == 0) {
+				//						classifyInner += `<div class="swiper-slide">
+				//						<div class="gopage" data-id="${item[0].id}" data-page="repositoryClassify.html">
+				//						<img src="${item[0].imgurl}" alt="" />
+				//						<p>${item[0].name}</p>
+				//					</div>`
+				//					} 
+				//					//索引为5,添加上一个盒子元素的结束标签，一个滑动的盒子元素开头
+				//					else if(index != 0 && index % 5 == 0 && index != datasLength - 1) {
+				//						classifyInner += `<div class="gopage" data-id="${item[0].id}" data-page="repositoryClassify.html">
+				//						<img src="${item[0].imgurl}" alt="" />
+				//						<p>${item[0].name}</p>
+				//					</div>
+				//					</div>
+				//						<div class="swiper-slide">`
+				//					} 
+				//					//索引为最后一个，添加盒子元素的结束标签
+				//					else if(index != 0 && index % 5 == 0 && index == datasLength - 1) {
+				//						classifyInner += `<div class="gopage" data-id="${item[0].id}" data-page="repositoryClassify.html">
+				//						<img src="${item[0].imgurl}" alt="" />
+				//						<p>${item[0].name}</p>
+				//					</div>
+				//					</div>`
+				//					} else {
+				//						classifyInner += `<div class="gopage" data-id="${item[0].id}" data-page="repositoryClassify.html">
+				//						<img src="${item[0].imgurl}" alt="" />
+				//						<p>${item[0].name}</p>
+				//					</div>`
+				//					}
+				//				})
+				//				$('.swiper-wrapper').html(classifyInner)
+				//				if(datas.length <= 6) {
+				//					//滑动的盒子数量少于两个，隐藏左右滑动按钮
+				//					$('.swiper-button-next').css('display', 'none');
+				//					$('.swiper-button-prev').css('display', 'none');
+				//				}
+			}
+
+			//渲染内容函数
+			function contentShow(data) {
+				//				let datas = data.data.knows_list;
+				//				var contentInner = "";
+				//				let img = ""
+				//				mui.each(datas, function(index, item) {
+				////					判断是否有视频
+				//					if(item[0].videourl) {
+				//						img = ` <video src="images/video/1e1af3a54413f90e3130d06821ce2ae1.mp4" type="video/mp4" controls>
+				//					                	抱歉，你的浏览器不支持video标签。。
+				//					                </video>`
+				//					                console.log(img)
+				//					} else {
+				//						img = `<img src="${item[0].cover_imgurl}" alt="" />`
+				//					}
+				//					//字符串转换为时间戳
+				//						let FormatDate = getDateTimeStamp(item[0].createtime); 
+				//						//计算时差
+				//						let ReleaseTime = getDateDiff(FormatDate);
+				//					contentInner += `<div class="re-list" data-page="repositoryDetail.html" data-id="${item[0].id}">
+				//				<div class="re-list-title"> 
+				//					${item[0].knows_title}
+				//				</div>
+				//				<div class="re-list-img">
+				//					${img}
+				//				</div>
+				//				<div class="re-list-bottom">
+				//					<div>来源：${item[0].source_add}</div>
+				//					<div>点赞：${item[0].likes_num}</div>
+				//					<div>浏览量：${item[0].click_num}</div>
+				//					<div>评论:${item[0].evaluations_num}</div>
+				//					<div>${ReleaseTime}</div>
+				//				</div>
+				//			</div>`
+				//				})
+				//				//				console.log(contentInner)
+				//				$('.repository').html(contentInner)
+
+			}
+			//轮播图上下张按钮
+			var swiper = new Swiper('.swiper-container', {
+				navigation: {
+					nextEl: '.swiper-button-next',
+					prevEl: '.swiper-button-prev',
+				},
+			});
+			//点击分类跳转
+			mui('.swiper-wrapper').on('tap', '.gopage', function() {
+				let targetTab = this.getAttribute('data-page');
+				let id = this.getAttribute('data-id');
+				window.localStorage.setItem('repositoryId', id);
+				mui.openWindow({
+					url: targetTab
+				});
+			});
+			//点击内容跳转
+			mui('.repository').on('tap', '.re-list', function() {
+				let targetTab = this.getAttribute('data-page');
+				let id = this.getAttribute('data-id');
+				mui.openWindow({
+					url: targetTab + '?id=' + id
+				});
+			});
+			//js函数代码：字符串转换为时间戳
+			function getDateTimeStamp(dateStr) {
+				return Date.parse(dateStr.replace(/-/gi, "/"));
+			}
+
+			//计算时差
+			function getDateDiff(dateTimeStamp) {
+				let minute = 1000 * 60;
+				let hour = minute * 60;
+				let day = hour * 24;
+				let halfamonth = day * 15;
+				let month = day * 30;
+				let now = new Date().getTime();
+				let diffValue = now - dateTimeStamp;
+				if(diffValue < 0) {
+					//若日期不符则弹窗口告之,结束日期不能小于开始日期！
+				}
+				let monthC = diffValue / month;
+				let weekC = diffValue / (7 * day);
+				let dayC = diffValue / day;
+				let hourC = diffValue / hour;
+				let minC = diffValue / minute;
+				if(monthC >= 1) {
+					result = parseInt(monthC) + "个月前";
+				} else if(weekC >= 1) {
+					result = parseInt(weekC) + "周前";
+				} else if(dayC >= 1) {
+					result = parseInt(dayC) + "天前";
+				} else if(hourC >= 1) {
+					result = parseInt(hourC) + "个小时前";
+				} else if(minC >= 1) {
+					result = parseInt(minC) + "分钟前";
+				} else
+					result = "刚刚";
+				return result;
+			}
+
+			//------------------------------------------反馈-----------------------------------------------------
+			//			window.localStorage.removeItem("QLfeedbackType") 
+			//			if(decodeData("QLfeedbackType")){
+			//				alert(111)
+			//				var feedbackType = decodeData("QLfeedbackType").typeText;
+			//				alert(feedbackType);
+			//				window.localStorage.removeItem("feedbackType") 
+			//			}
+			//			else{
+			//				alert(222)
+			//			}
+			if(window.localStorage.getItem("QLfeedbackType")) {
+				var typeText = window.localStorage.getItem("QLfeedbackType").typeText;
+				console.log(typeText)
+			}
+
+			//			监听输入的内容不超过300
+			$("#textarea").on("input", function() {
+				let txt = $("#textarea").val();
+				let num = 0
+				if(txt.length >= 300) {
+					num = 300;
+				} else {
+					num = txt.length;
+				}
+				$('#msg2').text(num + '/300')
+				if(txt.length >= 300) {
+					let showTxt = txt.slice(0, 300);
+					$("#textarea").val(showTxt)
+					$('#msg2').css('color', 'red')
+				} else {
+					$('#msg2').css('color', '#999999')
+				}
+
+			})
+			//列表url跳转
+			mui('.page-box').on('tap', '.page-list', function(e) {       
+				var targetTab = this.getAttribute('data-page');
+				if(targetTab) {
+					mui.openWindow({
+						url: targetTab
+					});
+				}     
+			});
+		</script>
+	</body>
+
+</html>

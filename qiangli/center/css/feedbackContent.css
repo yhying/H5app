@@ -1,0 +1,43 @@
+.feedbackContent{
+	text-align: left;
+	color: #666666;
+	padding: 10px 10px 10px 10px;
+	max-height: 10rem;
+	font-size: .9rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 7;
+	line-clamp: 7;
+	-webkit-box-orient: vertical;
+}
+.mui-card-footer{
+	padding: 0;
+}
+.like{
+	text-align: center;
+	width: 50%;
+	height: 2rem;
+	color: #999999;
+}
+.like span,.unlike span{
+	display: inline-block;
+	position: relative;
+	height: 100%;
+	top: -.25rem;
+}
+.like img,.unlike img{
+	display: inline-block;
+	width: 1.5rem;
+	height: 1.5rem;
+}
+.unlike{
+	text-align: center;
+	width: 50%;
+	height: 2rem;
+	color: #999999;
+	border-left: 1px solid #999999;
+}
+.active{
+	color: #0067E6;
+}

@@ -1,0 +1,61 @@
+index{             首页
+		indexDetail  文章详情页
+}
+shop{             商城
+	groupShop         拼团
+	desenoShop        限时抢购
+	shopping          普通商城
+	allShop           全部商品
+	comment           用户评价
+	confirmOrder      确认订单
+}              
+repository{       知识库
+	file	                  产品加载文件
+	repositoryClassify  知识库类别详情页
+	repositoryDetail     知识库文章详情页
+}        
+chat {             聊吧
+	chatDetail     聊吧文章详情页
+}
+my                我的
+search            搜索
+
+login             登录
+fast_login        快捷登录
+regist            注册
+forget            忘记密码
+
+/*个人中心子页面*/
+my {
+	personData        个人资料
+	order{             订单
+		refund        退款
+		refundResult  退款结果
+		RefundSchedule 退款进度
+	}
+	vipApply {        vip会员申请
+	serviceProvider{  服务商
+		serviceProvider_msg  服务商消息（申请成功）
+		vipSubmitErr         服务商vip申请失败
+	}   
+	operator{  		运营商
+	}
+	vipSubmitErr      提交失败
+	}
+	like              点赞
+	collect           收藏
+	address{          收货地址
+		add_Addr           添加收货地址
+	}           
+	inform            通知消息
+	set{			     系统设置
+		personData		     修改资料(个人资料)                                
+		changePwd   	     修改密码
+		aboutUs            关于我们
+	}   
+	myFeedback{          我的反馈
+		feedbackContent     反馈详情    
+		problemFeedback     问题的提交             
+		problemTypes        问题分类          
+}
+

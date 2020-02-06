@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>发表评价</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/previewImage.css" />
+		<link rel="stylesheet" type="text/css" href="css/estimate.css" />
+		<script type="text/javascript" src="../js/jquery-2.1.3.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.previewimage.js"></script>
+		<script type="text/javascript" src="js/mui.zoom.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">发表评价</h1>
+		</header>
+		<div style="height: 45px;"></div>
+		<div id="orderBox">
+			<!--<div class="contentBox">
+				<div class="order-card">
+					<img src="../images/news1.jpg" alt="">
+					<div class="orders">
+						强力巨彩 Q1.66 Pro室内全彩led显示屏广告屏LED大屏幕定制 整屏
+					</div>
+				</div>
+				<div class="starLevel">
+					<p class="describe">
+						<span>描述相符：</span>
+						<span class="mui-icon mui-icon-star-filled active" style="color: blue;"></span>
+						<span class="mui-icon mui-icon-star"></span>
+						<span class="mui-icon mui-icon-star"></span>
+						<span class="mui-icon mui-icon-star"></span>
+						<span class="mui-icon mui-icon-star"></span>
+					</p>
+					<p class="logistics">
+						<span>物流服务：</span>
+						<span class="mui-icon mui-icon-star-filled active" style="color: blue;"></span>
+						<span class="mui-icon mui-icon-star"></span>
+						<span class="mui-icon mui-icon-star"></span>
+						<span class="mui-icon mui-icon-star"></span>
+						<span class="mui-icon mui-icon-star"></span>
+					</p>
+					<p class="service">
+						<span>服务态度：</span>
+						<span class="mui-icon mui-icon-star-filled active" style="color: blue;"></span>
+						<span class="mui-icon mui-icon-star"></span>
+						<span class="mui-icon mui-icon-star"></span>
+						<span class="mui-icon mui-icon-star"></span>
+						<span class="mui-icon mui-icon-star"></span>
+					</p>
+				</div>
+				<div class="iptFeedback">
+					<textarea class="textarea" rows="5" placeholder="亲，您对这个商品满意吗？您的评价会帮助我们选择更好的产品哦~"></textarea>
+					<div class="mui-content">
+						<span class="imgaes"></span>
+						<div class="addPicture" id="headImage"></div>
+					</div>
+				</div>
+				<div class="cryptonymBox">
+					<input type="checkbox" name="" class="cryptonym" value="" />
+					<label for="cryptonym" class="isCryptonym">是否匿名</label>
+				</div>
+			</div>-->
+		</div>
+
+		<footer class="foot">
+			<button type="button" id="uploadImage" onclick="uploadImage()" class="mui-btn foot-btn" data-page="">提交评价</button>
+		</footer>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/jquery-2.1.3.min.js" type="text/javascript"></script>
+	<script src="../js/exif.js" type="text/javascript"></script>
+	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		mui.init();
+		var token = localStorage.getItem('Token');
+		(function() {
+			mui.ajax(baseUrl + '/api/order/prev_product_evaluate', {
+				dataType: 'json', //服务器返回json格式数据
+				type: 'get', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒；
+				headers: {
+					'Api-Token': token
+				},
+				data: {
+					order_id: 13
+				},
+				success: function(data) {
+					if(data.code == 1000) {
+						contentShow(data.data);
+					} else {}
+
+				},
+				error: function(xhr, type, errorThrown) {
+					mui.alert('请求超时');
+				}
+			});
+		})()
+
+		function contentShow(data) {
+			let inner = ""
+			mui.each(data, function(i, value) {
+				$('#orderBox').attr('data-batchcode', value.batchcode)
+				let commodityList = value.mallorderproducts;
+				alert(commodityList.length) 
+				mui.each(commodityList, function(index, item) {
+					inner += `<div class="contentBox" data-pid = '${item.pid}' data-product_price_id = '${item.product_price_id}'>
+					<div class="order-card">
+				<img src="${item.default_imgurl}" alt="">
+				<div class="orders">
+					${item.pname}
+				</div>
+			</div>
+		<div class="starLevel">
+			<p class="describe">
+				<span>描述相符：</span>
+				<span class="mui-icon mui-icon-star-filled active" style="color: blue;"></span>
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-icon mui-icon-star"></span>
+			</p>
+			<p class="logistics">
+				<span>物流服务：</span>
+				<span class="mui-icon mui-icon-star-filled active" style="color: blue;"></span>
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-icon mui-icon-star"></span>
+			</p>
+			<p class="service">
+				<span>服务态度：</span>
+				<span class="mui-icon mui-icon-star-filled active" style="color: blue;"></span>
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-icon mui-icon-star"></span>
+			</p>
+		</div>
+		<div class="iptFeedback">
+			<textarea class="textarea" rows="5" placeholder="亲，您对这个商品满意吗？您的评价会帮助我们选择更好的产品哦~"></textarea>
+			<div class="mui-content">
+						<!--放图片元素-->
+						<span class="imgaes"></span>
+						<div class="addPicture"></div>
+					</div>
+		</div>
+		<div class="cryptonymBox" data-isCryptonym = '0'>
+					<input type="checkbox" name="" class="cryptonym" value="" />
+					<label for="cryptonym" class="isCryptonym">是否匿名</label>
+				</div>
+		</div>`
+				});
+			});
+			document.getElementById("orderBox").innerHTML = inner;
+		}
+		//		mui("#orderBox").on("tap", ".addPicture", function() {
+		//			$(this).next().click();
+		//		});
+
+		//描述相符星星的点击事件
+		mui('body').on('tap', '.describe .mui-icon', function(e) {
+			let describeLevel = $(this).index(); //星级数等于点击的星星的索引值
+			let star = $(this).parent()
+			star.attr("data-level", describeLevel)
+			star = star.find(".mui-icon")
+			star.css("color", "rgb(143,143,143)")
+			star.removeClass("active");
+			star.addClass("mui-icon-star")
+			star.removeClass("mui-icon-star-filled")
+			for(let i = 0; i < describeLevel; i++) {
+				star.eq(i).css("color", "blue")
+				star.eq(i).addClass("active");
+				star.eq(i).removeClass("mui-icon-star")
+				star.eq(i).addClass("mui-icon-star-filled")
+			}
+			$(this).parent().attr("level", $(this).index());
+		});
+		//物流服务星星的点击事件
+		mui('body').on('tap', '.logistics .mui-icon', function(e) {
+			let logisticsLevel = $(this).index();
+			let star = $(this).parent()
+			star.attr("data-level", logisticsLevel)
+			star = star.find(".mui-icon")
+			star.css("color", "rgb(143,143,143)")
+			star.removeClass("active");
+			star.addClass("mui-icon-star")
+			star.removeClass("mui-icon-star-filled")
+			for(let i = 0; i < logisticsLevel; i++) {
+				star.eq(i).css("color", "blue")
+				star.eq(i).addClass("active");
+				star.eq(i).removeClass("mui-icon-star")
+				star.eq(i).addClass("mui-icon-star-filled")
+			}
+			$(this).parent().attr("level", $(this).index());
+		});
+		//服务态度星星的点击事件
+		mui('body').on('tap', '.service .mui-icon', function(e) {
+			let serviceLevel = $(this).index();
+			let star = $(this).parent();
+			star.attr("data-level", serviceLevel);
+			star = star.find(".mui-icon");
+			star.css("color", "rgb(143,143,143)");
+			star.removeClass("active");
+			star.addClass("mui-icon-star");
+			star.removeClass("mui-icon-star-filled");
+			for(let i = 0; i < serviceLevel; i++) {
+				star.eq(i).css("color", "blue")
+				star.eq(i).addClass("active");
+				star.eq(i).removeClass("mui-icon-star")
+				star.eq(i).addClass("mui-icon-star-filled")
+			}
+			$(this).parent().attr("level", $(this).index());
+		});
+		//是否匿名
+		var isCryptonym = false;
+		mui('#orderBox').on('tap', '.cryptonymBox', function(e) {
+			let isCryptonym = $(this).attr('data-isCryptonym');
+			if(isCryptonym == 0) {
+				$(this).attr('data-isCryptonym', 1);
+			} else {
+				$(this).attr('data-isCryptonym', 0);
+			}
+		})
+//		点击删除照片
+		mui('#orderBox').on('tap', '.deleteBtn', function(e) {
+			$(this).parent().remove();
+			if($(this).parent().parent().children(".lookImg").length <= 5) {
+					$('.addPicture').css('display', 'inline-block')
+				}
+		})
+	</script>
+
+	<script>
+		mui.init({ //自定义事件，返回并刷新。
+			beforeback: function() {
+				var list = plus.webview.currentWebview().opener();
+				mui.fire(list, 'refresh');
+				return true;
+			}
+		})
+		//键盘弹出时确定按钮上弹
+		$(function() {
+			var winHeight = $(window).height();
+			$(window).resize(function() {
+				var thisHeight = $(this).height();
+				if(winHeight - thisHeight > 50) {
+					$('#confirm-btn').hide()
+				} else {
+					$('#confirm-btn').show()
+				}
+			});
+		})
+
+		$("#orderBox").on("tap", ".addPicture", function(e) {
+			e.stopPropagation()
+			upload(this)
+		})
+
+		//上传图片
+		function upload(obj) {
+			if(mui.os.plus) {
+				var a = [
+					//				{
+					//					title: "拍照"
+					//				}, 
+					{
+						title: "从手机相册选择"
+					}
+				];
+				plus.nativeUI.actionSheet({
+					title: "上传图片",
+					cancel: "取消",
+					buttons: a
+				}, function(b) { /*actionSheet 按钮点击事件*/
+					switch(b.index) {
+						case 0:
+							break;
+						case 1:
+							appendByGallery(obj); /*打开相册*/
+							break;
+						case 2:
+							getImage(obj); /*拍照*/
+							break;
+						default:
+							break;
+					}
+				})
+			}
+
+		}
+		// 拍照添加文件
+		function getImage(obj) {
+			var cmr = plus.camera.getCamera();
+			cmr.captureImage(function(p) {
+				plus.io.resolveLocalFileSystemURL(p, function(entry) {
+
+					var localurl = entry.toLocalURL(); //把拍照的目录路径，变成本地url路径，例如file:///........之类的。
+					appendFile(localurl, obj);
+
+				});
+			}, function(error) {
+				//					mui.alert("Capture image failed: " + error.message);
+			});
+
+		}
+		// 从相册添加文件 
+		function appendByGallery(obj) {
+			plus.gallery.pick(function(path) {
+				appendFile(path, obj); //处理图片的地方
+			});
+		}
+		// 添加文件
+		var f1 = null;
+		var Orientation = 0;
+
+		function appendFile(path, obj) {
+
+			var img = new Image();
+			img.src = path; // 传过来的图片路径在这里用。
+			img.onload = function() {
+				var that = this;
+				EXIF.getData(img, function() {
+					// alert(EXIF.pretty(this));  
+					EXIF.getAllTags(this);
+					//alert(EXIF.getTag(this, 'Orientation'));   
+					Orientation = EXIF.getTag(this, 'Orientation');
+					//return; 
+					set_img(that, img, obj, Orientation);
+				});
+			}
+		}
+
+		function set_img(that, img, obj, Orientation) {
+			//生成比例 
+			var w = that.width,
+				h = that.height,
+				scale = w / h;
+			w = 480 || w; //480  你想压缩到多大，改这里
+			h = w / scale;
+			var canvas = document.createElement('canvas');
+			var ctx = canvas.getContext('2d');
+
+			jQuery(canvas).attr({
+				width: w,
+				height: h
+			});
+
+			ctx.drawImage(that, 0, 0, w, h);
+			//生成canvas
+
+			if(Orientation != "" && Orientation != 1) {
+				switch(Orientation) {
+					case 6: //需要顺时针（向左）90度旋转    
+						rotateImg(img, 'left', canvas, obj);
+						break;
+					case 8: //需要逆时针（向右）90度旋转    
+						rotateImg(img, 'right', canvas, obj);
+						break;
+					case 3: //需要180度旋转  
+						rotateImg(img, 'right', canvas, obj); //转两次  
+						rotateImg(img, 'right', canvas, obj);
+						break;
+				}
+			}
+			var user_token = localStorage.getItem("user_token");
+			plus.nativeUI.showWaiting();
+			var base64 = canvas.toDataURL('image/jpeg', 1 || 0.8); //1最清晰，越低越模糊。有一点不清楚这里明明设置的是jpeg。弹出 base64 开头的一段 data：image/png;
+			$.ajax({
+				//				url: Common.domain + '/api/common/file_upload',
+				url: baseUrl + "/api/mall/one_base64_upload",
+				type: "post",
+				dataType: 'json',
+				headers: {
+					'Api-Token': token
+				},
+				data: {
+					base64_img: base64
+				},
+				success: function(data) {
+					plus.nativeUI.closeWaiting();
+					if(data.code == 1000) {
+						let str = '';
+						let imgSrc = data.data.url
+						console.log(JSON.stringify(imgSrc))
+						 str = '<li id="" class="mui-table-view-cell mui-media lookImg">' +
+							'<img class="mui-media-object postImgs" src="' + imgSrc + '" data-preview-src="" data-preview-group="1">' + //《注意》：data-preview-group="1"这里为分组设置，如果界面中有多个div中放不同图片，那么这里要为每个组设置一个不同的值。
+							'<p class="mui-icon mui-icon-trash deleteBtn"></p>' + //这里是删除图片接钮
+							'</li>';
+							$(obj).prev().append(str)
+							if($(obj).prev().children(".lookImg").length >= 6) {
+								$(obj).prev().next().css('display', 'none')
+							}
+					} else {
+						mui.alert(data.msg)
+					}
+				},
+				error: function(res) {
+					plus.nativeUI.closeWaiting();
+					console.log("1----" + JSON.stringify(res))
+				}
+			})
+
+			function rotateImg(img, direction, canvas, obj) {
+				//最小与最大旋转方向，图片旋转4次后回到原方向    
+				var min_step = 0;
+				var max_step = 3;
+				//var img = document.getElementById(pid);    
+				if(img == null) return;
+				//img的高度和宽度不能在img元素隐藏后获取，否则会出错    
+				var height = img.height;
+				var width = img.width;
+				//var step = img.getAttribute('step');    
+				var step = 2;
+				if(step == null) {
+					step = min_step;
+				}
+				if(direction == 'right') {
+					step++;
+					//旋转到原位置，即超过最大值    
+					step > max_step && (step = min_step);
+				} else {
+					step--;
+					step < min_step && (step = max_step);
+				}
+
+				//旋转角度以弧度值为参数    
+				var degree = step * 90 * Math.PI / 180;
+				var ctx = canvas.getContext('2d');
+				switch(step) {
+					case 0:
+						canvas.width = width;
+						canvas.height = height;
+						ctx.drawImage(img, 0, 0);
+						break;
+					case 1:
+						canvas.width = height;
+						canvas.height = width;
+						ctx.rotate(degree);
+						ctx.drawImage(img, 0, -height);
+						break;
+					case 2:
+						canvas.width = width;
+						canvas.height = height;
+						ctx.rotate(degree);
+						ctx.drawImage(img, -width, -height);
+						break;
+					case 3:
+						canvas.width = height;
+						canvas.height = width;
+						ctx.rotate(degree);
+						ctx.drawImage(img, -width, 0);
+						break;
+				}
+
+			}
+		}
+		//		mui.plusReady(function() {
+		//				var fileJson = "";
+		//				//上传附件
+		//				var fileArr = [];
+		//				var urls = [];
+		//				var imagess = [];
+		//				// 拍照获取图片  
+		//				//			function getImage(imgsUI) {
+		//				//				var c = plus.camera.getCamera();
+		//				//				c.captureImage(function(e) {
+		//				//					plus.io.resolveLocalFileSystemURL(e, function(entry) {
+		//				//						var imgSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到图片路径  
+		//				//						setFile(imgSrc);
+		//				//						setHtml(imgSrc, imgsUI);
+		//				//						urls = [];
+		//				//						imagess = [];
+		//				//						loadImgs();
+		//				//					}, function(e) {
+		//				//						console.log("读取拍照文件错误：" + e.message);
+		//				//					});
+		//				//				}, function(s) {
+		//				//					console.log("erroraaa" + s.message);
+		//				//				}, {
+		//				//					filename: "_doc/camera/"
+		//				//				})
+		//				//			}
+		//
+		//				function getHeadImage(imgsUI) {
+		//
+		//					if(mui.os.plus) {
+		//						var buttonTit = [{
+		//								title: "从手机相册选择"
+		//							}
+		//							//					,{
+		//							//						title: "拍照"
+		//							//					}
+		//						];
+		//
+		//						plus.nativeUI.actionSheet({
+		//							title: "上传图片",
+		//							cancel: "取消",
+		//							buttons: buttonTit
+		//						}, function(b) { /*actionSheet 按钮点击事件*/
+		//							switch(b.index) {
+		//								case 0:
+		//									break;
+		//								case 1:
+		//									galleryImg(imgsUI); /*打开相册*/
+		//									break;
+		//								case 2:
+		//									getImage(imgsUI); /*拍照*/
+		//									break;
+		//								default:
+		//									break;
+		//							}
+		//						})
+		//					}
+		//
+		//				}
+		//				var postImgs = [];
+		//
+		//				function setFile(fileSrc) {
+		//					var image = new Image();
+		//					image.src = fileSrc;
+		//					fileArr.push(image);
+		//					//				var postUrl = getBase64Image(image);
+		//					image.onload = function() {
+		//						let postUrl = getBase64Image(image);
+		//						console.log(postUrl)
+		//						mui.ajax(baseUrl + '/api/mall/one_base64_upload', {
+		//							dataType: 'json', //服务器返回json格式数据
+		//							type: 'post', //HTTP请求类型
+		//							headers: {
+		//								'Api-Token': token,
+		//								"Content-Type": "multipart/form-data"
+		//							},
+		//							data: {
+		//								base64_img: postUrl
+		//							},
+		//							success: function(data) {
+		//								alert(data.msg)
+		//								if(data.code == 1000) {
+		//									postImgs.push(data.data.url)
+		//									console.log(data.data.url)
+		//								} else {}
+		//							},
+		//							error: function(xhr, type, errorThrown) {
+		//								console.log(xhr)
+		//								console.log(type)
+		//								console.log(errorThrown)
+		//								mui.alert('请求超时');
+		//							}
+		//						});
+		//					}
+		//
+		//				}
+		//
+		//				function setHtml(path, imgsUI) {
+		//
+		//					//				var str = '';
+		//					var str = '<li id="" class="mui-table-view-cell mui-media lookImg">' +
+		//						'<img class="mui-media-object postImgs" src="' + path + '" data-preview-src="" data-preview-group="1">' + //《注意》：data-preview-group="1"这里为分组设置，如果界面中有多个div中放不同图片，那么这里要为每个组设置一个不同的值。
+		//						'<p class="mui-icon mui-icon-trash deleteBtn"></p>' + //这里是删除图片接钮
+		//						'</li>';
+		//					$(".imgaes").append(str);
+		//				}
+		//
+		//				// 监听点击图片大图浏览
+		//				$(".mui-content").on('tap', '.lookImg img', function() {
+		//
+		//				});
+		//				// 监听点击大图浏览图片返回
+		//				$("body").on("tap", "#__MUI_PREVIEWIMAGE", function() {
+		//
+		//				})
+		//
+		//				// 监听图片的删除点击
+		//				mui("body").on('tap', '.lookImg p', function() {
+		//					$(this).closest("li").hide(800, function() {
+		//						$(this).closest("li").remove();
+		//						urls = [];
+		//						imagess = [];
+		//						loadImgs()
+		//					});
+		//				});
+		//
+		//				function loadImgs() {
+		//					// 获取图片地址列表
+		//					var images = document.querySelectorAll('.imgaes img');
+		//
+		//					imagess = images;
+		//					for(var i = 0; i < images.length; i++) {
+		//						urls.push(images[i].src);
+		//					}
+		//				}
+		//
+		//				//数据上传
+		function uploadImage() {
+			var postData = new Array();
+			var files = new Array();
+			let imgAry = [];
+			let batchcode = $('#orderBox').attr('data-batchcode');
+			$('.contentBox').each(function(i) {
+				let thisBox = $('.contentBox').eq(i);
+				let pid = thisBox.attr('data-pid');
+				let product_price_id = thisBox.attr('data-product_price_id');
+				let describe = thisBox.find('.describe').attr('data-level');
+				if(describe) {} else {
+					describe = 1
+				}
+				let logistics = thisBox.find('.logistics').attr('data-level');
+				if(logistics) {} else {
+					logistics = 1
+				}
+				let service = thisBox.find('.service').attr('data-level');
+				if(service) {} else {
+					service = 1
+				}
+				let discuss = thisBox.find('.textarea').val().trim();
+				let is_anonymous = thisBox.find('.cryptonymBox').attr('data-isCryptonym');
+				//获取图片路径
+				thisBox.find(".postImgs").each(function(index) {
+					alert($(this).attr('src'))
+					imgAry.push($(this).attr('src'))
+				});
+				let publishData = new Object();
+				publishData = {
+					batchcode: batchcode,
+					pid: pid,
+					product_price_id: product_price_id,
+					depict_level: describe,
+					ship_level: logistics,
+					cus_manner_level: service,
+					discuss: discuss,
+					discussimg: imgAry,
+					is_anonymous: is_anonymous
+				}
+				console.log(publishData.discussimg)
+				postData.push(publishData)
+			})
+			console.log(JSON.stringify(postData))
+			mui.ajax(baseUrl + '/api/order/evaluate', {
+				dataType: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒；
+				headers: {
+					'Api-Version': 'v1_0',
+					'Api-Token': token
+				},
+				data: {
+					evaluation: postData
+				},
+				success: function(data) {
+					if(data.code == 1000) {
+						alert('评论成功！')
+					} else {
+						alert(data.msg)
+					}
+
+				},
+				error: function(xhr, type, errorThrown) {
+					mui.alert('请求超时');
+					console.log(xhr);
+					console.log(type);
+					console.log(errorThrown);
+				}
+			});
+		}
+		//				//提交评论
+		//
+		//				// 从相册中选择图片   
+		//				function galleryImg(imgsUI) {
+		//
+		//					// 从相册中选择图片  
+		//					plus.gallery.pick(function(e) {
+		////						var size = this.filers[0].size / 1024;
+		////						if(size > 1024) {
+		////							alert('图片大小不能超过2M');
+		//////							resetFile();
+		////							return false;
+		////						} else {
+		//////							p_2.html('图片大小为：' + size.toFixed(2) + 'KB');
+		////						}
+		//					for(var i in e.files) {
+		//						var fileSrc = e.files[i];
+		//						setFile(fileSrc);
+		//						setHtml(fileSrc, imgsUI);
+		//					}
+		//					urls = [];
+		//					imagess = [];
+		//					loadImgs();
+		//
+		//				},
+		//				function(e) {
+		//					if(e.code == 8) { //没有权限 
+		//						var btnArray = ["确定"];
+		//						mui.confirm('请在【设置】-【项目名称】中打开相机及相册权限！', '相册权限未开', btnArray, function(e) {
+		//							if(e.index == 1) {
+		//
+		//							} else {
+		//
+		//							}
+		//						})
+		//					}
+		//					console.log("取消选择图片");
+		//				}, {
+		//					filter: "image",
+		//					multiple: true,
+		//					maximum: 1,
+		//					system: false,
+		//					onmaxed: function() {
+		//						//						onAlert('最多只能选择1张图片');
+		//					}
+		//				});
+		//		}
+		//
+		//		//点击拍照及本地相册事件
+		//		$("#headImage").on("tap", function() {
+		//			getHeadImage("#images");
+		//		})
+		//
+		//		//点击附件上传事件
+		//		$("#uploadImage").on("tap", function() {
+		//			uploadImage();
+		//		})
+		//
+		//		//大图浏览
+		//		mui.previewImage();
+		//		})
+		//
+		//		function getBase64Image(img) {
+		//			var canvas = document.createElement("canvas");
+		//			canvas.width = img.width;
+		//			canvas.height = img.height;
+		//			var ctx = canvas.getContext("2d");
+		//			ctx.drawImage(img, 0, 0, img.width, img.height);
+		//			var ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase();
+		//			var dataURL = canvas.toDataURL("image/" + ext);
+		//			return dataURL;
+		//		}
+	</script>
+
+</html>
+
+<script type="text/javascript">
+</script>
+
+</html>

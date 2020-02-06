@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>详情页</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/repositoryDetail.css" />
+		<script src="js/jquery-2.1.3.min.js"></script>
+		<script src="js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">详情页</h1>
+			<a><span class="mui-icon mui-icon-upload mui-pull-right"></span></a>
+		</header>
+		<div class="articleBox">
+			<div class="top">
+			</div>
+			<div class="discuss-list" style="margin-top: 0;">
+				<img class="authorIcon" src="images/user_img.png" alt="">
+				<div class="discuss-data">
+					<div class="discuss-data-top">
+						<p class="us-name authorName">三井寿</p>
+						<span class="time issueTime">2019-06-14</span>
+					</div>
+				</div>
+			</div>
+			<div id="contentBox">
+
+			</div>
+		</div>
+		<!-- 评论 -->
+		<div class="discuss">
+			<div class="discuss-list">
+				<img class="userIcon" src="images/user_img.png" alt="">
+				<div class="discuss-data">
+					<div class="discuss-data-top">
+						<p class="us-name userName">三井寿</p>
+						<span class="time commentTime">2019-06-14</span>
+						<div class="reply">
+							<img src="images/hf.png" alt="">
+							<span class="replyText">回复</span>
+						</div>
+					</div>
+					<div class="discuss-content">
+						COB封装与传统LED封装的不同？LED封装厂家有话说
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 评论结束 -->
+		<div class="foot">
+			<div class="comment"><input class="goWrite" type="button" value="写评论..." style="text-align: left;" /></div>
+			<div class="foot-list">
+				<div><img src="images/hf.png" alt="" />
+					<p>评论</p><span class="commentnum">12</span></div>
+				<div class="collect"><img src="images/hf2.png" alt="" />
+					<p>收藏</p>
+				</div>
+				<div class="like"><img src="images/hf3.png" alt="" />
+					<p>点赞</p>
+				</div>
+				<div><img src="images/hf4.png" alt="" />
+					<p>分享</p>
+				</div>
+			</div>
+		</div>
+		<div class="iptbox">
+			<textarea id="textarea" rows="3"></textarea>
+			<button class="sendBtn">发送</button>
+		</div>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			var comment_id = "";
+			var token = localStorage.getItem('Token');
+			//		获取文章的id
+			var Request = new Object();
+			Request = GetRequest();
+			var page, knows_id;
+			page = Request["page"];
+			knows_id = Request["id"];
+			type = Request["type"];
+
+			function getData() {
+				//判断是否登录,已登录返回token,未登录返回1
+				var islogin = localStorage.getItem('Token');
+				if(!islogin) islogin = 1;
+				mui.ajax(baseUrl + '/api/knows/detail/get_knows_info', {
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Api-Token': islogin
+					},
+					data: {
+						knows_id: knows_id,
+						type: "1"
+					},
+					success: function(data) {
+						if(data.code == 1000) {
+							contentShow(data);
+						} else {}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.alert('请求超时');
+					}
+				});
+			};
+			getData();
+			//内容渲染函数
+			function contentShow(data) {
+				let articleDatas = data.data[0]
+				let commentDatas = articleDatas.evaluations_list
+				//			文章内容
+				$('#contentBox').html(articleDatas.content);
+				//			标题
+				$(".top").text(articleDatas.knows_title);
+				//			头像
+				$(".authorIcon").attr("src", ImgUrl + articleDatas.avatar);
+				//			用户名
+				$(".authorName").text(articleDatas.user_login)
+				//			发布时间
+				//字符串转换为时间戳
+				let createTime = getDateTimeStamp(articleDatas.createtime);
+				//计算时差
+				let time = getDateDiff(createTime);
+				$('.issueTime').text(time)
+				//			评论数量
+				if(articleDatas.comments > 99) {
+					$('.commentnum').text('99+')
+				} else {
+					$('.commentnum').text(articleDatas.comments)
+				}
+				if(token) {
+					if(articleDatas.is_collect == "1") {
+						$('.collect img').attr('src', 'images/hf2-1.png')
+					}
+					if(articleDatas.is_likes == "1") {
+						$('.like img').attr('src', 'images/hf3-1.png')
+					}
+				}
+
+				let replyNum = 0;
+				let discussList = "";
+				mui.each(commentDatas, function(index, item) {
+					//评论的回复数量
+					if(item.comment_num) {
+						if(item.comment_num > 99) {
+							replyNum = "99+";
+						} else {
+							replyNum = item.comment_num;
+						}
+					} else {
+						replyNum = 0;
+					}
+					//字符串转换为时间戳
+					let FormatDate = getDateTimeStamp(item.createtime);
+					//计算时差
+					let ReleaseTime = getDateDiff(FormatDate);
+					discussList += `<div class="discuss-list">
+				<img class="userIcon" src="${item.logo}" alt="">
+				<div class="discuss-data">
+					<div class="discuss-data-top">
+						<p class="us-name userName">${item.nickname}</p>
+						<span class="time commentTime">${ReleaseTime}</span>
+						<div class="reply" data-commentId= "${item.user_id}" data-user = "${item.nickname}">
+							<img src="images/hf.png" alt=""> 
+							<span class="replyNum">${item.reply_sum}</span>
+							<span class="replyText">回复</span>
+						</div>
+					</div> 
+					<div class="discuss-content">
+						${item.content}
+					</div>
+				</div>
+			</div>`
+					document.getElementsByClassName("discuss")[0].innerHTML = discussList;
+				})
+			}
+			var isShow = false;
+			var send = 1;
+			//		点击评论弹出输入框
+			mui('.comment').on('tap', '.goWrite', function() { 
+				if(!isShow) {
+					$('.iptbox').css('display', 'block');
+					$('#textarea').val("");
+					$('#textarea').attr('placeholder', "");
+					$('#textarea').focus();
+					//					document.getElementById('textarea').focus()
+					send = 1;
+				}   
+				else {
+					$('.iptbox').css('display', 'none');
+				}      
+				isShow = !isShow;
+			});
+			//			监听输入的内容不超过300
+			$("#textarea").on("input", function() {
+				let txt = $("#textarea").val();
+				if(txt.length >= 300) {
+					let showTxt = txt.slice(0, 300);
+					$("#textarea").val(showTxt)
+				}
+			})
+
+			//	点击回复评论弹出输入框
+			mui('.discuss').on('tap', '.reply', function(e) { 
+				comment_id = $(this).attr("data-commentId")
+				let user = $(this).attr("data-user");
+				if(!isShow) {
+					$('.iptbox').css('display', 'block');
+					$('#textarea').val("");
+					$('#textarea').attr('placeholder', ":回复" + user);
+					send = 2;
+				}   
+				else {
+					$('.iptbox').css('display', 'none');
+				}      
+				isShow = !isShow;
+
+			});
+			//		发送评论
+			mui('.iptbox').on('tap', '.sendBtn', function(e) { 
+				let comment_content = $('#textarea').val();
+				if(comment_content) {
+					if(send == 1) {
+						if(token) {
+							mui.ajax(baseUrl + '/api/knows/detail/evaluate', {
+								dataType: 'json', //服务器返回json格式数据
+								type: 'post', //HTTP请求类型
+								timeout: 10000, //超时时间设置为10秒；
+								headers: {
+									'Api-Token': token
+								},
+								data: {
+									knows_id: knows_id,
+									content: comment_content,
+									imgurl:11,
+									type:1
+								},
+								success: function(data) {
+									alert(data.code)
+									if(data.code == 1000) {
+										$("#textarea").val("");
+										$('.iptbox').css('display', 'none');
+										isShow = false;
+										getData(); //评论完成，重新获取数据渲染
+									} else {
+										mui.alert("评论失败");
+									}
+
+								},
+								error: function(xhr, type, errorThrown) {
+									mui.alert('请求超时');
+								}
+							});
+						} else {
+							mui.alert("请登录后再进行操作!")
+						}
+					} else if(send == 2) {
+						if(token) {
+							mui.ajax(baseUrl + '/api/knows/detail/reply', {
+								dataType: 'json', //服务器返回json格式数据
+								type: 'post', //HTTP请求类型
+								timeout: 10000, //超时时间设置为10秒；
+								headers: {
+									'Api-Token': token
+								},
+								data: {
+									knows_id: knows_id,
+									evaluation_id: comment_id,
+									content: comment_content,
+									imgurl:'xx',
+									type:2
+								},
+								success: function(data) {
+									alert(data.code)
+									if(data.code == 1000) {
+										$("#textarea").val(""); //评论成功清除输入框的内容
+										$('.iptbox').css('display', 'none'); //评论成功隐藏输入框
+										isShow = false;
+										getData(); //评论完成，重新获取数据渲染
+									} else {
+										mui.alert("评论失败");
+									}
+
+								},
+								error: function(xhr, type, errorThrown) {
+									mui.alert('请求超时');
+								}
+							});
+						} else {
+							mui.alert("请登录后再进行操作!")
+						}
+					}
+				} else {
+					mui.alert("内容不能为空")
+				}
+
+			});
+
+			//点赞
+			mui('.foot-list').on('tap', '.like', function() {
+				if(token) {
+					mui.ajax(baseUrl + '/api/knows/detail/likes', {
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Api-Token': token
+						},
+						data: {
+							knows_id: knows_id
+						},
+						success: function(data) {
+							if(data.code == 1000) {
+								$('.like img').attr('src', 'images/hf3-1.png')
+							} else if(data.code == 5555) {
+								//								$('.like img').attr('src', 'images/hf3.png')
+								alert(data.msg)
+							} else {
+								mui.alert("操作失败")
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							mui.alert('请求超时');
+						}
+					});
+				} else {
+					mui.alert("请登录后再进行操作!")
+				}
+
+			})
+
+			//收藏
+			mui('.foot-list').on('tap', '.collect', function() {
+				if(token) {
+					mui.ajax(baseUrl + '/api/knows/detail/collect', {
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Api-Token': token
+						},
+						data: {
+							knows_list_id: knows_id
+						},
+						success: function(data) {
+							alert(data.code)
+							if(data.code == 1000) {
+								$('.collect img').attr('src', 'images/hf2-1.png')
+							} else if(data.code == 5555) {
+								$('.collect img').attr('src', 'images/hf2.png')
+							} else {
+								mui.alert("操作失败")
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							mui.alert('请求超时');
+						}
+					});
+				} else {
+					mui.alert("请登录后再进行操作!")
+				}
+
+			})
+			//js函数代码：字符串转换为时间戳
+			function getDateTimeStamp(dateStr) {
+				return Date.parse(dateStr.replace(/-/gi, "/"));
+			}
+
+			//计算时差
+			function getDateDiff(dateTimeStamp) {
+				let minute = 1000 * 60;
+				let hour = minute * 60;
+				let day = hour * 24;
+				let halfamonth = day * 15;
+				let month = day * 30;
+				let now = new Date().getTime();
+				let diffValue = now - dateTimeStamp;
+				if(diffValue < 0) {
+					//若日期不符则弹窗口告之,结束日期不能小于开始日期！
+				}
+				let monthC = diffValue / month;
+				let weekC = diffValue / (7 * day);
+				let dayC = diffValue / day;
+				let hourC = diffValue / hour;
+				let minC = diffValue / minute;
+				if(monthC >= 1) {
+					result = parseInt(monthC) + "个月前";
+				} else if(weekC >= 1) {
+					result = parseInt(weekC) + "周前";
+				} else if(dayC >= 1) {
+					result = parseInt(dayC) + "天前";
+				} else if(hourC >= 1) {
+					result = parseInt(hourC) + "个小时前";
+				} else if(minC >= 1) {
+					result = parseInt(minC) + "分钟前";
+				} else
+					result = "刚刚";
+				return result;
+			}
+		</script>
+	</body>
+
+</html>

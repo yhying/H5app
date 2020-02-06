@@ -1,0 +1,140 @@
+.mui-bar{
+	background: -webkit-linear-gradient(left, #1097FF ,#2E82FB); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(right, #1097FF, #2E82FB); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(right, #1097FF, #2E82FB); /* Firefox 3.6 - 15 */
+	background: linear-gradient(to right, #1097FF , #2E82FB); /* 标准的语法 */
+}
+.mui-title{
+	color:#ffffff;
+}
+.mui-action-back{
+	color:#ffffff;
+}
+.mui-content{
+	background-color: #ffffff;
+}
+.group-box{
+	padding:0 15px;
+	position: relative;
+    list-style: none;
+    background-color: #fff;
+}
+.group-list{
+	position: relative;
+	border:1px solid #efeff4;
+	border-radius: 6px;
+	height: 32vw;
+	margin-top: 15px;
+	box-sizing: content-box;
+}
+.group-img{
+	float: left;
+	width:30vw;
+	height:32vw;
+}
+.group-img img{
+	width: 100%;
+	height: 100%;
+	border-radius: 6px;
+}
+.box{
+	position: absolute;
+	top:0;
+	left: 30vw;
+	height:32vw;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding:0.8rem 1rem;
+	line-height: 1.5rem;
+}
+.group-data1{
+	font-size: 1.3rem;
+	text-overflow: -o-ellipsis-lastline;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+  	display: -webkit-box;
+  	-webkit-line-clamp: 2;
+  	line-clamp: 2;
+  	-webkit-box-orient: vertical;
+}
+.group-data2{
+	display: flex;
+}
+.group-data2 span:nth-child(1) {
+    color: white;
+    width: 24px;
+    background-color: #0067E6;
+    border: 1px solid #4792ED;
+    background-image: url(../img/xr.png);
+	background-size: 100% 100%;
+}
+.group-data2 span:nth-child(2) {
+	font-size: 12px;
+    color: #0067E6;
+    border: 1px solid #4792ED;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    padding:0 3px;
+	display: flex;
+	align-items: center;
+}
+.store-num{
+	font-size: 1.4rem;
+	font-weight: 500;
+	color:#0067E6;
+	display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.store-num .num1-t1{
+	display: flex;
+    align-items: baseline;
+    font-weight: 400;
+}
+.store-num .num1-t2{
+	font-size: 1.2rem;
+    text-decoration: line-through;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color:#999999;
+	margin-left: 1vw;
+	font-weight: 400;  
+}
+.store-num .num1-t3{
+	position: absolute;
+    font-size: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #999999;
+    font-weight: 400;
+    right: 15px; 
+}
+/*上拉加载样式*/
+.mui-pull-caption {
+	color: #dadada;
+	font-weight: normal;
+	font-size: 12px;
+}
+.mui-pull-bottom-pocket {
+	margin-top: 20px;
+}
+.mui-scrollbar {
+	display: none;
+}
+/*上拉加载样式*/
+/*清除浮动*/
+.outer {zoom:1;}    /*==for IE6/7 Maxthon2==*/
+.outer :after {
+   clear:both;
+   content:'.';
+   display:block;
+   width: 0;
+   height: 0;
+   visibility:hidden;
+}
+/*清除浮动*/

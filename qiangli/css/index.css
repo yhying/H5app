@@ -1,0 +1,158 @@
+*{
+	-webkit-text-size-adjust：none;
+}
+video{
+	width: 100%;
+	height: 220px;
+	object-fit:fill;  
+}
+/*头部*/
+/*.mui-search .mui-placeholder .mui-icon{
+	color:#999999;
+}
+.mui-search .mui-placeholder{
+	background: white;
+	font-size: 13.5px;
+	z-index: 95;
+}
+.mui-search input[type=search]{
+	margin:0;
+	background: white;
+	font-size: 13.5px;
+	border-radius: 0;
+}
+.mui-search:before{
+	margin-top: -10px;
+}*/
+
+/*头部结束*/
+/*头部导航栏*/
+.navbox{
+	position:fixed;
+	width: 100%;
+	padding:2vh 50px 2vh 5px;
+	/* box-sizing: border-box; */
+	background-color: white;
+	border-bottom: 1px solid #F3F3F3;
+	display: flex;
+	z-index: 100;
+}
+.navbox-t{
+	text-align: center;
+	width: 25%;
+	font-size: 15px;
+	color:#666666;
+}
+.navbox-change{
+	color:#0067E6;
+	font-weight: 500;
+}
+.navbox .mui-icon{
+	position: absolute;
+	right: 20px;
+	top:50%;
+	margin-top: -12px;
+	color:#666666;
+}
+.navbox-child{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 100%;
+	padding:0 15px;
+	text-align: center;
+	font-size: 15px;
+	color:#666666;
+	z-index: 5;
+	background-color: white;
+	transition:height 0.5s;
+	-webkit-transition:height 0.5s; /* Safari */
+	height:0;
+	overflow: hidden;
+}
+.navbox-row{
+	overflow: hidden;
+	margin-right: -15px;
+	padding: 10px 0;
+}
+.navbox-item{
+	float: left;
+	width: 25%;
+}
+.navbox-item div{
+	margin-right: 15px;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	height: 5vh;
+	line-height: 4.5vh;
+}
+.border{
+	border:1px solid #6D6D6D;
+}
+.navbox-active{
+	color: #0067E6;
+	border:1px solid #0067E6;
+}
+/*头部导航栏结束*/
+/*资讯*/
+.news-box{
+	padding:5px 15px;
+	background-color: white;
+	border-bottom: 2px solid #EFEFEF;
+}
+.news-box h5{
+	font-size: 15px;
+	color:black;
+	font-weight:500;
+	letter-spacing: 1px;
+	line-height: 20px;
+	margin-top: 0;
+	padding:2px 0;
+}
+.news-row{
+	display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+}
+.news-row div{
+	font-size: 12px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transform: scale(0.8);
+    color: #666666;
+    margin-left: -10px;
+}
+.news-row div p{
+	font-size: 12px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin:0;
+}
+.mui-content{
+	background: white;
+}
+.mui-table-view-cell{
+	list-style: none;
+}
+.mui-row img{
+	width: 100%;
+}
+/*资讯结束*/
+
+/*蒙版样式*/
+.mui-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    background-color: rgba(0,0,0,.3);
+}
+/*蒙版样式结束*/
+.news{
+	padding-top: 40px;
+}

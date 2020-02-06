@@ -1,0 +1,33 @@
+html,body{
+	background-color: #EFEFEF;
+}
+.mui-bar{
+	background-color: white;
+}
+.order-nav{
+	position: relative;
+	z-index: 5;
+	margin-top: 44px;
+	height: 40px;
+	line-height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+}
+.order-nav div{
+	width: calc(100% / 6);
+	color: #333333;
+	font-size: 13px;
+	text-align: center;
+	line-height: inherit;
+}
+.mui-scroll-wrapper{
+	position: absolute;
+    z-index: 2;
+    top: 40px;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+}

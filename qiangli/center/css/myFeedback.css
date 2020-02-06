@@ -1,0 +1,79 @@
+html,
+body {
+	background-color: #EFEFEF;
+}
+
+.mui-bar {
+	background-color: white;
+}
+
+.feedback-nav {
+	position: relative;
+	z-index: 5;
+	margin-top: 45px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+	height: 40px;
+	border-top: 1px solid #EFEFEF;
+	border-bottom: 1px solid #EFEFEF;
+	box-sizing: border-box;
+}
+
+.navbox-list {
+	text-align: center;
+	width: 50%;
+	color: #333333;
+	font-size: 13px;
+	text-align: center;
+	line-height: inherit;
+	height: 100%;
+	line-height: 40px;
+}
+
+.navbox-list:nth-of-type(2) {
+	border-left: 2px solid whitesmoke;
+}
+
+.navbox-change {
+	color: #0067E6;
+}
+
+.page-list {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 15px;
+	padding-right: 8px;
+	height: 50px;
+	background-color: white;
+	margin-bottom: 5px;
+}
+
+.page-list-l {
+	font-size: 15px;
+	color: #333333;
+}
+
+.page-list-r .mui-icon {
+	font-size: 18px;
+}
+
+.foot {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	text-align: center;
+}
+
+.mui-btn {
+	background-color: white;
+	color: #333333;
+	height: 50px;
+	width: 100%;
+	font-size: 18px;
+	border: 0;
+}

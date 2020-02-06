@@ -1,0 +1,303 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="plug/swiper-4.5.0/dist/css/swiper.min.css">
+		<link rel="stylesheet" type="text/css" href="css/topandfoot.css" />
+		<!--头部和底部样式-->
+		<link rel="stylesheet" type="text/css" href="css/repository.css" />
+	</head>
+
+	<body>
+		<header class="top">
+			<div class="mui-input-row mui-search">
+				<div class="search">
+					<img src="images/search1.png" alt="" />
+					<span>搜索LED</span>
+				</div>
+			</div>
+			<div class="top-r">
+				<img src="images/tp.png" alt="" />
+				<div>一键调屏</div>
+			</div>
+		</header>
+		<div style="height: 55px;"></div>
+		<!--导航栏-->
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<div class="gopage" data-page="repository_classify.html">
+						<img src="images/repos1.png" alt="" />
+						<p>产品加载文件</p>
+					</div>
+					<div class="gopage">
+						<img src="images/repos2.png" alt="" />
+						<p>安装知识</p>
+					</div>
+					<div class="gopage">
+						<img src="images/repos3.png" alt="" />
+						<p>调试知识</p>
+					</div>
+					<div class="gopage">
+						<img src="images/repos4.png" alt="" />
+						<p>维修知识</p>
+					</div>
+					<div class="gopage">
+						<img src="images/repos5.png" alt="" />
+						<p>工具箱</p>
+					</div>
+					<div class="gopage">
+						<img src="images/repos6.png" alt="" />
+						<p>案例库</p>
+					</div>
+				</div>
+			</div>
+			<!-- Add Arrows -->
+			<div class="swiper-button-next"><i class="mui-icon mui-icon-forward"></i></div>
+			<div class="swiper-button-prev"><i class="mui-icon mui-icon-back"></i></div>
+		</div>
+		<!--导航栏结束-->
+		<h5 class="hot">热门知识</h5>
+		<div class="repository">
+			<div class="re-list">
+				<div class="re-list-title">
+					LED显示屏的像素知识点解析
+				</div>
+				<div class="re-list-img">
+					<img src="images/repos_news.jpg" alt="" />
+				</div>
+				<div class="re-list-bottom">
+					<div>来源：强力巨彩</div>
+					<div>点赞：755</div>
+					<div>浏览量：12948</div>
+					<div>评论830</div>
+					<div>10分钟前</div>
+				</div>
+			</div>
+			<div class="re-list">
+				<div class="re-list-title">
+					LED显示屏的像素知识点解析
+				</div>
+				<div class="re-list-img">
+					<img src="images/repos _news1.jpg" alt="" />
+				</div>
+				<div class="re-list-bottom">
+					<div>来源：强力巨彩</div>
+					<div>点赞：755</div>
+					<div>浏览量：12948</div>
+					<div>评论830</div>
+					<div>10分钟前</div>
+				</div>
+			</div>
+		</div>
+		<div style="height: 50px;"></div>
+		<footer class="foot">
+			<div class="foot-list" data-page="index.html">
+				<img src="images/home.png" alt="" />
+				<p>首页</p>
+			</div>
+			<div class="foot-list" data-page="shop.html">
+				<img src="images/shop.png" alt="" />
+				<p>商城</p>
+			</div>
+			<div class="foot-list" data-page="repository.html">
+				<img src="images/knowledge1.png" alt="" />
+				<p class="actionp">知识库</p>
+			</div>
+			<div class="foot-list" data-page="chat.html">
+				<img src="images/talk.png" alt="" />
+				<p>聊吧</p>
+			</div>
+			<div class="foot-list" data-page="my.html">
+				<img src="images/my.png" alt="" style="height: 22px;width: 18px;" />
+				<p>我的</p>
+			</div>
+		</footer>
+		<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+		<script src="plug/swiper-4.5.0/dist/js/swiper.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			var token = localStorage.getItem('Token');
+			//进入页面获取页面数据
+			(function() {
+				mui.ajax(baseUrl + '/api/knows/home/index', {
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Api-Token': 'xx'
+					},
+					success: function(data) {
+						if(data.code == 1000) {
+							classifyShow(data);		//分类栏渲染函数
+							contentShow(data);		//内容渲染函数
+						} else {}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.alert('请求超时');
+					}
+				});
+			})()
+			//分类栏渲染函数
+			function classifyShow(data) {
+				let datas = data.data.knows_type_list;
+				var classifyInner = "";
+				var datasLength = Object.keys(datas).length; 
+				console.log(datasLength); //3
+				mui.each(datas, function(index, item) {
+					//索引为1,外层添加一个滑动的盒子元素开头
+					if(index == 0) {
+						classifyInner += `<div class="swiper-slide">
+						<div class="gopage" data-id="${item[0].id}" data-page="repositoryClassify.html">
+						<img src="${item[0].imgurl}" alt="" />
+						<p>${item[0].name}</p>
+					</div>`
+					} 
+					//索引为5,添加上一个盒子元素的结束标签，一个滑动的盒子元素开头
+					else if(index != 0 && index % 5 == 0 && index != datasLength - 1) {
+						classifyInner += `<div class="gopage" data-id="${item[0].id}" data-page="repositoryClassify.html">
+						<img src="${item[0].imgurl}" alt="" />
+						<p>${item[0].name}</p>
+					</div>
+					</div>
+						<div class="swiper-slide">`
+					} 
+					//索引为最后一个，添加盒子元素的结束标签
+					else if(index != 0 && index % 5 == 0 && index == datasLength - 1) {
+						classifyInner += `<div class="gopage" data-id="${item[0].id}" data-page="repositoryClassify.html">
+						<img src="${item[0].imgurl}" alt="" />
+						<p>${item[0].name}</p>
+					</div>
+					</div>`
+					} else {
+						classifyInner += `<div class="gopage" data-id="${item[0].id}" data-page="repositoryClassify.html">
+						<img src="${item[0].imgurl}" alt="" />
+						<p>${item[0].name}</p>
+					</div>`
+					}
+				})
+				$('.swiper-wrapper').html(classifyInner)
+				if(datas.length <= 6) {
+					//滑动的盒子数量少于两个，隐藏左右滑动按钮
+					$('.swiper-button-next').css('display', 'none');
+					$('.swiper-button-prev').css('display', 'none');
+				}
+			}
+			
+			//渲染内容函数
+			function contentShow(data) {
+				let datas = data.data.knows_list;
+				var contentInner = "";
+				let img = ""
+				mui.each(datas, function(index, item) {
+//					判断是否有视频
+					if(item[0].videourl) {
+						img = ` <video src="${item[0].videourl}" type="video/mp4" controls>
+					                	抱歉，你的浏览器不支持video标签。。
+					                </video>`
+					                console.log(img)
+					} else {
+						img = `<img src="${item[0].cover_imgurl}" alt="" />`
+					}
+					//字符串转换为时间戳
+						let FormatDate = getDateTimeStamp(item[0].createtime); 
+						//计算时差
+						let ReleaseTime = getDateDiff(FormatDate);
+					contentInner += `<div class="re-list" data-page="repositoryDetail.html" data-id="${item[0].id}">
+				<div class="re-list-title"> 
+					${item[0].knows_title}
+				</div>
+				<div class="re-list-img">
+					${img}
+				</div>
+				<div class="re-list-bottom">
+					<div>来源：${item[0].source_add}</div>
+					<div>点赞：${item[0].likes_num}</div>
+					<div>浏览量：${item[0].click_num}</div>
+					<div>评论:${item[0].evaluations_num}</div>
+					<div>${ReleaseTime}</div>
+				</div>
+			</div>`
+				})
+				//				console.log(contentInner)
+				$('.repository').html(contentInner)
+
+			}
+			//轮播图上下张按钮
+			var swiper = new Swiper('.swiper-container', {
+				navigation: {
+					nextEl: '.swiper-button-next',
+					prevEl: '.swiper-button-prev',
+				},
+			});
+			//点击分类跳转
+			mui('.swiper-wrapper').on('tap', '.gopage', function() {
+				let targetTab = this.getAttribute('data-page');
+				let id = this.getAttribute('data-id');
+				window.localStorage.setItem('repositoryId', id);
+				mui.openWindow({
+					url: targetTab
+				});
+			});
+			//底部导航栏
+			mui('.foot').on('tap', '.foot-list', function(e) {       
+				let targetTab = this.getAttribute('data-page');
+				mui.openWindow({
+					url: targetTab
+				});     
+			});
+			//点击内容跳转
+			mui('.repository').on('tap', '.re-list', function() {
+				let targetTab = this.getAttribute('data-page');
+				let id = this.getAttribute('data-id');
+				mui.openWindow({
+					url: targetTab + '?id=' + id
+				});
+			});
+				//js函数代码：字符串转换为时间戳
+				function getDateTimeStamp(dateStr) {
+					return Date.parse(dateStr.replace(/-/gi, "/"));
+				}
+
+				//计算时差
+				function getDateDiff(dateTimeStamp) { 
+					let minute = 1000 * 60;
+					let hour = minute * 60;
+					let day = hour * 24;
+					let halfamonth = day * 15;
+					let month = day * 30;
+					let now = new Date().getTime();
+					let diffValue = now - dateTimeStamp;
+					if(diffValue < 0) {
+						//若日期不符则弹窗口告之,结束日期不能小于开始日期！
+					}
+					let monthC = diffValue / month;
+					let weekC = diffValue / (7 * day);
+					let dayC = diffValue / day;
+					let hourC = diffValue / hour;
+					let minC = diffValue / minute;
+					if(monthC >= 1) {
+						result = parseInt(monthC) + "个月前";
+					} else if(weekC >= 1) {
+						result = parseInt(weekC) + "周前";
+					} else if(dayC >= 1) {
+						result = parseInt(dayC) + "天前";
+					} else if(hourC >= 1) {
+						result = parseInt(hourC) + "个小时前";
+					} else if(minC >= 1) {
+						result = parseInt(minC) + "分钟前";
+					} else
+						result = "刚刚";
+					return result;
+				}
+		</script>
+	</body>
+
+</html>

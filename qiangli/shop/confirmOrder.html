@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>确认订单</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/comfirmOrder.css"/>
+		<script src="../js/jquery-2.1.3.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">确认订单</h1>
+		</header>
+		<div class="box mui-content">
+			<div class="address-box">
+				<img src="../images/addr.png" alt="">
+				<div class="address-data" style="display: none;">
+					<span class="us-name">张三</span><span class="">00000000000</span>
+					<div class="addre">福建省 厦门市 湖里区 6666</div>
+				</div>
+				<div class="notAddr">
+					请选择收货地址
+				</div>
+				<div class="i-right"></div>
+			</div>
+			<!--<div class="order-box">
+				<div class="title">
+					<img src="../images/logo-12.png" alt=""><span>强力巨彩旗航店</span>
+				</div>
+				<div class="order-data">
+					<img src="../images/shop11.png" alt="" />
+					<div class="order-data-r">
+						<p>强力巨彩 Q1.66 Pro室内全彩led显示屏广告屏LED大屏幕定制 整屏强力巨彩 Q1.66 Pro室内全彩led显示屏广告屏LED大屏幕定制 整屏</p>
+						<div class="order-data-num">￥26600 <span class="">x 1</span></div>
+					</div>
+				</div>
+				<div class="order-data">
+					<img src="../images/shop11.png" alt="" />
+					<div class="order-data-r">
+						<p>强力巨彩 Q1.66 Pro室内全彩led显示屏广告屏LED大屏幕定制 整屏强力巨彩 Q1.66 Pro室内全彩led显示屏广告屏LED大屏幕定制 整屏</p>
+						<div class="order-data-num">￥26600 <span class="">x 1</span></div>
+					</div>
+				</div>
+				<div class="summarize">
+					<div class="item-left">
+						商品价格
+					</div>
+					<div class="item-right final_info">
+						共1件 合计：<span class="total">￥26600</span>
+					</div>
+				</div>
+				<div class="summarize">
+					<div class="item-left">
+						运费
+					</div>
+					<div class="item-right final_info">
+						<span class="total">￥00</span>
+					</div>
+				</div>
+			</div>-->
+		</div>
+		<div style="height: 55px"></div>
+		<div class="foot">
+			<div class="price">共1件 合计： <span>￥0.00</span></div>
+			<button class="">立即支付</button>
+		</div>
+		<!-- 弹出层 -->
+		<div id="picture" class="mui-popover mui-popover-action ">
+			<div class="model">
+				<div class="model-title">
+					请选择支付方式
+				</div>
+				<form class="mui-input-group">
+					<div class="mui-input-row mui-checkbox payment">
+						<label><img src="../images/WeChat.png" alt=""><span>微信支付</span></label>
+						<input name="WeChat" value="微信支付" type="checkbox">
+					</div>
+					<div class="mui-input-row mui-checkbox payment">
+						<label><img src="../images/Alipay.png" alt=""><span>支付宝</span></label>
+						<input name="Alipay" value="支付宝" type="checkbox">
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 弹出层 -->
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+					mui.init({
+				
+			});
+//			location.reload();
+			const token = localStorage.getItem('Token');
+//			console.log(token);
+			const  proList = decodeData('QLproList');
+			const  proListArr = [];//订单数组
+			var address_id,batchcode;//收货地址id ,订单号
+			proListArr.push(proList);
+//			console.log(JSON.stringify(proListArr));
+			
+			address_id = window.localStorage.getItem('qladdrId');
+			//接收地址参数
+//			var Request = new Object();
+//			Request = GetRequest();
+//			address_id = Request["id"];//获取收货地址id
+			if(token){
+				console.log('地址id没有发生变化');
+				getPrevInfo(proListArr,address_id);
+				getAddress();
+			}
+			//复选框选择
+			mui('.mui-input-group').on('change', 'input', function() {
+				$(this).prop('checked',true);
+				if($(this).val() == '微信支付'){
+					$("input[name='Alipay']").prop('checked',false);
+					let paystyle = 1;//支付方式1微信支付，2支付宝
+					submitOrder(proListArr,address_id,paystyle);
+				}
+				else if($(this).val() == '支付宝'){
+					$("input[name='WeChat']").prop('checked',false);
+					let paystyle = 2;//支付方式1微信支付，2支付宝
+					submitOrder(proListArr,address_id,paystyle);
+				}
+			});
+			//点击立即支付
+			var isShowModel = false;
+			mui('.foot').on('tap','button',function(){
+				if(isShowModel == true && address_id !=''){
+					mui("#picture").popover('toggle');//这是可以用来关闭底部弹窗的事件
+				}
+				else if(isShowModel == false){
+					mui.alert('存在无配送方式产品，无法下单');
+					return;
+				}
+				else if(address_id== ''){
+					mui.alert('请选择收货地址');
+					return;
+				}
+			})
+			/**********************支付*****************************/
+			var channel = null;
+			var channels = null;
+			(function($,doc){
+				$.plusReady(function(){
+					// 获取支付通道
+	
+					plus.payment.getChannels(function (cs) {
+						//alert(channels);
+						//			alert(i); 
+						channels = cs;
+//						console.log(JSON.stringify(cs));
+						//channelw =channels[1];
+				
+					}, function (e) {
+						mui.alert("获取支付通道失败：" + e.message);
+					});
+					
+					
+				})
+				
+			}(mui,document));
+			 
+			//微信支付
+			weipay = function (batchcode, channel) {
+				var PAYSERVER = baseUrl + '/api/order/pay';
+				var user_token = localStorage.getItem("Token");
+			    var xhr = new XMLHttpRequest();
+			    
+			    xhr.open('POST',PAYSERVER);
+
+			    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			    xhr.setRequestHeader('Api-Token', user_token);
+			    xhr.send("type=1"+"&batchcode="+batchcode);
+				
+				
+			    
+				
+				xhr.onreadystatechange = function () {
+		
+					switch (xhr.readyState) {
+						case 4:
+							if (xhr.status == 200) {
+								plus.payment.request(channel, xhr.responseText, function (result) {
+									alert('支付成功')
+	
+								}, function (error) {
+									mui.alert(JSON.stringify(error))
+									mui.toast('支付失败！');
+								});
+							} else {
+								mui.alert("获取订单信息失败！");
+							}
+							break;
+						default:
+							break;
+					}
+				}
+				
+				
+			}
+			
+// 			//微信支付
+// 			weipay2 = function (batchcode, channel) {
+// 				var PAYSERVER = "http://wap.tangyuanjia.com/weixinpl/app/wxpay1/index.php";
+// 				var user_token = localStorage.getItem("Token");
+// 			    var xhr = new XMLHttpRequest('Api-Token',user_token);
+// 				
+// 				xhr.open('POST',PAYSERVER,true);
+// 			    xhr.send("type=1"+"&batchcode="+batchcode);
+// 		
+// 				xhr.onreadystatechange = function () {
+// 		
+// 					switch (xhr.readyState) {
+// 						
+// 						case 4:
+// //								 alert(JSON.stringify(xhr))
+// 							if (xhr.status == 200) {
+// 								plus.payment.request(channel, xhr.responseText, function (result) {
+// 									alert('支付成功，小组已创建')
+// //									
+// 								}, function (error) {
+// //											mui.alert(JSON.stringify(error))
+// 									mui.toast('支付失败！');
+// //											
+// 									
+// 		
+// 								});
+// 							} else {
+// 								mui.alert("获取订单信息失败！");
+// 							}
+// 							break;
+// 						default:
+// 							break;
+// 					}
+// 				}
+// 		
+// 			}
+// 			
+// 			// 2. 发起微信支付请求
+// 			function weipay1(batchcode,channel){
+// 			    // 从服务器请求支付订单
+// 			    let WXPAYSERVER = baseUrl + '/api/order/pay';
+// 			    let PAYSERVER = WXPAYSERVER;
+// 			    
+// 			    var user_token = localStorage.getItem("Token");
+// 			    var xhr = new XMLHttpRequest('Api-Token',user_token);
+// 			    
+// 			    xhr.open('POST',PAYSERVER);
+// 
+// 			    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+// 			    xhr.send("type=1"+"&batchcode="+batchcode+"&Api-Token="+user_token);
+// 				
+// 				xhr.onreadystatechange = function () {
+// 					switch (xhr.readyState) {
+// 						case 4:
+// 							if (xhr.status == 200) {
+// 								plus.payment.request(channel, xhr.responseText, function (result) {
+// 									alert('支付成功')
+// 	
+// 								}, function (error) {
+// 									mui.toast('支付失败！');
+// 								});
+// 							} else {
+// 								mui.alert("获取订单信息失败！");
+// 							}
+// 							break;
+// 						default:
+// 							break;
+// 					}
+// 				}
+// 			}
+// 			
+			/**********************支付结束*****************************/
+			
+			
+			
+			/*
+			 * 订单预览函数：getPrevInfo
+			 * data:选购的商品列表
+			 */
+			function getPrevInfo(data,aid){
+				console.log('aid::'+aid);
+				mui.ajax(baseUrl+'/api/order/prevInfo',{
+					data:{
+						proList: data,
+						aid:aid
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{
+						'Content-Type':'application/json',
+						'Api-Token':token
+					},
+					success:function(data){
+						console.log(JSON.stringify(data));
+						if(data.code == 3333){//无收获地址
+							$('.mui-content').hide();
+							let btnArray = ['否', '是'];
+							mui.confirm('您还未设置收获地址，是否前往设置？','请先设置收获地址',btnArray,function(e){
+								if (e.index == 1) {
+									mui.openWindow({
+										url:'../center/address.html'
+									})
+								} else {
+									mui.back();
+								}
+							})
+						}
+						else if(data.code == 1000){//数据获取成功
+							$('.mui-content').show();
+							window.localStorage.setItem('QLconfirmOrderData',data.data);
+							renderData(data.data);
+						}
+						else if(data.code == 5555){//网络异常
+							mui.confirm('网络异常','提示',btnArray,function(e){
+								if (e.index == 1) {
+									mui.back();
+								} else {
+									mui.back();
+								}
+							})
+						}else if(data.code == 10001){
+							let btnArray = ['否', '是'];
+							mui.confirm('登录已过期，请重新登录','提示',btnArray,function(e){
+								if (e.index == 1) {
+									mui.openWindow({
+										url:'../login.html'
+									})
+								} else {
+									mui.openWindow({
+										url:'../login.html'
+									})
+								}
+							})
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+			/*
+			 * 数据渲染函数：renderData
+			 */
+			function renderData(data){
+				if(data){
+					for(let i in data.shopping) {
+					    let datas = data.shopping[i];
+					    let html = `
+							<div class="order-box">
+								<div class="title" data-id="${datas.supply_apply_id}">
+									<img src="${datas.brand_logo}" alt=""><span>${datas.shop_info.shop_name}</span>
+								</div>`;
+								mui.each(datas.product_list,function(inde,it){
+//									console.log(JSON.stringify(it));
+									html+=`
+										<div class="order-data" data-id="${it.pid}">
+											<img src="${it.default_imgurl}" alt="" />
+											<div class="order-data-r">
+												<p>${it.pname}</p>
+												<div class="order-data-num">￥${it.now_price} <span class="">x ${it.rcount}</span></div>
+											</div>
+										</div>`;
+								});
+								html+=`<div class="summarize">
+									<div class="item-left">
+									商品价格
+								</div>
+								<div class="item-right final_info">
+									共${datas.sum.sumCount}件 合计：<span class="total">￥${datas.sum.sumFee}</span>
+								</div>
+								</div>
+								<div class="summarize">
+									<div class="item-left">
+										运费
+									</div>
+									<div class="item-right final_info">`;
+									console.log('运费'+datas.sum.ship_cost);
+									if(datas.sum.ship_cost == 0){//免运费
+										html+=`<span>免运费</span>`;
+									}else if(datas.sum.ship_cost == '无配送方式'){
+										html+=`<span class="total">${datas.sum.ship_cost}</span>`;
+									}else{
+										html+=`<span class="total">¥ ${datas.sum.ship_cost}</span>`;
+									}
+									html+=`</div>
+								</div>
+							</div>
+						`
+						$('.box').append(html);
+						if(datas.sum.ship_code == 0){
+							isShowModel = false;//不能支付
+//							console.log('不能支付');
+							return;
+						}
+						else{
+							isShowModel = true;//不能支付
+//							console.log('能支付');
+						}
+					}
+				}
+				let allPrice = `共${data.final_info.finalCount}件 合计： <span>￥${data.final_info.finalFee}</span>`;
+				$('.price').html(allPrice);
+			}
+			//前往收货地址
+			mui('.box').on('tap','.address-box',function(){
+				mui.openWindow({
+					url:'../center/address.html'
+				})
+			}) 
+			/*
+			 * 获取收货地址函数：getAddress
+			 */
+			function getAddress(){
+				mui.ajax(baseUrl + '/api/mall/address', {
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Api-Token': token
+					},
+					success: function(data) {
+//						console.log('获取收货地址');
+						console.log(JSON.stringify(data));
+						if(data.code == 1000) {
+							for(let i = 0;i<data.data.length;i++){
+								//是否有默认地址
+								if(address_id){
+//									console.log(address_id);
+									if(data.data[i].id == address_id){
+										let html = `
+											<span class="us-name">${data.data[i].name}</span><span class="">${data.data[i].phone}</span>
+											<div class="addre">${data.data[i].location_p} ${data.data[i].location_c} ${data.data[i].location_a} ${data.data[i].address}</div>
+										`;
+										$('.address-data').html(html);
+										$('.address-data').show();
+										$('.notAddr').hide();
+										return;
+									}
+								}
+								else if(data.data[i].is_default == 1){
+									console.log('渲染默认地址');
+									$('.notAddr').hide();
+//									console.log(JSON.stringify(data.data[i]));
+									let html = `
+										<span class="us-name">${data.data[i].name}</span><span class="">${data.data[i].phone}</span>
+										<div class="addre">${data.data[i].location_p} ${data.data[i].location_c} ${data.data[i].location_a} ${data.data[i].address}</div>
+									`;
+									$('.address-data').html(html);
+									$('.address-data').show();
+									$('.notAddr').hide();
+									return;
+								}
+								else{
+									//没有默认收货地址
+									console.log('没有收货地址！！');
+									$('.address-data').hide();
+									$('.notAddr').show();
+									address_id = '';
+								}
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.alert('请求超时');
+					}
+				});
+			}
+			/*
+			 * 提交订单函数:submitOrder
+			 * proList:商品列表
+			 * address_id:收货地址id
+			 * paystyle:支付方式：1微信支付，2支付宝
+			 */
+			function submitOrder(proList,address_id,paystyle){
+				mui.ajax(baseUrl+'/api/order/unifiedorder',{
+					data:{
+						proList:proList,
+						address_id:address_id,
+						paystyle:paystyle
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{
+						'Api-Token':token
+					},
+					success:function(data){
+						console.log('提交订单');
+//						console.log(JSON.stringify(data));
+						var batchcode = data.data.batchcode;
+						
+//						pay(paystyle,data.data.batchcode);
+						
+						if(paystyle == '支付宝支付'){
+							for (var i in channels) {
+								if (channels[i].id == 'alipay') {
+									channel = channels[i];
+								}
+							}
+							alipay(batchcode, channel);
+						}
+				
+						if (paystyle == '1') {
+							for (var i in channels) {
+								if (channels[i].id == 'wxpay') {
+									channel = channels[i];
+								}
+							}
+							weipay(batchcode, channel);
+						}
+						
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+			})
+		
+		</script>
+	</body>
+</html>

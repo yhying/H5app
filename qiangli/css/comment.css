@@ -1,0 +1,160 @@
+body {
+    position: relative;
+}
+li {
+    list-style: none;
+}
+.mui-icon-back:before, .mui-icon-left-nav:before {
+    content: '\e471';
+}
+.mui-icon-extra-comment:before {
+    content: "\e209";
+}
+#header{
+    background-color: #efeff4;
+}
+#header h1>a{
+  font-size: 20px;
+  color: rgb(107, 95, 95)
+}
+.my-content{
+    /* position: relative; */
+    background-color: #fff;
+}
+.my-content-title{
+    position: relative;
+}
+.mui-content .my-content-title ul{
+    position: fixed;
+   
+}
+.header{
+   float: left;
+   width: 100%;
+   padding: 0;
+   margin-bottom: 0;
+}
+.header li {
+    float: left;
+    width: 33.33%;
+    text-align: center;
+}
+.header li a{
+    display: inline-block;
+    color: black;
+    padding-bottom: 10px;
+}
+
+.active {
+    color: #11EEEE !important;
+    border-bottom: 2px solid #11EEEE;
+}
+.my-content .pinglun{
+    /* position: absolute; */
+   margin: 15px 0 41px 0;
+   overflow: hidden;
+   width: 100%;
+}
+.pinglun ul {
+    padding: 0;
+}
+.pinglun li {
+    /* height: 115px; */
+}
+.pinglun li img{
+    width: 30px;
+    height: 30px;
+    margin-right: 7px;
+    vertical-align: middle;
+}
+.pinglun li .name {
+    font-size: 10px;
+}
+.pinglun li .Na{
+    float:right;
+    font-size: 2px;
+    margin-right: 18px;
+}
+.pinglun li p{
+    margin-left: 41px;
+    font-size: 12px;
+    margin-bottom: 0;
+
+}
+.pinglun .zan img {
+    width: 15px;
+    height: 15px;
+    margin-right: 0;
+}
+.pinglun-detail {
+    padding: 10px 30px 10px 7px;
+    background-color: rgb(245, 245, 245);
+}
+.pinglun .ping img{
+    width: 15px;
+    height: 15px;
+    margin-right: 0;
+}
+.pinglun li .data-time{
+    margin-left: 41px;
+    font-size: 1px;
+    color: #ccc;
+}
+.data span {
+    margin-right: 10px;
+    font-size: 5px;
+}
+.pinglun-detail {
+    margin-left: 41px;
+}
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 41px;
+    line-height: 41px;
+    background-color: #EEE;
+}
+footer input {
+    line-height:30px;
+    border:none;
+    font-size: 12px;
+     margin:7px 20px 0 3px !important;
+}
+footer a{
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-top: 6px;
+
+}
+footer a img{
+ 
+    width:100%;
+    height: 100%;
+  
+
+}
+.footer-image {
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+}
+.footer-image>a {
+    position: relative;
+}
+.footer-image>a .icon {
+    font-size: 10px;
+    line-height: 1.4;
+    position: absolute;
+    top: -2px;
+    left: 100%;
+    margin-left: -10px;
+    padding: 1px 5px;
+    color: #fff;
+    background: red;
+}
+/* .pinglun li>div:nth-child(3){
+    font-size: 7px;
+} */

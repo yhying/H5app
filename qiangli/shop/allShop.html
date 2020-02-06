@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>所有产品</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/allShop.css">
+		<script type="text/javascript" src="../js/jquery-2.1.3.min.js"></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">所有产品</h1>
+		</header>
+		<div class="mui-content">
+			<!--导航-->
+			<div class="navbox">
+				<div class="navbox-t navbox-change">租赁屏</div>
+				<div class="navbox-t">小间距屏</div>
+				<div class="navbox-t">户外全彩</div>
+				<div class="navbox-t">室内全彩</div>
+				<i class="mui-icon mui-icon-arrowdown shownav"></i>
+				<div class="navbox-child">
+					<div class="navbox-row">
+						<div class="navbox-item">
+							<div class="border">
+								单双色
+							</div>
+						</div>
+						<div class="navbox-item">
+							<div class="border">
+								亚户外P10
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--导航-->
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<div class="group-box">
+					<!--<div class="group-list">
+						<div class="group-img outer">
+							<img src="../images/shop11.png" alt="" />
+						</div>
+						<div class="group-data">
+							<div class="group-data1">
+								强力巨彩 Q1.66 Pro室内全彩led显示屏广告屏LED大屏幕定制 整屏
+							</div>
+							<div class="store-num">
+		                		<div class="num1-t1">￥26600 <div class="num1-t2">￥33250</div></div>
+		                		<div class="num1-t3">已售593666件</div>
+			                </div>
+						</div>
+					</div>-->
+				</div>
+				<!--数据列表结束-->
+			</div>
+		</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			//改变状态栏背景色
+			mui.init({
+				swipeBack: false,
+				keyEventBind: {
+					backbutton: false //关闭back按键监听
+				},
+				pullRefresh: {
+					container: '#pullrefresh',
+					up: {
+						contentrefresh: '正在加载...',
+						contentnomore: '没有更多数据了',
+						callback: pullupRefresh
+					}
+				}
+			});
+			var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pullupRefresh() {
+				setTimeout(function() {
+					//执行渲染函数
+					get_Index_Data(shopId,count);
+				}, 1000);
+			}
+		</script>
+		<script type="text/javascript">
+			mui.init();
+			
+			//接收地址参数
+			var Request = new Object();
+			Request = GetRequest();
+			var shopId;
+			shopId = Request["id"];
+			if(shopId){
+				console.log('接收参数'+shopId);
+			}
+			//创建蒙版
+			var mask = mui.createMask();//callback为用户点击蒙版时自动执行的回调；
+			//点击头部导航选项(非隐藏部分)
+		mui('body').on('tap', '.navbox-t', function() {
+			//获取栏目id
+			let id = this.getAttribute('data-id');
+			shopId = id;
+			console.log('栏目id:'+id);
+			//添加选中状态
+			$(this).addClass("navbox-change").siblings().removeClass("navbox-change");
+			$(".navbox-item").children().removeClass('navbox-active');
+			//关闭更多下拉框和蒙版
+        	$('.navbox-child').attr('class','navbox-child');
+			$('.navbox-child').css('height',"0");
+			mask.close();//关闭遮罩
+			
+			//清空栏目对应的内容
+			$('.mui-row').html("");
+			//重新渲染栏目对应的渲染内容
+			get_Index_Data(id,1);
+		});
+  		///点击显示更多导航下拉框
+  		mui('.navbox').on('tap', '.shownav', function(e) {
+			console.log($('.navbox-child').attr('class'));
+			if($('.navbox-child').attr('class') == 'navbox-child'){
+				$('.navbox-child').attr('class','navbox-child navbox-child-show')
+				$('.navbox-child').css('height',$('.navbox-row').innerHeight()+"px");
+				mask.show();//显示遮罩
+				console.log($('.navbox-row').innerHeight()+"px");
+			}else{
+				$('.navbox-child').attr('class','navbox-child');
+				$('.navbox-child').css('height',"0");
+				mask.close();//关闭遮罩
+			}
+        });
+		//点击更多导航按钮(隐藏部分)
+        mui('.navbox').on('tap','.border',function(){
+        	//获取栏目id
+        	let id = this.getAttribute('data-id');
+        	shopId = id;
+			console.log('栏目id:'+id);
+			//添加选中状态
+        	$(".navbox-item").children().removeClass('navbox-active');
+        	$(this).addClass("navbox-active");
+        	//关闭更多下拉框和蒙版
+        	$(".navbox-t").removeClass('navbox-change');
+        	$('.navbox-child').attr('class','navbox-child');
+			$('.navbox-child').css('height',"0");
+			mask.close();//关闭遮罩
+			
+			//清空栏目对应的内容
+			$('.mui-row').html("");
+			//重新渲染栏目对应的渲染内容
+			get_Index_Data(id,1);
+        });
+		//点击遮罩蒙版
+		mui('body').on('tap', '.mui-backdrop', function(e) {
+			$('.navbox-child').attr('class','navbox-child')
+			$('.navbox-child').css('height',"0");
+			mask.close();//关闭遮罩
+		});
+		//点击商品跳转详情页
+		mui('.mui-scroll').on('tap', '.group-list', function(e) {
+			let id = this.getAttribute('data-id');
+			console.log(id);
+			mui.openWindow({
+				url:'shopDetail.html?id='+id+'&type=0'
+			})
+		});
+		/*
+		 * 获取分类数据函数：get_column_list_Data
+		 */
+		get_column_list_Data();
+
+		function get_column_list_Data() {
+			mui.ajax(baseUrl + '/api/mall/type_list', {
+				dataType: 'json', //服务器返回json格式数据
+				type: 'get', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒；
+				headers: {
+					'Api-Token': 'xx'
+				},
+				success: function(data) {
+					// console.log(JSON.stringify(data.data));
+					//获取数据成功  
+					if (data.code == 1000) {
+						/*
+						 * column_list： 栏目的数据
+						 * column_id：栏目id
+						 */
+						let column_list = data.data;
+						// console.log('栏目id:'+data.data[0].id);
+						// console.log('栏目name:'+data.data[0].name);
+						// let column_id = data.data[0].id;
+						//执行渲染栏目的函数
+						render_column_list(column_list,shopId);
+						//获取数据内容
+						get_Index_Data(shopId,1);
+					} else {
+						console.log(JSON.stringify(data));
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					//异常处理；
+					console.log(type);
+				}
+			});
+		};
+		/*
+		 * 渲染栏目数据方法
+		 * value:渲染数据
+		 * shopId:传值过来的id
+		 */
+		function render_column_list(data, shopId) {
+			$(".navbox").html('');
+			let div = '';
+			if (data.length <= 4) {
+				//如果数组长度小于4
+				for (let i = 0; i < data.length; i++) {
+					if (data[i].id == shopId) {
+						div = "<div class='navbox-t navbox-change' data-id=" + data[i].id + ">" + data[i].name + "</div>";
+					} else {
+						div = "<div class='navbox-t' data-id=" + data[i].id + ">" + data[i].name + "</div>";
+					}
+					$(".navbox").append(div);
+				}
+				$(".navbox").css('padding', "5px 5px 5px 5px");
+			} else if (data.length > 4) {
+				for (let i = 0; i < 4; i++) {
+					if (data[i].id == shopId) {
+						div = "<div class='navbox-t navbox-change' data-id=" + data[i].id + ">" + data[i].name + "</div>";
+					} else {
+						div = "<div class='navbox-t' data-id=" + data[i].id + ">" + data[i].name + "</div>";
+					}
+					$(".navbox").append(div);
+				}
+				let i = '<i class="mui-icon mui-icon-arrowdown shownav"></i>';
+				$(".navbox").append(i);
+				let box = '<div class="navbox-child"><div class="navbox-row"></div></div>';
+				$(".navbox").append(box);
+				for (let i = 4; i < data.length; i++) {
+					let navboxItem;
+					if (data[i].id == shopId) {
+						navboxItem = '<div class="navbox-item"><div class="border navbox-active" data-id='+data[i].id+'>' + data[i].name +
+							'</div></div>';
+					} else {
+						navboxItem = '<div class="navbox-item"><div class="border" data-id='+data[i].id+'>' + data[i].name +
+							'</div></div>';
+					}
+					$(".navbox-row").append(navboxItem);
+				}
+			}
+		};
+		/*
+		 * 所有产品请求接口函数 get_Index_Data
+		 * type_id:栏目id
+		 * pageNum：页数
+		 */
+		function get_Index_Data(type_id,pageNum) {
+			mui.ajax(baseUrl + '/api/mall/type_product_lists', {
+				dataType: 'json', //服务器返回json格式数据
+				type: 'get', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒；
+				headers: {
+					'Api-Token': 'xx'
+				},
+				data: {
+					 type_id:type_id, 
+					 pageNum: pageNum
+				},
+				success: function(data) {
+					//获取数据成功
+					if (data.code == 1000) {
+						 console.log(JSON.stringify(data.data));
+						if(data.data != ''){
+							//执行渲染数据函数
+							renderShop(data.data, shopId);
+							count++;
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //参数为true代表没有更多数据了。
+						}else{
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+						}
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					//异常处理；
+					console.log(type);
+				}
+			});
+		};
+		/*
+		 * 所有产品数据渲染函数：renderShop
+		 */
+		function renderShop(data, shopId) {
+			if (data) {
+				$('.group-box').html('');
+				mui.each(data, function(index, item) {      //循环data数组中的每一个对象
+					let num= item.type_ids.replace(/[^0-9]/ig,"");     //将每个对象的type_ids 利用正则变成数字
+					if (num == shopId) {                    //当type_ids的值与shopId 相同时 渲染到页面中
+//					console.log(num);
+						let html =
+							`
+							<div class="group-list" data-id="${item.id}">
+								<div class="group-img">
+									<img src="${item.default_imgurl}" alt="" />
+								</div>
+								<div class="group-data">
+									<div class="group-data1">
+										${item.name}
+									</div>
+									<div class="store-num">
+				                		<div class="num1-t1">￥${item.now_price} <div class="num1-t2">￥${item.orgin_price}</div></div>
+				                		<div class="num1-t3">已售${item.show_sell_count}件</div>
+					                </div>
+								</div>
+							</div>
+						`
+						$('.group-box').append(html);
+					}
+				})
+			}
+		};
+		</script>
+	</body>
+</html>

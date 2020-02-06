@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的订单</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/repository_classify.css" />
+		<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的订单</h1>
+		</header>
+		<div class="order-nav">
+			<div class="navbox-list navbox-change">
+				<div class="title">
+					全部
+				</div>
+			</div>
+			<div class="navbox-list">
+				<div class="title">
+					待付款
+				</div>
+			</div>
+			<div class="navbox-list">
+				<div class="title">
+					待发货
+				</div>
+			</div>
+			<div class="navbox-list">
+				<div class="title">
+					待收货
+				</div>
+			</div>
+			<div class="navbox-list">
+				<div class="title">
+					已完成
+				</div>
+			</div>
+			<div class="navbox-list">
+				<div class="title">
+					售后
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul class="mui-table-view mui-table-view-chevron" id="listBox">
+
+				</ul>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.init({
+				pullRefresh: {
+					container: ".mui-scroll-wrapper", //待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+					up: {
+						height: 50, //可选.默认50.触发上拉加载拖动距离
+						auto: true, //可选,默认false.自动上拉加载一次
+						contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+						contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+						callback: function() { //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+							window.setTimeout(function() {
+								pullfreshUp();
+							}, 800);
+						}
+
+						//pullfreshUp //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+					},
+				}
+
+			});
+
+			function pullfreshUp(index) {
+				//业务逻辑代码，比如通过ajax从服务器获取新数据；
+				//注意：
+				//1、加载完新数据后，必须执行如下代码，true表示没有更多数据了：
+				//2、若为ajax请求，则需将如下代码放置在处理完ajax响应数据之后
+				let inner = `<li class = "contentList">
+												<div id="case" class="myProfileContent navbox-change">
+								<div class="mui-card">
+									<!--页眉，放置标题-->
+									<!--<div class="mui-card-header">技术|LED显示屏不得不知道的老化常识</div>-->
+									<!--内容区-->
+									<div class="mui-card-content">
+										<div class="cardTitle">
+											技术|LED显示屏不得不知道的老化常识技术|LED显示屏不得不知道的老化常识
+										</div>
+										<img src="images/news3.jpg" />
+										<div class="cardTime">
+											2019-06-25&#x3000;19:20
+										</div>
+									</div>
+									<!--页脚，放置补充信息或支持的操作-->
+									<div class="mui-card-footer">
+										<div class="cardFooter">
+											技术|LED显示屏不得不知道的老化常识技术|LED显示屏不得不知道的老化常识
+											<div class="footerTime">
+											2019-06-25&#x3000;19:20
+										</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+					</li>`
+				document.getElementById("listBox").innerHTML += inner
+				mui('.mui-scroll-wrapper').pullRefresh().endPullupToRefresh(false);
+			}
+			mui("#listBox").on("tap", ".cancellation", function() {
+				confirm("取消后的订单无法恢复，请慎重考虑")
+			})
+
+			//头部导航点击切换状态
+			mui('.order-nav').on('tap', '.navbox-list ', function() {
+				$(this).addClass("navbox-change").siblings().removeClass("navbox-change");
+				console.log($(this).index());
+			});
+		</script>
+	</body>
+
+</html>

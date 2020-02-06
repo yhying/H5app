@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的反馈</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/feedbackContent.css" />
+		<script type="text/javascript" src="../js/jquery-2.1.3.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">问题反馈</h1>
+		</header>
+		<div style="height: 50px;"></div>
+		<div class="contentBox">
+			<div class="mui-card">
+			<!--页眉，放置标题-->
+			<div class="mui-card-header">
+				<h>无法修改昵称/上传图片</h4>
+			</div>
+			<!--内容区-->
+			<div class="mui-card-content feedbackContent">
+				这是内容区这是内容区:<br /> 1.这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区
+				<br /> 这是内容区这是内容区这是内容区这是内容区这是内容区
+				<br /> 2.这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区
+			</div>
+			<!--页脚，放置补充信息或支持的操作-->
+			<div class="mui-card-footer islike">
+				<div class="like">
+					<img src="../images/hf3.png" />
+					<span>
+						有用
+					</span>
+				</div>
+				<div class="unlike">
+					<img src="../images/hf3.png" />
+					<span>
+					没用
+				</span>
+				</div>
+			</div>
+		</div>
+		<div class="mui-card">
+			<!--页眉，放置标题-->
+			<div class="mui-card-header">
+				<h>无法修改昵称/上传图片</h4>
+			</div>
+			<!--内容区-->
+			<div class="mui-card-content feedbackContent">
+				这是内容区这是内容区:<br /> 1.这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区
+				<br /> 这是内容区这是内容区这是内容区这是内容区这是内容区
+				<br /> 2.这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区这是内容区
+			</div>
+			<!--页脚，放置补充信息或支持的操作-->
+			<div class="mui-card-footer islike">
+				<div class="like">
+					<img src="../images/hf3.png" />
+					<span>
+						有用
+					</span>
+				</div>
+				<div class="unlike">
+					<img src="../images/hf3.png" />
+					<span>
+					没用
+				</span>
+				</div>
+			</div>
+		</div>
+		</div>
+		
+
+		<script type=" text/javascript ">
+			//列表url跳转
+			mui('.page-box').on('tap', '.page-list', function(e) {       
+				var targetTab = this.getAttribute('data-page');
+				if(targetTab) {
+					mui.openWindow({
+						url: targetTab
+					});
+				}     
+			});
+
+			mui('.islike').on('tap', 'div', function(e) {  
+				let isactive = $(this).hasClass("active")
+				if(!isactive){
+					$(this).addClass("active").siblings().removeClass("active")
+					alert($(this).index())
+				}else{
+					$(this).removeClass("active")
+				}
+			});
+		</script>
+	</body>
+
+</html>

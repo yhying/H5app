@@ -1,0 +1,150 @@
+.mui-input-row {
+	background-color: white;
+	border-bottom: 2px solid whitesmoke;
+}
+.mui-input-row input{
+	font-size: 15px;
+}
+html,
+body {
+	background-color: #EFEFEF;
+}
+
+.page-list {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-right: 8px;
+	background-color: white;
+	margin-bottom: 5px;
+}
+
+.page-list-l {
+	font-size: 15px;
+	color: #333333;
+    line-height: 1.1;
+    padding: 11px 0;
+}
+.moneyBox{
+	border-top: 4px solid whitesmoke;
+	border-bottom: 6px solid whitesmoke;
+}
+.refundMoney{
+	color: #0067E6;
+}
+.page-list-r{
+	font-size: 15px;
+}
+
+.page-list-r .mui-icon {
+	font-size: 18px;
+	transform: rotate(90deg);
+}
+
+.foot {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	text-align: center;
+}
+
+.mui-btn {
+	background-color: white;
+	color: #333333;
+	height: 50px;
+	width: 100%;
+	font-size: 18px;
+	border: 0;
+}
+
+
+.msg{
+	background-color: white;
+	height: 2rem;
+	font-size: 15px;
+}
+.msg1{
+	display: inline-block;
+	line-height: 2rem;
+	margin-left: 15px;
+	font-size: 15px;
+}
+.msg2{
+	display: inline-block;
+	float: right;
+	line-height: 2rem;
+	margin-right: 15px;
+	color: #999999;
+}
+#textarea{
+	border: none;
+	font-size: 15px;
+	background-color: white;
+	margin: 0;
+}
+.mui-content{
+	background-color: white;
+}
+.addPicture{
+	display: inline-block;
+	margin-left: 2.5vw;
+	width: 30vw;
+	height: 30vw; 
+	background-image:url(../images/camera.png);
+	background-position: -4px -5px;
+	background-size: 109% 108%;
+}
+li img{
+	margin-left: 2.5vw;
+	width: 30vw;
+	height: 30vw;
+	float: left;
+}
+.deleteBtn{
+	text-align: center;
+}
+ul{
+	position: relative;
+	display: inline-block !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+li{
+	display: inline-block;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+p{
+	display: inline-block;
+	position: absolute;
+	margin-left: 8px;
+	top: -.5rem;
+	right: -.5rem;
+}
+.phone{
+	background-color: white !important;
+}
+#alertBox{
+	color: #333333;
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	display: none;
+	z-index: 999;
+}
+.reason{
+	font-size: 1.3rem;
+	
+	display: block;
+	width: 100% !important;
+	background-color: white;
+	text-align: center;
+}
+.lastRadio{
+	background-color: white !important;
+}
+.upload{
+	display: none;
+}

@@ -1,0 +1,107 @@
+html,
+body {
+	background-color: #EFEFEF;
+}
+
+.page-list {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 15px;
+	padding-right: 8px;
+	height: 50px;
+	background-color: white;
+	margin-bottom: 5px;
+}
+
+.page-list-l {
+	font-size: 15px;
+	color: #333333;
+}
+
+.page-list-r .mui-icon {
+	font-size: 18px;
+}
+
+.foot {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	text-align: center;
+}
+
+.mui-btn {
+	background-color: white;
+	color: #333333;
+	height: 50px;
+	width: 100%;
+	font-size: 18px;
+	border: 0;
+}
+
+
+.msg{
+	background-color: #EFEFEF;
+	height: 2rem;
+	color: #666666;
+	font-size: 15px;
+}
+.msg1{
+	display: inline-block;
+	line-height: 2rem;
+	margin-left: 15px;
+}
+.msg2{
+	display: inline-block;
+	float: right;
+	line-height: 2rem;
+	margin-right: 15px;
+}
+.iptbox{
+	width: 100%;
+	height: 2rem;
+	background-color: white;
+}
+.addPicture{
+	display: inline-block;
+	margin-left: 2.5vw;
+	width: 30vw;
+	height: 30vw;
+	background-image:url(../images/camera.png);
+	background-position: -4px -5px;
+	background-size: 109% 108%;
+	
+}
+li img{
+	margin-left: 2.5vw;
+	width: 30vw;
+	height: 30vw;
+	float: left;
+}
+.deleteBtn{
+	text-align: center;
+}
+ul{
+	position: relative;
+	display: inline-block !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+li{
+	display: inline-block;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+p{
+	display: inline-block;
+	position: absolute;
+	margin-left: 8px;
+	top: -.5rem;
+	right: -.5rem;
+}
+.upload{
+	display: none;
+}
+

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/detail.css" />
+		<script src="js/jquery-2.1.3.min.js"></script>
+		<script src="js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">推荐</h1>
+			<a><span class="mui-icon mui-icon-upload mui-pull-right"></span></a>
+		</header>
+		<div class="articleBox">
+			<div class="top">
+			</div>
+			<div class="discuss-list" style="margin-top: 0;">
+				<img class="authorIcon" src="images/user_img.png" alt="">
+				<div class="discuss-data">
+					<div class="discuss-data-top">
+						<p class="us-name authorName">三井寿</p>
+						<span class="time issueTime">2019-06-14</span>
+					</div>
+				</div>
+			</div>
+			<div id="contentBox">
+
+			</div>
+		</div>
+		<!-- 评论 -->
+		<div class="discuss">
+			<div class="discuss-list">
+				<img class="userIcon" src="images/user_img.png" alt="">
+				<div class="discuss-data">
+					<div class="discuss-data-top">
+						<p class="us-name userName">三井寿</p>
+						<span class="time commentTime">2019-06-14</span>
+						<div class="reply">
+							<img src="images/hf.png" alt="">
+							<span class="replyText">回复</span>
+						</div>
+					</div>
+					<div class="discuss-content">
+						COB封装与传统LED封装的不同？LED封装厂家有话说
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 评论结束 -->
+		<div class="foot">
+			<div class="comment"><input class="goWrite" type="button" value="写评论..." style="text-align: left;" /></div>
+			<div class="foot-list">
+				<div><img src="images/hf.png" alt="" />
+					<p>评论</p><span class="commentnum">12</span></div>
+				<div class="collect"><img src="images/hf2.png" alt="" />
+					<p>收藏</p>
+				</div>
+				<div class="like"><img src="images/hf3.png" alt="" />
+					<p>点赞</p>
+				</div>
+				<div><img src="images/hf4.png" alt="" />
+					<p>分享</p>
+				</div>
+			</div>
+		</div>
+		<div class="iptbox">
+			<textarea id="textarea" rows="3"></textarea>
+			<button class="sendBtn">发送</button>
+		</div>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			var comment_id = "";
+			var token = localStorage.getItem('Token');
+			//		获取文章的id
+			var Request = new Object();
+			Request = GetRequest();
+			var page, article_id;
+			page = Request["page"];
+			article_id = Request["article_id"];
+			
+//			请求数据函数
+			function getData() {
+				let islogin = localStorage.getItem('Token');
+				if(!islogin) islogin = 1;
+				mui.ajax(baseUrl + '/api/content.home/get_article_info', {
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Api-Token': islogin
+					},
+					data: {
+						article_id: article_id,
+						type: '0'
+					},
+					success: function(data) {
+						if(data.code == 1000) {
+//							调用渲染函数
+							contentShow(data);
+						} else {}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.alert('请求超时');
+					}
+				});
+			};
+			
+			//进入页面先请求一次数据
+			getData();
+			
+//			渲染数据的函数
+			function contentShow(data) {
+				let articleDatas = data.data.article_info
+				let commentDatas = data.data.comment_info
+				//			文章内容
+				document.getElementById("contentBox").innerHTML = articleDatas.content;
+				$('#contentBox').html(articleDatas.content);
+				//				document.getElementById("contentBox").innerHTML = `<img src="${ImgUrl}${articleDatas.picture}"/>`
+				//			标题
+				$(".top").text(articleDatas.title);
+				//			头像
+				$(".authorIcon").attr("src", ImgUrl + articleDatas.avatar);
+				//			用户名
+				$(".authorName").text(articleDatas.user_login)
+				//			发布时间
+				let discussList = "";
+				$('.issueTime').text(articleDatas.add_time)
+				//			评论数量
+				if(articleDatas.comments > 99) {
+					$('.commentnum').text('99+')
+				} else {
+					$('.commentnum').text(articleDatas.comments)
+				}
+				
+				if(token){
+					alert(articleDatas.is_collection)
+					if(articleDatas.is_collection == "1"){
+					$('.collect img').attr('src', 'images/hf2-1.png')
+				}
+				if(articleDatas.is_likes == "1"){
+					
+					$('.like img').attr('src', 'images/hf3-1.png')
+				}
+				}
+				
+				
+				let replyNum = 0;
+				
+//				遍历渲染用户评论
+				mui.each(commentDatas, function(index, item) {
+					if(item.comment_num) {
+						if(item.comment_num > 99) {
+							replyNum = "99+";
+						} else {
+							replyNum = item.comment_num;
+						}
+					} else {
+						replyNum = 0;
+					}
+					discussList += `<div class="discuss-list">
+				<img class="userIcon" src="${item.logo}" alt="">
+				<div class="discuss-data">
+					<div class="discuss-data-top">
+						<p class="us-name userName">${item.nickname}</p>
+						<span class="time commentTime">${item.comment_time}</span>
+						<div class="reply" data-commentId= "${item.comment_id}" data-user = "${item.nickname}">
+							<img src="images/hf.png" alt=""> 
+							<span class="replyNum">${replyNum}</span>
+							<span class="replyText">回复</span>
+						</div>
+					</div> 
+					<div class="discuss-content">
+						${item.comment_content}
+					</div>
+				</div>
+			</div>`
+					document.getElementsByClassName("discuss")[0].innerHTML = discussList;
+				})
+			}
+			var isShow = false;
+			var send = 1;
+			//		点击评论弹出输入框
+			mui('.comment').on('tap', '.goWrite', function() { 
+				if(!isShow) {
+					$('.iptbox').css('display', 'block');
+					$('#textarea').val("");
+					$('#textarea').attr('placeholder', "");
+					send = 1;
+				}   
+				else {
+					$('.iptbox').css('display', 'none');
+					isShow = false;
+				}      
+
+			});
+			//			监听输入的内容不超过300
+			$("#textarea").on("input", function() {
+				let txt = $("#textarea").val();
+				if(txt.length >= 300) {
+					let showTxt = txt.slice(0, 300);
+					$("#textarea").val(showTxt)
+				}
+			})
+
+			//	点击回复评论弹出输入框
+			mui('.discuss').on('tap', '.reply', function(e) { 
+				comment_id = $(this).attr("data-commentId")
+				let user = $(this).attr("data-user");
+				if(!isShow) {
+					$('.iptbox').css('display', 'block');
+					$('#textarea').val("");
+					$('#textarea').attr('placeholder', ":回复" + user);
+					send = 2;
+				}   
+				else {
+					$('.iptbox').css('display', 'none');
+				}      
+				isShow = !isShow;
+
+			});
+			//		发送评论
+			mui('.iptbox').on('tap', '.sendBtn', function(e) { 
+				let comment_content = $('#textarea').val()
+//				type为1,评论文章
+				if(send == 1) {
+					if(token) {
+						mui.ajax(baseUrl + '/api/content.home/get_comment', {
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							headers: {
+								'Api-Token': token
+							},
+							data: {
+								article_id: article_id,
+								comment_content: comment_content
+							},
+							success: function(data) {
+								if(data.code == 1000) {
+									$("#textarea").val("");
+									$('.iptbox').css('display', 'none');
+									isShow = false;
+									getData(); //评论完成，重新获取数据渲染
+								} else {
+									mui.alert("评论失败");
+								}
+
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.alert('请求超时');
+							}
+						});
+					} else {
+						mui.alert("请登录后再进行操作!")
+					}
+				} 
+//				type为2,回复评论
+				else if(send == 2) {
+					if(token) {
+						alert(send)
+						//alert(comment_id)
+						mui.ajax(baseUrl + '/api/content.home/get_comment_children', {
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							headers: {
+								'Api-Token': token
+							},
+							data: {
+								article_id: article_id,
+								comment_content: comment_content,
+								comment_id: comment_id
+							},
+							success: function(data) {
+								if(data.code == 1000) {
+									alert("chengg")
+									$("#textarea").val(""); //评论成功清除输入框的内容
+									$('.iptbox').css('display', 'none'); //评论成功隐藏输入框
+									isShow = false;
+									getData(); //评论完成，重新获取数据渲染
+								} else {
+									mui.alert("评论失败");
+								}
+
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.alert('请求超时');
+							}
+						});
+					} else {
+						mui.alert("请登录后再进行操作!")
+					}
+				}
+
+			});
+
+			//点赞
+			mui('.foot-list').on('tap', '.like', function() {
+				if(token) {
+					mui.ajax(baseUrl + '/api/content.home/likes', {
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Api-Token': token
+						},
+						data: {
+							article_id: article_id
+						},
+						success: function(data) {
+							if(data.code == 1000) {
+								alert('点赞成功')
+								$('.like img').attr('src', 'images/hf3-1.png')
+							} else if(5557) {
+								alert('取消成功')
+								$('.like img').attr('src', 'images/hf3.png')
+							} else {
+								mui.alert("操作失败")
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							mui.alert('请求超时');
+						}
+					});
+				} else {
+					mui.alert("请登录后再进行操作!")
+				}
+
+			})
+
+			//收藏
+			mui('.foot-list').on('tap', '.collect', function() {
+				if(token) {
+					mui.ajax(baseUrl + '/api/content.home/collection', {
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Api-Token': token
+						},
+						data: {
+							article_id: article_id
+						},
+						success: function(data) {
+							if(data.code == 1000) {
+								$('.collect img').attr('src', 'images/hf2-1.png')
+							} else if(5557) {
+								$('.collect img').attr('src', 'images/hf2.png')
+							} else {
+								mui.alert("操作失败")
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							mui.alert('请求超时');
+						}
+					});
+				} else {
+					mui.alert("请登录后再进行操作!")
+				}
+
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的订单</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/previewImage.css" />
+		<link rel="stylesheet" type="text/css" href="css/afterSale.css" />
+		<script type="text/javascript" src="../../js/jquery-2.1.3.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/mui.previewimage.js"></script>
+		<script type="text/javascript" src="../js/mui.zoom.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的订单</h1>
+		</header>
+		<div style="height: 50px;"></div>
+		<div class="page-box">
+			<div class="mui-input-row">
+				<label>申请类型</label>
+				<input type="text" name="type" class="mui-input-clear" value="我要退款">
+			</div>
+			<div class="mui-input-row">
+				<label>申请原因</label>
+				<div class="page-list " id="refundReason">
+				<div class="page-list-l" id="sureReasin">点击选择申请原因</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			</div>
+			<div class="mui-input-row moneyBox">
+				<label>退款金额</label>
+				<div class="page-list">
+				<div class="page-list-l refundMoney">￥26600</div>
+				<div class="page-list-r">最多￥26600</div>
+			</div>
+			</div>
+			
+			<div class="iptFeedback">
+				<div class="msg">
+					<span class="msg1">申请原因</span>
+					<span class="msg2" id="msg2">您还可以输入170字</span>
+				</div>
+				<div class="mui-input-row mui-content">
+					<textarea id="textarea" rows="5" placeholder="必填，请您详细填写申请说明..."></textarea>
+					<div class="mui-content">
+							<!--放图片元素-->
+						<span id="imgaes">
+							
+						</span>
+							<div class="addPocture" id="headImage"></div>
+							<!--<input type="button" id="headImage" value="附件" />-->
+							<!--<input type="button" id="uploadImage" value="上传" />-->
+					</div>
+				</div>
+			</div>
+			<div class="mui-input-row phone">
+				<label>联系电话</label>
+				<input type="text" name="phone" class="mui-input-clear">
+			</div>
+		</div>
+		<div id="alertBox">
+			<div class="mui-input-row">
+				<label class="reason">退款原因</label>
+				<div class="reasonBox">
+					<div class="mui-input-row mui-radio mui-right">
+						<label>商品信息描述不好</label>
+						<input name="radio1" type="radio" value="1" checked="">
+					</div>
+					<div class="mui-input-row mui-radio mui-right">
+						<label>功能/效果不好</label>
+						<input name="radio1" type="radio" value="2">
+					</div>
+					<div class="mui-input-row mui-radio mui-right">
+						<label>少件/漏件</label>
+						<input name="radio1" type="radio" value="3">
+					</div>
+					<div class="mui-input-row mui-radio mui-right">
+						<label>包装/商品破损</label>
+						<input name="radio1" type="radio" value="4">
+					</div>
+					<div class="mui-input-row mui-radio mui-right lastRadio">
+						<label>其他</label>
+						<input name="radio1" type="radio" value="5">
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="foot">
+			<button type="button" class="mui-btn foot-btn" data-page="">提交</button>
+		</footer>
+
+		<script type=" text/javascript ">
+		mui.init();
+		let ischeck = false;
+		(function(){
+			let mask = mui.createMask();
+			let isshow = false;
+			
+		//选择申请原因的点击事件
+			mui('.mui-input-row').on('tap', '#refundReason', function(e) {
+				mask.show();
+				$("#alertBox").css("display","block")
+				isshow = true;
+			});
+//			选择结束的点击事件
+			mui('.reasonBox').on('tap','div',function(){
+				$("#alertBox").css("display","none");
+				$("#sureReasin").text($(this).text())
+				mask.close();
+				isshow = false;
+				ischeck = true;
+			})
+			//点击遮罩层关闭
+		mui('body').on('tap', '.mui-backdrop', function(e) {
+			if(isshow){
+				$("#alertBox").css("display","none")
+			}
+		});
+		})()
+			
+			//防止软键盘调起时，底部内容随之挤上
+			//获取原始窗口的高度
+			var originalHeight = document.documentElement.clientHeight || document.body.clientHeight;
+			window.onresize = function() {
+				//软键盘弹起与隐藏  都会引起窗口的高度发生变化
+				var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
+				if(resizeHeight * 1 < originalHeight * 1) { //resizeHeight<originalHeight证明窗口被挤压了
+					$('.foot-btn').css('display', 'none');
+				} else {
+					$('.foot-btn').css('display', 'block');
+				}
+			}
+			//列表url跳转
+			mui('.page-box').on('tap', '.page-list', function(e) {       
+				var targetTab = this.getAttribute('data-page');
+				if(targetTab) {
+					mui.openWindow({
+						url: targetTab
+					});
+				}     
+			});
+//			监听输入的内容不超过170
+			$("#textarea").on("input", function() {
+				let txt = $("#textarea").val();
+				let num = 0
+				if(txt.length >= 170){
+					num = 0;
+				}else{
+					num = 170 - txt.length;
+				}
+				$('#msg2').text("您还可以输入" + num + "个字");
+				if(num <= 1) {
+					let showTxt = txt.slice(0,170);
+					$("#textarea").val(showTxt)
+					$('#msg2').css('color', 'red')
+				}
+				else{
+					$('#msg2').css('color', '#999999')
+				}
+
+			})
+			
+			//表单验证
+			function checkContent() {
+				let err_msg = "";
+				//正则
+				const phoneReg = /^1[3456789]\d{9}$/;
+				//获取输入框的值
+				let type = $("input[name='type']").val().trim();
+				let textareaContent = $("#textarea").val().trim();
+				let phone = $("input[name='phone']").val().trim();
+				
+				//input框判定
+				if(type == 0) {
+					err_msg = "申请类型不能为空";
+				}else if(!ischeck) {
+					err_msg = "请选择申请原因";
+				} else if(textareaContent == 0) {
+					err_msg = "申请原因不能为空";
+				} else if(phone == 0) {
+					err_msg = "手机号不能为空";
+				} else if(!phoneReg.test(phone)) {
+					err_msg = "手机号不正确";
+				}
+				return err_msg;
+			}
+			//			表单提交事件
+			var disable = false;
+			mui('.foot').on('tap','.mui-btn',function(){
+				let err_msg = checkContent();
+				if(!disable) {
+					alert("操作频繁")
+				} else {
+					if (err_msg.length != 0) {
+					mui.alert(err_msg);
+		        return;
+		      	}else{
+		      		disable = false;
+		      	}
+				}
+				
+			})
+		</script>
+		<!--<script>
+			//附件上传成功后返回的json
+			var fileJson = "";
+			//上传附件
+			var fileArr = [];
+			var urls = [];
+			var imagess = [];
+			// 拍照获取图片  
+			function getImage(imgsUI) {
+				var c = plus.camera.getCamera();
+				c.captureImage(function(e) {
+					plus.io.resolveLocalFileSystemURL(e, function(entry) {
+						var imgSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到图片路径  
+						setFile(imgSrc);
+						setHtml(imgSrc, imgsUI);
+						urls = [];
+						imagess = [];
+						loadImgs();
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(s) {
+					console.log("erroraaa" + s.message);
+				}, {
+					filename: "_doc/camera/"
+				})
+			}
+
+			function getHeadImage(imgsUI) {
+
+				if(mui.os.plus) {
+					var buttonTit = [{
+						title: "拍照"
+					}, {
+						title: "从手机相册选择"
+					}];
+
+					plus.nativeUI.actionSheet({
+						title: "上传图片",
+						cancel: "取消",
+						buttons: buttonTit
+					}, function(b) { /*actionSheet 按钮点击事件*/
+						switch(b.index) {
+							case 0:
+								break;
+							case 1:
+								getImage(imgsUI); /*拍照*/
+								break;
+							case 2:
+								galleryImg(imgsUI); /*打开相册*/
+								break;
+							default:
+								break;
+						}
+					})
+				}
+
+			}
+
+			function setFile(fileSrc) {
+				var image = new Image();
+				image.src = fileSrc;
+				fileArr.push(image);
+			}
+
+			function setHtml(path, imgsUI) {
+
+				//				var str = '';
+				var str = '<li id="" class="mui-table-view-cell mui-media lookImg">'+
+					'<img class="mui-media-object" src="' + path + '" data-preview-src="" data-preview-group="1">' + //《注意》：data-preview-group="1"这里为分组设置，如果界面中有多个div中放不同图片，那么这里要为每个组设置一个不同的值。
+					'<p class="mui-icon mui-icon-trash deleteBtn"></p>' + //这里是删除图片接钮
+					'</li>';
+				$("#imgaes").append(str);
+			}
+
+			// 监听点击图片大图浏览
+			$(".mui-content").on('tap', '.lookImg img', function() {
+
+			});
+			// 监听点击大图浏览图片返回
+			$("body").on("tap", "#__MUI_PREVIEWIMAGE", function() {
+
+			})
+
+			// 监听图片的删除点击
+			mui("body").on('tap', '.lookImg p', function() {
+				$(this).closest("li").hide(800, function() {
+					$(this).closest("li").remove();
+					urls = [];
+					imagess = [];
+					loadImgs()
+				});
+			});
+
+			function loadImgs() {
+				// 获取图片地址列表
+				var images = document.querySelectorAll('.mui-content-padded img');
+
+				imagess = images;
+				for(var i = 0; i < images.length; i++) {
+					urls.push(images[i].src);
+				}
+			}
+
+//			//图片上传
+//			function uploadImage() {
+//				var files = new Array();
+//				$(".mui-content-padded").each(function(index) {
+//					var imgurl = $(this).find('img').attr('src');
+//					var image = new Image();
+//					image.src = imgurl;
+//					files.push(image);
+//				});
+//				if(!files) {
+//					return;
+//				}
+//
+//				console.log("上传中...");
+//
+//				//获取token信息
+//				var appToken = localStorage.getItem("appToken");
+//				var tokenHeader = localStorage.getItem("tokenHeader");
+//				//上传路径
+//				var mainUrls = serverip + "api/innerapi/file_upload";
+//				var task = plus.uploader.createUpload(mainUrls, {
+//					method: "POST",
+//					headers: {
+//						"Content-Type": "multipart/form-data"
+//					}
+//				}, function(t, status) { //上传完成
+//					mui.hideLoading();
+//					if(status == 200) {
+//						var filestr = eval('(' + t.responseText + ')');
+//						var fileData = filestr.data;
+//						fileJson = fileData;
+//						mui.toast('上传成功', {
+//							duration: 1000,
+//							type: 'div'
+//						});
+//					} else {
+//						alert("上传失败：" + status);
+//
+//					}
+//				}); //将文件集合添加到上传队列中
+//
+//				//多张图片上传  ,这里要注意多张上传的key是否一样 key: "file"
+//				/*for(var i = 0; i < files.length; i++) {    
+//				    var f = files[i];    
+//				    task.addFile(f.src, {
+//				        key: "file"
+//				    });  
+//				} */
+//
+//				task.addFile(files[0].src, {
+//					key: "file"
+//				});
+//				//上传时带token信息
+//				task.setRequestHeader(tokenHeader, appToken);
+//				//添加其他参数
+//				task.addData("fileFrom", "信息发布");
+//				task.addData("attachType", "1");
+//				//开始上传
+//				task.start();
+//			}
+			// 从相册中选择图片   
+			function galleryImg(imgsUI) {
+
+				// 从相册中选择图片  
+				plus.gallery.pick(function(e) {
+
+					for(var i in e.files) {
+						var fileSrc = e.files[i];
+						setFile(fileSrc);
+						setHtml(fileSrc, imgsUI);
+					}
+					urls = [];
+					imagess = [];
+					loadImgs();
+
+				}, function(e) {
+					if(e.code == 8) { //没有权限 
+						var btnArray = ["确定"];
+						mui.confirm('请在【设置】-【项目名称】中打开相机及相册权限！', '相册权限未开', btnArray, function(e) {
+							if(e.index == 1) {
+
+							} else {
+
+							}
+						})
+					}
+					console.log("取消选择图片");
+				}, {
+					filter: "image",
+					multiple: true,
+					maximum: 1,
+					system: false,
+					onmaxed: function() {
+						onAlert('最多只能选择1张图片');
+					}
+				});
+			}
+
+			//点击拍照及本地相册事件
+			$("#headImage").on("tap", function() {
+				getHeadImage("#images");
+			})
+
+			//点击附件上传事件
+			$("#uploadImage").on("tap", function() {
+				uploadImage();
+			})
+
+			//大图浏览
+			mui.previewImage();
+		</script>-->
+	</body>
+
+</html>

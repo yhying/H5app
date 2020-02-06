@@ -1,0 +1,45 @@
+.mui-input-row{
+	font-size: 15px;
+	background-color: white;
+	margin-bottom: 1px;
+}
+.mui-input-row:last-child{
+	background-color: white;
+	height: 40px;
+}
+.mui-input-row input{
+	font-size: 13px;
+}
+.mui-checkbox label{
+	height: 40px;
+}
+/*底部样式*/
+.foot{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+	text-align: center;
+}
+.foot .mui-btn{
+	background-color: #0B88F7;
+	color:white;
+	height: 50px;
+	width: 100%;
+	font-size: 18px;
+}
+/*底部样式*/
+#showCityPicker3{
+	text-align: left !important;
+	line-height: 25px;
+	font-size: 13px;
+	color: #999999;
+}
+#showCityPicker3:active{
+	background-color: white;
+}
+input{
+	color: #999999;
+}
+

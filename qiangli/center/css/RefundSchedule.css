@@ -1,0 +1,207 @@
+html,body{
+	background-color: white;
+}
+/*退款进度条样式*/
+.schedulBox {
+	position: relative;
+	margin-top: 45px;
+	width: 100%;
+	height: 7rem;
+	color: white;
+}
+.progressBar{
+	position: relative;
+	text-align: center;
+}
+.schedulBox>div{
+	width: 90%;
+	margin: 0 auto;
+	font-size: .9rem;
+}
+.progressIcon{
+	font-size: 1.5rem;
+	display: inline-block;
+	width: 1.5rem;
+	height: 1.5rem;
+	border-radius: 50%;
+	border: 1px solid #999999;
+}
+.submitted{
+	float: left;
+	margin-top: 25px;
+	margin-left: 25px;
+	color: #0067E6;
+}
+.submitted .progressIcon{
+	color: #0067E6;
+	border: 1px solid #0067E6;
+}
+.submitted a{
+	color: #0067E6;
+}
+.completed{
+	float: right;
+	margin-top: 25px;
+	margin-right: 25px;
+}
+.ongoing{
+	display: inline-block;
+	margin: 0 auto;
+	margin-top: 25px;
+}
+.connecting{
+	position: absolute;
+	display: inline-block;
+	height: 1px;
+	width: calc((50% - 25px) - 2.85rem);
+	background-color: #999999;
+}
+.connecting1{
+	top: calc(25px + .75rem);
+	left: calc(25px + 2.1rem);
+	background-color: #0067E6;
+}
+.connecting2{
+	top: calc(25px + .75rem);
+	right: calc(25px + 2.1rem);
+}
+/*进度条结束*/
+.userInfo{
+	border-top: 1px solid #EEEEEE;
+	height: 6rem;
+}
+.infoIcon{
+	display: inline-block;
+	width: 3rem;
+	height: 3rem;
+	border-radius: 50%;
+	text-align: center;
+	background-color: rgba(30,144,255,0.5);
+	margin-top: 1.5rem;
+	margin-left: 2rem;
+	float: left;
+}
+.mui-icon-location{
+	font-size: 1.5rem;
+	line-height: 3rem;
+	color: cornflowerblue;
+}
+.info{
+	display: inline-block;
+	margin-top: 1.5rem;
+	margin-left: 1rem;
+	float: left;
+}
+
+li{
+	list-style: none;
+}
+.contentList{
+	border-top: 5px solid #EEEEEE;
+}
+.mui-input-row {
+	font-size: .95rem;
+	position: relative;
+	height: 7rem;
+}
+.mui-card-footer:before, .mui-card-header:after{
+	content: none;
+}
+.order-card{
+	position: relative;
+	line-height: 0;
+	background-color: #EEEEEE;
+	margin:0 15px;
+	padding:10px;
+}
+.order-card img{
+	width: 30vw;
+}
+.orders{
+	position: absolute;
+	top:10px;
+	left: 30vw;
+	right: 5px;
+	padding-left: 20px;
+	overflow: hidden ;
+	display: -webkit-box ;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical ;
+	word-break: break-all ;
+	line-height: 21px;
+	color:#333333;
+	font-size: 15px;
+}
+.orders p{
+	color:#333333;
+	font-size: 15px;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	line-clamp: 4;
+	-webkit-box-orient: vertical;
+	line-height: 21px;
+}
+.mui-card-header{
+	background-color: #ffffff;
+	overflow: hidden;
+}
+.mui-card-header span{
+	margin-left: 10px;
+	display: inline-block;
+	color: darkslategrey;
+	font-size: .95rem;
+	text-align: left;
+	padding-top: .25rem;
+	float: left;
+}
+.mui-card-header img{
+	height: 1.5rem;
+	width: 1.5rem;
+	float: left;
+}
+.mui-card-footer{
+	background-color: #ffffff;
+}
+.cardFooter{
+	width: 100%;
+}
+.moneyType{
+	width: 100%;
+}
+.mui-card-footer p{
+	display: block;
+	width: 100%;
+}
+.title{
+	color: #333333;
+	font-size: 14px;
+}
+.content{
+	float: right;
+}
+.addMoney{
+	border-top: 1px solid #EEEEEE;
+	padding-left: 15px;
+}
+.addMoney p{
+	margin: 0;
+}
+.addMoney .content{
+	line-height: 2.5rem;
+	padding-right: 15px;
+}
+.payNeed{
+	font-size: 16px;
+	line-height: 2.5rem;
+}
+.orderMsg{
+	border-top: 5px solid #EEEEEE;
+	padding-top: 15px;
+}
+.msgTitle{
+	margin-left: 15px;
+	margin-right: 5px;
+}

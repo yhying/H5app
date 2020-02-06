@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>拼团</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/groupShop.css"/>
+		<script src="../js/jquery-2.1.3.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">拼团</h1>
+		</header>
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<div class="group-box">
+					<div class="group-list">
+						<div class="group-img">
+							<img src="../images/shop11.png" alt="" />
+						</div>
+						<div class="box outer">
+							<div class="group-data1">
+								强力巨彩 Q1.66 Pro室内全彩led显示屏广告屏LED大屏幕定制 整屏
+							</div>
+							<div class="group-data2">
+								<span></span>
+								<span>2人拼</span>
+							</div>
+							<div class="store-num">
+		                		<div class="num1-t1">￥26600 <div class="num1-t2">￥33250</div></div>
+		                		<div class="num1-t3">已售5936件</div>
+			               </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					up: {
+						auto:true,//可选,默认false.自动上拉加载一次
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}
+				}
+			});
+			var count = 1;//数据页数
+			var isture = false;//是否继续上拉加载
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pullupRefresh() {
+				setTimeout(function() {
+					console.log('上拉加载');
+					//获取数据函数
+					getGroupData(count);
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(isture);//参数为true代表没有更多数据了。
+					console.log(count);
+				}, 1500);
+			}
+			mui('.group-box').on('tap','.group-list',function(){
+				let id = this.getAttribute('data-id');
+				let type = 1;
+				console.log(id);
+				mui.openWindow({
+					url:'shopDetail.html?id='+id+'&type='+type
+				})
+			})
+			
+			/*
+			 * 获取拼团数据函数：getGroupData
+			 * page:页数
+			 */
+			function getGroupData(page){
+				mui.ajax(baseUrl + '/api/pintuan/home/get_more_products',{
+					data:{
+						page:page
+					},
+					dataType:'json',
+					type:'post',
+					timeout:'10000',
+					headers:{
+						'Api-Token':'xx'
+					},
+					success:function(data){
+						console.log(JSON.stringify(data));
+						//数据访问成功
+						if(data.code == 1000){
+							if(data.data){
+								isture = false;
+								count++;
+								//执行渲染函数
+								renderGroup(data.data);
+							}else{
+								isture = true;
+							}
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理
+						console.log(type);
+					},
+				})
+			}
+			/*
+			 * 数据渲染函数:render_group_data
+			 * data：渲染数据
+			 */
+			function renderGroup(data) {
+				if(data){
+					mui.each(data,function(index,item){
+						let html = `
+							<div class="group-list" data-id="${item.id}">
+								<div class="group-img">
+									<img src="${item.default_imgurl}" alt="" />
+								</div>
+								<div class="box outer">
+									<div class="group-data1">
+										${item.name}
+									</div>
+									<div class="group-data2">
+										<span></span>
+										<span>${item.group_num}人拼</span>
+									</div>
+									<div class="store-num">
+				                		<div class="num1-t1">￥${item.single_price} <div class="num1-t2">￥${item.original_price}</div></div>
+				                		<div class="num1-t3">已售${item.virtual_sales}件</div>
+					               </div>
+					            </div>
+							</div>
+						`
+						$(".group-box").append(html);
+					})
+				}
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,385 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/topandfoot.css" />
+		<!--头部和底部样式-->
+		<link rel="stylesheet" type="text/css" href="css/chat.css" />
+	</head>
+
+	<body>
+		<header class="top">
+			<div class="mui-input-row mui-search">
+				<div class="search">
+					<img src="images/search1.png" alt="" />
+					<span>搜索LED</span>
+				</div>
+			</div>
+			<div class="top-r">
+				<img src="images/tp.png" alt="" />
+				<div>一键调屏</div>
+			</div>
+		</header>
+		<div style="height: 55px;"></div>
+		<!--导航-->
+		<div class="navbox">
+			<div class="navbox-t navbox-change">推荐</div>
+			<div class="navbox-t">常用</div>
+			<div class="navbox-t">关注</div>
+			<div class="navbox-t">热点</div>
+			<i class="mui-icon mui-icon-arrowdown shownav"></i>
+			<div class="navbox-child">
+				<div class="navbox-row">
+					<div class="navbox-item">
+						<div class="border">
+							热点
+						</div>
+					</div>
+					<div class="navbox-item">
+						<div class="border">
+							健康
+						</div>
+					</div>
+					<div class="navbox-item">
+						<div class="border">
+							问答
+						</div>
+					</div>
+					<div class="navbox-item">
+						<div class="border">
+							科技
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--导航-->
+		<!--轮播图-->
+		<div id="slider" class="mui-slider">
+			<div class="mui-slider-group mui-slider-loop sliderImg">
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="images/banner1.jpg" />
+					</a>
+				</div> 
+				<!-- 第一张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="images/banner1.jpg" />
+					</a>
+				</div>
+				<!-- 第二张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="images/banner1.jpg" />
+					</a>
+				</div>
+				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="images/banner1.jpg" />
+					</a>
+				</div>
+			</div>
+			<div class="mui-slider-indicator slidePoint">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+			</div>
+		</div>
+		<!--<div class="mui-slider">
+		  	<div class="mui-slider-group">
+			    <div class="mui-slider-item"><img src="images/banner1.jpg" /></div>
+			    <div class="mui-slider-item"><img src="images/banner1.jpg" /></div>
+		  	</div>
+		</div>-->
+		<!--轮播图结束-->
+		<div class="countNum">
+			30个话题
+		</div>
+		<!--聊吧数据列表-->
+		<div class="chat-box">
+			<div class="chat-list">
+				<div class="chat-list-img">
+					<img src="images/未标题-4-02.jpg" alt="" />
+				</div>
+				<div class="chat-list-title">
+					绿色环保、图解实用垃圾分类
+				</div>
+				<div class="chat-list-bottom">
+					<div class="like">
+						<img src="images/chat-4-1.png" alt="" />
+						<p>点赞</p>
+					</div>
+					<div class="heat">
+						<img src="images/chat-4-2.png" alt="" />
+						<p>385</p>
+					</div>
+					<div class="comment">
+						<img src="images/chat-4-3.png" alt="" />
+						<p>评论</p>
+					</div>
+					<div class="share">
+						<img src="images/chat-4-4.png" alt="" />
+						<p>分享</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--聊吧数据列表结束-->
+		<div style="height: 50px;"></div>
+		<footer class="foot">
+			<div class="foot-list" data-page="index.html">
+				<img src="images/home.png" alt="" />
+				<p>首页</p>
+			</div>
+			<div class="foot-list" data-page="shop.html">
+				<img src="images/shop.png" alt="" />
+				<p>商城</p>
+			</div>
+			<div class="foot-list" data-page="repository.html">
+				<img src="images/knowledge.png" alt="" />
+				<p>知识库</p>
+			</div>
+			<div class="foot-list" data-page="chat.html">
+				<img src="images/talk1.png" alt="" />
+				<p class="actionp">聊吧</p>
+			</div>
+			<div class="foot-list" data-page="my.html">
+				<img src="images/my.png" alt="" style="height: 22px;width: 18px;" />
+				<p>我的</p>
+			</div>
+		</footer>
+		<script src="js/jquery-2.1.3.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script type="text/javascript">
+			mui.init()
+			//创建蒙版
+			var mask = mui.createMask(); //callback为用户点击蒙版时自动执行的回调；
+			//获得slider插件对象
+			//		var gallery = mui('.mui-slider');
+			//		gallery.slider({
+			//		  	interval:3000//自动轮播周期，若为0则不自动播放，默认为0；
+			//		});
+			mui("#slider").slider({
+				interval: 3000
+			});
+			mui('.foot').on('tap', '.foot-list', function(e) {       
+				var targetTab = this.getAttribute('data-page');
+				mui.openWindow({
+					url: targetTab
+				});     
+			});
+//			进入首页执行渲染页面函数
+			(function(){
+				mui.ajax(baseUrl + '/api/talkbar/home/index', {
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Api-Token': 'xx'
+					},
+					data: {
+						column_id: 1,
+						page: 1
+					},
+					success: function(data) {
+						//获取数据成功
+						if(data.code == 1000) {
+							let column_list = data.data.column_list;
+							render_column_list(column_list);   //执行渲染栏目数据函数
+							render_Index_Data(data.data);      //执行渲染首页数据函数
+						} else {
+
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			})()
+			/*
+			 * 首页数据渲染函数
+			 * 
+			 */
+			function render_Index_Data(data) {
+				//内容
+				let datas = data.topics_list[0]
+				//轮播图
+				let slides = data.slide_list
+				$('.chat-box').html('');
+				let inner = ""
+				let innerslides = ""
+				let slidePoint = ""
+				$(".countNum").text(data.count_num + "个话题")
+//				渲染轮播图
+				mui.each(slides, function(index, item) {
+					if(index == 0){
+						slidePoint += `<div class="mui-indicator mui-active"></div>`
+					}else{
+						slidePoint += `<div class="mui-indicator"></div>`
+					}
+					//第一张图片前加一个最后一张图片的节点
+					if(index == 0){
+						let lastIndex = slides.length-1
+						innerslides+=`<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="${slides[lastIndex].imgurl}" />
+					</a>
+				</div> `
+					}
+					innerslides+=`<div class="mui-slider-item">
+					<a href="#">
+						<img src="${item.imgurl}" />
+					</a>
+				</div>`
+				//最后一张图片后加一个第一张图片的节点
+					if(index == slides.length-1){
+						innerslides+=`<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="${slides[0].imgurl}" />
+					</a>
+				</div>`
+					}
+				});
+				$(".sliderImg").html(innerslides)
+				$(".slidePoint").html(slidePoint)
+				
+//				渲染内容
+				mui.each(datas, function(index, item) {
+					let img = '';
+					if(item.videourl){
+						img = `<video src="${item.videourl}" type="video/mp4" controls>
+					                	抱歉，你的浏览器不支持video标签。。
+					                </video>`
+					}
+					else{
+						img = `<img src="${item.cover_imgurl}" alt="" />`
+					}
+					inner += `<div class="chat-list contentList" data-id="${item.id}">
+				<div class="chat-list-img">
+					${img}
+				</div>
+				<div class="chat-list-title">
+					${item.topics_title}
+				</div>
+				<div class="chat-list-bottom">
+					<div class="like">
+						<img src="images/chat-4-1.png" alt="" />
+						<p>点赞</p>
+					</div>
+					<div class="heat">
+						<img src="images/chat-4-2.png" alt="" />
+						<p>${item.click_num}</p>
+					</div>
+					<div class="comment">
+						<img src="images/chat-4-3.png" alt="" />
+						<p>评论</p>
+					</div>
+					<div class="share">
+						<img src="images/chat-4-4.png" alt="" />
+						<p>分享</p>
+					</div>
+				</div>
+			</div>`
+				})
+				$('.chat-box').html(inner);
+			};
+			
+			//				渲染栏目数据方法
+			//				value:渲染数据
+			function render_column_list(data) {
+				$(".navbox").html('');
+				let div = '';
+				if(data.length <= 4) {
+					//如果数组长度小于4
+					for(let i = 0; i < data.length; i++) {
+						if(i == 0) {
+							div = "<div class='navbox-t navbox-change' data-id=" + data[i].id + ">" + data[i].name + "</div>";
+						} else {
+							div = "<div class='navbox-t' data-id=" + data[i].id + ">" + data[i].name + "</div>";
+						}
+						$(".navbox").append(div);
+					}
+					$(".navbox").css('padding', "5px 5px 5px 5px");
+				} else if(data.length > 4) {
+					for(let i = 0; i < 4; i++) {
+						if(i == 0) {
+							div = "<div class='navbox-t navbox-change' data-id=" + data[i].id + ">" + data[i].name + "</div>";
+						} else {
+							div = "<div class='navbox-t' data-id=" + data[i].id + ">" + data[i].name + "</div>";
+						}
+						$(".navbox").append(div);
+					}
+					let i = '<i class="mui-icon mui-icon-arrowdown shownav"></i>';
+					$(".navbox").append(i);
+					let box = '<div class="navbox-child"><div class="navbox-row"></div></div>';
+					$(".navbox").append(box);
+					for(let i = 4; i < data.length; i++) {
+						let navboxItem = '<div class="navbox-item"><div class="border" data-id="+data[i].id+">' + data[i].name + '</div></div>';
+						$(".navbox-row").append(navboxItem);
+					}
+				}
+			};
+
+			//点击头部导航选项
+			mui('body').on('tap', '.navbox-t', function() {
+				$(this).addClass("navbox-change").siblings().removeClass("navbox-change");
+				$(".navbox-item").children().removeClass('navbox-active');
+				//关闭更多下拉框和蒙版
+				$('.navbox-child').attr('class', 'navbox-child');
+				$('.navbox-child').css('height', "0");
+				mask.close(); //关闭遮罩
+			});
+			//点击显示更多导航下拉框
+			mui('.navbox').on('tap', '.shownav', function(e) {
+				console.log($('.navbox-child').attr('class'));
+				if($('.navbox-child').attr('class') == 'navbox-child') {
+					$('.navbox-child').attr('class', 'navbox-child navbox-child-show')
+					$('.navbox-child').css('height', $('.navbox-row').innerHeight() + "px");
+					mask.show(); //显示遮罩
+					console.log($('.navbox-row').innerHeight() + "px");
+				} else {
+					$('.navbox-child').attr('class', 'navbox-child');
+					$('.navbox-child').css('height', "0");
+					mask.close(); //关闭遮罩
+				}     
+			});
+			//点击更多导航按钮
+			mui('.navbox-item').on('tap', 'div', function() {
+				console.log(this.innerText);
+				$(".navbox-item").children().removeClass('navbox-active')
+				$(this).addClass("navbox-active");
+				//关闭更多下拉框和蒙版
+				$(".navbox-t").removeClass('navbox-change');
+				$('.navbox-child').attr('class', 'navbox-child');
+				$('.navbox-child').css('height', "0");
+				mask.close(); //关闭遮罩
+			});
+			//点击遮罩蒙版
+			mui('body').on('tap', '.mui-backdrop', function(e) {
+				console.log('点击了蒙版');
+				$('.navbox-child').attr('class', 'navbox-child')
+				$('.navbox-child').css('height', "0");
+				mask.close(); //关闭遮罩
+			});
+			
+			mui('.chat-box').on('tap', '.contentList ', function(e) {
+				let id = this.getAttribute('data-id');
+					mui.openWindow({
+						url: 'chatDetail.html?page=' + 'chat.html&article_id=' + id +'&type=0'
+					});
+			});
+		</script>
+	</body>
+
+</html>

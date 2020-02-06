@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>服务商</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/serviceProvider_msg.css" />
+		<script src="../js/jquery-2.1.3.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">服务商</h1>
+		</header>
+		<div class="navbox">
+			<div class="navbox-list navbox-change">
+				<div class="title">
+					群消息
+				</div>
+
+				<div id="groupMessage" class="content">这是群消息页面</div>
+			</div>
+			<div class="navbox-list ">
+				<div class="title">
+					平台消息
+				</div>
+				<div id="platformMessage" class="content">这是平台消息页面</div>
+			</div>
+			<div class="navbox-list ">
+				<div class="title">
+					我的资料
+				</div>
+				<div id="myProfile" class="content">
+					<div class="myProfileBox">
+						<div class="navbox_list navbox-change">
+							<div class="title">
+								案例
+							</div>
+
+							<div id="case" class="myProfileContent navbox-change">
+								<div class="mui-card">
+									<!--页眉，放置标题-->
+									<!--<div class="mui-card-header">技术|LED显示屏不得不知道的老化常识</div>-->
+									<!--内容区-->
+									<div class="mui-card-content">
+										<div class="cardTitle">
+											技术|LED显示屏不得不知道的老化常识技术|LED显示屏不得不知道的老化常识
+										</div>
+										<img src="../images/news3.jpg" />
+										<div class="cardTime">
+											2019-06-25&#x3000;19:20
+										</div>
+									</div>
+									<!--页脚，放置补充信息或支持的操作-->
+									<div class="mui-card-footer">
+										<div class="cardFooter">
+											技术|LED显示屏不得不知道的老化常识技术|LED显示屏不得不知道的老化常识
+											<div class="footerTime">
+											2019-06-25&#x3000;19:20
+										</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="navbox_list">
+							<div class="title">
+								门店
+							</div>
+
+							<div id="store" class="myProfileContent ">
+								<div class="mui-card storeCard">
+									<div class="mui-card-content ">
+										<div class="cardTitle">
+											技术|LED显示屏不得不知道的老化常识技术|LED显示屏不得不知道的老化常识
+										</div>
+										<div class="cardTime">
+											2019-06-25&#x3000;19:20
+										</div>
+									</div>
+								</div>
+								<div class="mui-card storeCard">
+									<div class="mui-card-content ">
+										<div class="cardTitle">
+											技术|LED显示屏不得不知道的老化常识
+										</div>
+										<div class="cardTime">
+											2019-06-25&#x3000;19:20
+										</div>
+									</div>
+								</div>
+								<div class="mui-card storeCard">
+									<div class="mui-card-content ">
+										<div class="cardTitle">
+											技术|LED显示屏不得不知道的老化常识
+										</div>
+										<div class="cardTime">
+											2019-06-25&#x3000;19:20
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		//头部导航点击切换
+		mui('body').on('tap', '.navbox-list ', function() {
+			$(this).addClass("navbox-change").siblings().removeClass("navbox-change");
+			$(".content").css("display", "none")
+			$(this).children().css("display", "block");
+		});
+//		我的资料子导航栏点击切换
+		mui('body').on('tap', '.navbox_list ', function() {
+			$(this).addClass("navbox-change").siblings().removeClass("navbox-change");
+			$(".myProfileContent").css("display","none")
+			$(this).children().css("display", "block");
+		});
+	</script>
+
+</html>

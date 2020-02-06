@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>用户评价</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/comment.css" />
+		<script src="../js/jquery-2.1.3.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">用户评价</h1>
+		</header>
+		<div class="mui-content">
+			<div class="list">
+				<div class="list-top">
+					<img src="../images/user_img.png" alt="" />
+					<span>流川枫</span>
+				</div>
+				<div class="list-main">
+					暂时好评吧，没调试好，屏播放画面是反的，调试好再追评吧
+				</div>
+				<div class="list-time">
+					2019年07月19日 13:28
+				</div>
+			</div>
+			<div class="list">
+				<div class="list-top">
+					<img src="../images/user_img.png" alt="" />
+					<span>流川枫</span>
+				</div>
+				<div class="list-main">
+					暂时好评吧，没调试好，屏播放画面是反的，调试好再追评吧
+				</div>
+				<div class="list-time">
+					2019年07月19日 13:28
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			$('title').html('详情');
+			const token = localStorage.getItem('Token');
+			
+			//接收地址参数
+			var Request = new Object();
+			Request = GetRequest();
+			var shopId;//获取商品id和属性
+			shopId = Request["pid"];
+
+			//判断商品是：0普通商品，1拼团商品，2限时商品
+			console.log('接收商品id：'+shopId);
+	
+			getComment(shopId);
+			/*
+			 * 评价数据获取接口：function
+			 */
+			function getComment(pid){
+				mui.ajax(baseUrl + '/api/mall/product_evaluations',{
+					data:{
+						pid:pid
+					},
+					dataType:'json',
+					type:'get',
+					timeout:'10000',
+					headers:{
+						'Api-Token':'xx'
+					},
+					success:function(data){
+						console.log(JSON.stringify(data));
+						//数据访问成功
+						if(data.code == 1000){
+							//获取数据
+							renderComment(data.data);
+						}
+						if(data.code == 10001){
+							let btnArray = ['否', '是'];
+							mui.confirm('登录已过期，请重新登录','提示',btnArray,function(e){
+								if (e.index == 1) {
+									mui.openWindow({
+										url:'../login.html'
+									})
+								} else {
+									mui.openWindow({
+										url:'../login.html'
+									})
+								}
+							})
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理
+						console.log(type);
+					},
+				})
+			}
+			/*
+			 * 渲染评价列表函数：renderComment
+			 */
+			function renderComment(data){
+				if(data){
+					mui.each(data,function(index,item){
+						let html =`
+							<div class="list" data-id="${item.id}" data-user_id="${item.id}">
+								<div class="list-top">
+									<img src="${item.avatar}" alt="" />
+									<span>${item.nickname}</span>
+								</div>
+								<div class="list-main">
+									${item.discuss}
+								</div>
+								<div class="list-time">
+									${item.createtime}
+								</div>
+							</div>
+						`;
+						$('.mui-content').append(html);
+					})
+				}
+			}
+		</script>
+	</body>
+</html>

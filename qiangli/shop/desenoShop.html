@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>限时抢购</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/desenoShop.css"/>
+		<script src="../js/jquery-2.1.3.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+	</head>
+	<style type="text/css">
+		/*Android平台使用父子webview，因此需要修改顶部进度条的显示位置*/
+		.mui-plus.mui-android>.mui-progressbar{
+			top:0
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">限时抢购</h1>
+		</header>
+		<div style="height: 44px;"></div>
+			<div class="toptab" id="framTime-box">
+				<li data-time="24">
+					<span>10:00</span>
+					<div>即将开场</div>
+				</li>
+				<li data-time="24">
+					<span>24:00</span>
+					<div>即将开场</div>
+				</li>
+				<li data-time="24">
+					<span>24:00</span>
+					<div>即将开场</div>
+				</li>
+				<li data-time="24">
+					<span>24:00</span>
+					<div>即将开场</div>
+				</li>
+				<li>
+					<span>24:00</span>
+					<div>即将开场</div>
+				</li>
+			</div>
+		<!--下拉刷新容器-->
+		<div></div>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<div class="count" style="display: none;">
+					<!--距离开抢时间 01:30:00-->
+				</div>
+				<div class="deseno">
+					<!--<div class="deseno-list">
+						<div class="group-img">
+							<img src="../images/shop11.png" alt="" />
+						</div>
+						<div class="group-data">
+							<div class="group-data1">
+								强力巨彩 Q1.66 Pro室内全彩led显示屏广告屏LED大屏幕定制 整屏
+							</div>
+							<div class="group-data2">
+								<div class="mui-progressbar plan1">
+									<span></span>
+									<a>20%</a>
+								</div>
+								<span class="snapUp">已抢1203件</span>
+							</div>
+							<div class="store-num">
+								<div class="num1-t1">￥26600 <div class="num1-t2">￥33250</div></div>
+								<button class="num1-t3">马上抢&nbsp;&nbsp;<i></i></button>
+						    </div>
+						</div>
+					</div>
+					<div class="deseno-list">
+						<div class="group-img outer">
+							<img src="../images/shop11.png" alt="" />
+						</div>
+						<div class="group-data outer">
+							<div class="group-data1">
+								强力巨彩 Q1.66 Pro室内全彩led显示屏广告屏LED大屏幕定制 整屏
+							</div>
+							<div class="group-data2">
+								<div class="mui-progressbar plan2"  style="background: #999999;>
+									<span  style="background: #999999;></span>
+									<a>已抢完</a>
+								</div>
+								<span class="snapUp">已抢1203件</span>
+							</div>
+							<div class="store-num">
+								<div class="num1-t1">￥26600 <div class="num1-t2">￥33250</div></div>
+								<button class="num1-t3" style="background: #999999;" disabled>已抢完</button>
+						    </div>
+						</div>
+					</div>-->
+				</div>
+			</div>
+		</div>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init({
+			  pullRefresh : {
+			    container:'#pullrefresh',//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+			    container: '#pullrefresh',
+				up: {
+					auto: false, //可选,默认false.自动上拉加载一次
+					contentrefresh: '正在加载...',
+					contentnomore: '没有更多数据了',
+					callback: pullupRefresh
+				}
+			  }
+			});
+			var FramTime;//定义时间段数组
+			/*
+			 * 上拉加载具体业务实现
+			 */
+			var count = 1;
+			function pullupRefresh() {
+				setTimeout(function() {
+					console.log(1);
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(count++);
+//					mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+				}, 1000);
+			}
+			var intervalId = null;//倒计时变量
+			var navText = '';
+			//点击顶部时间段导航栏
+			mui('#framTime-box').on('tap','li',function(){
+				window.clearInterval(intervalId);
+				let id = this.getAttribute('data-id');//获取时间段id
+				let end = this.getAttribute('data-time');//当前时间段
+				navText = $(this).children().eq(1).html();//内容
+//				console.log(this.getAttribute('data-t'));//结束时间
+				count = 1;//初始化页数
+				getDeseno(id,count);//获取数据
+				$(this).addClass("navbox-change").siblings().removeClass("navbox-change");
+				if($(this).children().eq(1).html() == '即将开场'){
+					$('.count').show();
+					intervalId = setInterval(function () {
+			      		countDown(end);
+			    	}, 1000);
+				}else{
+					$('.count').hide();
+				}
+			});
+			//点击进入详情页
+			mui('.deseno').on('tap','.group-data',function(){
+				event.stopPropagation();//防止事件冒泡
+				let id = this.getAttribute('data-id');
+				if(id){
+					let type = 2;
+					mui.openWindow({
+						url:'shopDetail.html?id='+id+'&type='+type
+					})
+				}
+			});
+			//点击抢购
+			mui('.deseno').on('tap','.num1-t3',function(){
+				event.stopPropagation();//防止事件冒泡
+				console.log('抢购');
+			});
+			/*
+			 * 获取限时时间段数据函数：getTimeData
+			 */
+			getTimeData();
+			function getTimeData(){
+				mui.ajax(baseUrl + '/api/mall/seckill/time_list',{
+					dataType:'json',
+					type:'post',
+					timeout:'10000',
+					headers:{
+						'Api-Token':'xx'
+					},
+					success:function(data){
+						console.log(JSON.stringify(data));
+						//数据访问成功
+						if(data.code == 1000){
+							//获取数据
+							GetFramTime(data.data);
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理
+						console.log(type);
+					},
+				})
+			}
+//			/*
+//			 * 获取限时抢购数据函数：getGroupData
+//			 * time_id:时间段id
+//			 * pageNum：页数
+//			 */
+//			function getGroupData(time_id,pageNum){
+//				
+//			}
+			//获取秒杀时间段
+			function GetFramTime (FramTime){
+				console.log(JSON.stringify(FramTime));
+//				var FramTime = new Array(10,12,14,16);
+				let box = document.getElementById('framTime-box');
+				box.innerHTML = '';
+				for(let i = 0;i<FramTime.length;i++){
+//					console.log(FramTime[i].start_time);
+					var li = document.createElement("li");
+					li.setAttribute('data-time',FramTime[i].start_time);
+					li.setAttribute('data-id',FramTime[i].id);
+					// 获取当前时间段的具体时间
+					let now = new Date()//获取当前时间
+					let y = now.getFullYear(); //获取年份
+					let Month = now.getMonth()+1; //获取当前月份
+					if(Month <10){
+						Month = '0' + Month;
+					}
+					let d = now.getDate(); //获取当前日
+					if(d <10){
+						d = '0' + d;
+					}
+					let h = FramTime[i].start_time *1+FramTime[i].during_time*1;
+					let datas = y + '-' + Month + '-' + d + ' ' + h + ':' + '00' + ':' + '00';
+					li.setAttribute('data-t',datas);
+					box.appendChild(li);
+					let span = document.createElement("span");
+					let node = document.createTextNode(FramTime[i].start_time+':00');
+					span.appendChild(node);
+					li.appendChild(span);
+					//判断活动是否开始
+					compare(li,FramTime[i].start_time,FramTime[i].during_time);
+					//判断活动是否开始结束
+				}
+			}
+			/*
+			 * 判断活动状态函数：compare
+			 * li：盒子
+			 * num：时间段
+			 * during_time：时差
+			 */
+			function compare (li,num,during_time){
+				//定义两个数相差值
+				let minus = during_time * 3600;
+				//获取时段大小
+				let framH = num * 3600;//获取时间段秒数
+				let myDate = new Date();
+				//获取当前小时数(0-23)
+				let nowH = myDate.getHours();
+				let nowM = myDate.getMinutes();
+				let nowS = myDate.getSeconds();
+				//获取当前时间秒数
+				let nowSize = nowH * 3600 + nowM * 60 + nowS;
+				//时间段秒数减去当前时间秒数
+				let TimeMinus = framH - nowSize;
+				let a = TimeMinus + minus;
+				
+				if(TimeMinus > 0 && a > 0){
+					let p = document.createElement('div');
+					let pnode = document.createTextNode('即将开场');
+					p.appendChild(pnode);
+					li.appendChild(p);
+				}
+				else if(TimeMinus < 0 && a < 0){
+					let p = document.createElement('div');
+					let pnode = document.createTextNode('已结束');
+					p.appendChild(pnode);
+					li.appendChild(p);
+				}
+				else{
+					let p = document.createElement('div');
+					let pnode = document.createTextNode('抢购进行中');
+					p.appendChild(pnode);
+					li.appendChild(p);
+					li.className = 'navbox-change';
+					let time_id = li.getAttribute('data-id');
+					getDeseno(time_id,1);
+				}
+			}
+			//获取秒杀时间段结束
+			
+			/*
+			 * 获取商品列表函数：getDeseno
+			 * time_id:时间id
+			 * pageNum:页数
+			 */
+			function getDeseno(time_id,pageNum){
+				mui.ajax(baseUrl + '/api/mall/seckill/seckill_list',{
+					data:{
+						time_id:time_id,
+						pageNum:pageNum
+					},
+					dataType:'json',
+					type:'post',
+					timeout:'10000',
+					headers:{
+						'Api-Token':'xx'
+					},
+					success:function(data){
+						console.log(JSON.stringify(data.data));
+						//数据访问成功
+						if(data.code == 1000){
+							//获取数据
+							renderDeseno(data.data,navText);
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理
+						console.log(type);
+					},
+				})
+			}
+			/*
+			 * 商品渲染函数：renderDeseno
+			 * data:商品数据
+			 * navText：点击的时间段内容
+			 */
+			function renderDeseno(data,navText){
+				console.log('执行渲染函数');
+				console.log(JSON.stringify(data));
+				if(data){
+					$('.deseno').html('');
+					mui.each(data,function(index,item){
+						let html = `
+							<div class="deseno-list">
+								<div class="group-img">
+									<img src="${item.default_imgurl}" alt="" />
+								</div>
+								<div class="group-data" data-id="${item.id}">
+									<div class="group-data1">
+										${item.name}
+									</div>
+									<div class="group-data2">`;
+										//计算百分比
+										let percent = GetPercent(item.sell_count,item.storenum);
+										
+										if(percent < 100){//商品未售完
+											html+=`<div class="mui-progressbar plan${index}">
+												<span></span>
+												<a>${percent}%</a>
+											</div>`;
+											html+=`<span class="snapUp">已抢${item.sell_count}件</span>
+												</div>
+												<div class="store-num">
+													<div class="num1-t1">￥${item.now_price} 
+														<div class="num1-t2">￥${item.orgin_price}</div>
+													</div>`;
+													if(navText == '即将开场'){
+														html+=`<button class="num1-t3" style="background: #999999;" disabled>未开始</button>`;
+													}
+													else if(navText == '抢购进行中'){
+														html+=`<button class="num1-t3">马上抢<i></i></button>`;
+													}
+													else if(navText == '已结束'){
+														html+=`<button class="num1-t3" style="background: #999999;" disabled>已结束</button>`;
+													}
+											    html+=`</div>
+											</div>
+										</div>`;
+										}else{//商品未售完
+											html+=`<div class="mui-progressbar"  style="background: #999999;>
+												<span  style="background: #999999;></span>
+												<a>已抢完</a>
+											</div>`;
+											html+=`<span class="snapUp">已抢${item.sell_count}件</span>
+												</div>
+												<div class="store-num">
+													<div class="num1-t1">￥${item.now_price} 
+														<div class="num1-t2">￥${item.orgin_price}</div>
+													</div>`;
+													if(navText == '即将开场'){
+														html+=`<button class="num1-t3" style="background: #999999;" disabled>未开始</button>`
+													}
+													else if(navText == '抢购进行中'){
+														html+=`<button class="num1-t3" style="background: #999999;" disabled>已抢完</button>`;
+													}
+													else if(navText == '已结束'){
+														html+=`<button class="num1-t3" style="background: #999999;" disabled>已结束</button>`
+													}
+											    html+=`</div>
+											</div>
+										</div>`;
+										}
+						$('.deseno').append(html);
+						//初始化比例进度条
+						if(percent < 100){
+							mui('.plan'+index).progressbar({progress:percent}).show();
+						}
+					})
+				}
+				
+			}
+
+			/*
+			 * 获取百分比函数：GetPercent
+			 * num：当前数
+			 * total：总数
+			 */
+			function GetPercent(num, total) {
+			    num = parseFloat(num);
+			    total = parseFloat(total);
+			    if (isNaN(num) || isNaN(total)) {
+			        return "-";
+			    }
+			    return total <= 0 ? "0" : (Math.round(num / total * 10000) / 100.00);
+			}
+			/*
+			 * 倒计时函数：countDown
+			 * end:结束时间
+			 */
+			function countDown(end){
+				let nowTime = new Date();
+				let nowH = nowTime.getHours();//获取当前小时
+				let nowM = nowTime.getMinutes();//获取当前分
+				let nowS = nowTime.getSeconds();//获取当前秒
+				let nowSize = nowH * 3600 + nowM * 60 + nowS;//获取总秒数
+				let endSize = end * 3600;//获取时间段总秒数
+				let diff = endSize - nowSize;//获取时间差
+				//console.log('时间差：'+diff);
+				day = Math.floor(diff / (60 * 60 * 24));
+			    hour = Math.floor(diff / (60 * 60));
+			    minute = Math.floor(diff / 60) - (day * 24 * 60) - (hour * 60);
+			    second = Math.floor(diff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute *60);
+	            hour = checkTime(hour);
+	            minute = checkTime(minute);
+	            second = checkTime(second);//小于10的话加0
+        		$('.count').html('距离开抢时间：'+ hour + "：" + minute + "：" + second);
+        		if(diff <= 0){
+					// window.clearInterval(intervalId);
+				}
+			}
+			/*
+			 * checkTime
+			 */
+			function checkTime(i)
+	        {
+	            if (i < 10) {
+	                i = "0" + i;
+	            }
+	            return i;
+	        }
+		</script>
+	</body>
+</html>

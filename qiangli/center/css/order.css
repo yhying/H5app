@@ -1,0 +1,206 @@
+html,body{
+	background-color: #EFEFEF;
+}
+.mui-bar{
+	background-color: white;
+}
+.order-nav{
+	position: fixed;
+	width: 100%;
+	z-index: 5;
+	margin-top: 44px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+	height: 40px;
+	border-top: 5px solid #EFEFEF;
+	border-bottom: 1px solid #EFEFEF;
+	box-sizing: border-box;
+}
+
+.navbox-list {
+	text-align: center;
+	width: calc(100% / 6);
+	color: #333333;
+	font-size: 13px;
+	text-align: center;
+	line-height: inherit;
+	height: 100%;
+    line-height: 40px;
+}
+.navbox-change{
+	color:#0067E6;
+}
+.navbox-change>.title{
+	margin: 0 auto;
+}
+ul{
+	padding: 0;
+}
+.contentList{
+	border-top: 10px solid #EFEFEF;
+}
+.mui-input-row {
+	font-size: .95rem;
+	position: relative;
+	height: 7rem;
+}
+
+.mui-input-row img {
+	height: 5em;
+	margin-bottom: .5rem;
+	display: inline-block;
+	width: 30%;
+}
+.mui-card-footer:before, .mui-card-header:after{
+	content: none;
+}
+.order-card{
+	position: relative;
+	line-height: 0;
+	background-color: #EFEFEF;
+	margin:10px 15px;
+	padding:10px;
+	height: 100px;
+}
+.order-card img{
+	width: 30vw;
+	height: 100%;
+}
+.orders{
+	position: absolute;
+	top:10px;
+	left: 30vw;
+	right: 5px;
+	padding-left: 20px;
+	overflow: hidden ;
+	display: -webkit-box ;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical ;
+	word-break: break-all ;
+	line-height: 21px;
+	color:#333333;
+	font-size: 15px;
+}
+.orders p{
+	color:#333333;
+	font-size: 15px;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	line-clamp: 4;
+	-webkit-box-orient: vertical;
+	line-height: 21px;
+}
+.mui-card-header{
+	background-color: #ffffff;
+	overflow: hidden;
+}
+.mui-card-header span{
+	margin-left: 10px;
+	display: inline-block;
+	color: darkslategrey;
+	font-size: .95rem;
+	text-align: left;
+	padding-top: .25rem;
+	float: left;
+}
+.mui-card-header img{
+	height: 1.5rem;
+	width: 1.5rem;
+	float: left;
+}
+.mui-card-footer{
+	background-color: #ffffff;
+}
+.cardFooter{
+	width: 100%;
+}
+.actuallyPaid{
+	height: 40px;
+	line-height: 40px;
+	text-align: right;
+}
+.btnBox{
+	width: 100%;
+	text-align: right;
+}
+.btnBox button{
+	margin-right: 10px;
+	float: right;
+	width: 80px;
+}
+.btnBox button:nth-of-type(1){
+	margin-right: 0;
+}
+.goPay{
+	/* 标准语法 */
+	background: linear-gradient(to right, #1097FF, #2E82FB);
+	/* Safari */
+	background: -webkit-linear-gradient(left, #1097FF, #2E82FB);
+	/* Opera*/
+	background: -o-linear-gradient(right, #1097FF, #2E82FB);
+	/* Firefox*/
+	background: -moz-linear-gradient(right, #1097FF, #2E82FB);
+	color: white;
+}
+/*右箭头*/
+i{
+	display: inline-block;
+	width: 8px;
+    height: 8px;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    transform: rotate(45deg);
+    margin-bottom: 0.5vw;
+}
+/*右箭头结束*/
+.mui-scroll-wrapper{
+	padding-top: 0 !important;
+}
+.iscancel{
+	position: absolute;
+	right: 0;
+	font-size: 14px !important;
+	color: orangered !important;
+	text-align: right;
+	margin: 0;
+	padding: 0;
+}
+/* 弹出层 */
+.model{
+	background-color: #FFFFFF;
+}
+.model-title{
+	padding:3vw;
+	text-align: center;
+	color:#666666;
+}
+.payment{
+	height: 70px !important;
+}
+
+.payment:after {
+     height: 0 !important; 
+}
+.payment label img{
+	width: 10vw;
+	height: 10vw;
+	margin-right: 2vw;
+}
+.mui-checkbox label{
+	display: flex;
+	align-items: center;
+}
+.mui-checkbox input[type=checkbox]{
+	top:20px;
+}
+#picture{
+	position: fixed;
+	bottom: 0;
+	z-index: 999;
+}
+/* 弹出层结束 */

@@ -1,0 +1,42 @@
+.mui-bar{
+	background: -webkit-linear-gradient(left, #1097FF ,#2E82FB); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(right, #1097FF, #2E82FB); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(right, #1097FF, #2E82FB); /* Firefox 3.6 - 15 */
+	background: linear-gradient(to right, #1097FF , #2E82FB); /* 标准的语法 */
+}
+.mui-title{
+	color:#ffffff;
+}
+.mui-action-back{
+	color:#ffffff;
+}
+.list{
+	background-color: #FFFFFF;
+	padding:15px;
+	margin-bottom: 2vw;
+}
+.list-top{
+	display: flex;
+	align-items: center;
+}
+.list-top img{
+	width: 15vw;
+	height: 15vw;
+	border-radius: 50%;
+}
+.list-top span{
+	margin-left: 10px;
+	font-size: 16px;
+	color:#333333;
+}
+.list-main{
+	color:#666666;
+	font-size: 14px;
+	margin-top: 2vw;
+}
+.list-time{
+	margin-top: 2vw;
+	text-align: right;
+	font-size: 12px;
+	color:#999999;
+}

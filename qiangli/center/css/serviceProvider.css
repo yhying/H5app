@@ -1,0 +1,114 @@
+html,body{
+	font-size: 16px !important;
+}
+.mui-input-row {
+	font-size: .95rem;
+	background-color: white;
+	border-bottom: 2px solid whitesmoke;
+}
+		
+input::-webkit-input-placeholder {
+	/* placeholder颜色  */
+	color: #aab2bd;
+	font-size: .95rem;
+}
+#showCityPicker{
+	color: #aab2bd;
+	font-size: .95rem;
+}
+		
+.foot-btn {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	/*background-color: white;*/
+	/* 标准语法 */
+	background: linear-gradient(to right, #1097FF, #2E82FB);
+	/* Safari */
+	background: -webkit-linear-gradient(left, #1097FF, #2E82FB);
+	/* Opera*/
+	background: -o-linear-gradient(right, #1097FF, #2E82FB);
+	/* Firefox*/
+	background: -moz-linear-gradient(right, #1097FF, #2E82FB);
+}
+		
+.foot-btn button {
+	border: 0;
+	width: 100%;
+	height: 50px;
+	/* 标准语法 */
+	background: linear-gradient(to right, #1097FF, #2E82FB);
+	/* Safari */
+	background: -webkit-linear-gradient(left, #1097FF, #2E82FB);
+	/* Opera*/
+	background: -o-linear-gradient(right, #1097FF, #2E82FB);
+	/* Firefox*/
+	background: -moz-linear-gradient(right, #1097FF, #2E82FB);
+	color: white;
+}
+		
+.vassalageLable {
+	width: 47% !important;
+}
+		
+.vassalageText {
+	width: 53% !important;
+}
+		
+.page-list {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 15px;
+	padding-right: 8px;
+	height: 40px;
+	background-color: white;
+	margin-bottom: 1px;
+}
+		
+.page-list-l {
+	font-size: 15px;
+	color: #333333;
+}
+		
+.page-list-r .mui-icon {
+	color: #676767;
+	font-size: 18px;
+}
+.addimg{
+	font-size: 15px;
+	color: #333333 !important;
+	margin-top: 10px;
+	padding-left: 15px;
+}
+.addPicture{
+	width: 70vw;
+	height: 45vw;
+	margin: 0 auto;
+	background-image: url(../../images/camera.png);
+	background-size: 100% 100%;
+	margin-top: 50px;
+}
+.picture{
+	position: relative;
+	width: 70vw;
+	height: 45vw;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+.picture img{
+	width: 100%;
+	height: 100%;
+}
+.upload{
+	display: none;
+}
+.deleteBtn{
+	position: absolute;
+	font-size: 30px;
+	top: -15px;
+	right: -15px;
+}
+

@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>强力巨彩</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/my.css" />
+		<script src="js/jquery-2.1.3.min.js"></script>
+		<script src="js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<div class="my-top">
+			<img class="hint" src="images/my_hint.png" alt="" />
+			<img class="user-img" src="images/user_img.png" alt="" />
+			<div class="user-box">
+				<span class="log-out">点击登录/注册</span>
+				<div class="user-data">
+					<div class="user-name">那个男孩</div>
+					<div class="user-phone">159******099</div>
+				</div>
+			</div>
+			<div class="order-box">
+				<!--<h5 class="order">拼团订单<span class="mui-icon mui-icon-arrowright"></span></h5>-->
+				<h5 class="order">拼团订单<span class="mui-icon mui-icon-arrowright"></span></h5>
+				<h5 class="order">全部订单<span class="mui-icon mui-icon-arrowright"></span></h5>
+				<div class="order-list">
+					<div class="typeChange"><img src="images/my_order1.png" alt="" />待付款</div>
+					<div class="typeChange"><img src="images/my_order2.png" alt="" />待发货</div>
+					<div class="typeChange"><img src="images/my_order3.png" alt="" />待收货</div>
+					<div class="typeChange"><img src="images/my_order4.png" alt="" />已完成</div>
+					<div class="typeChange"><img src="images/my_order5.png" alt="" />售后</div>
+				</div>
+			</div>
+		</div>
+		<div style="height: 90px;"></div>
+		<div class="page-box">
+			<div class="page-list" data-page="vipApply.html">
+				<div class="page-list-l">VIP会员申请</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<div class="page-list" data-page="like.html">
+				<div class="page-list-l">点赞</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<div class="page-list" data-page="collect.html">
+				<div class="page-list-l">收藏</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<div class="page-list" data-page="address.html?page=center">
+				<div class="page-list-l">收货地址</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<div class="page-list" data-page="myFeedback.html">
+				<div class="page-list-l">我的反馈</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<div class="page-list" data-page="inform.html">
+				<div class="page-list-l">通知消息</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<div class="page-list" data-page="set.html">
+				<div class="page-list-l">系统设置</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>
+			<!--<div class="page-list" data-page = "login.html">
+				<div class="page-list-l">登录</div>
+				<div class="page-list-r"><span class="mui-icon mui-icon-arrowright"></span></div>
+			</div>-->
+		</div>
+		<div style="height: 50px;"></div>
+		<footer class="foot">
+			<div class="foot-list" data-page="index.html">
+				<img src="images/home.png" alt="" />
+				<p>首页</p>
+			</div>
+			<div class="foot-list" data-page="shop.html">
+				<img src="images/shop.png" alt="" />
+				<p>商城</p>
+			</div>
+			<div class="foot-list" data-page="repository.html">
+				<img src="images/knowledge.png" alt="" />
+				<p>知识库</p>
+			</div>
+			<div class="foot-list" data-page="chat.html">
+				<img src="images/talk.png" alt="" />
+				<p>聊吧</p>
+			</div>
+			<div class="foot-list" data-page="my.html">
+				<img src="images/my1.png" alt="" style="height: 22px;width: 18px;" />
+				<p class="actionp">我的</p>
+			</div>
+		</footer>
+
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			var token = localStorage.getItem('Token');
+			mui.plusReady(function() {
+				if(token) {
+					$('.user-data').css("display","block");
+					$('.log-out').css("display",'none')
+					mui.ajax(baseUrl + '/api/center/info', {
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							'Api-Token': token
+						},
+						success: function(data) {
+							if(data.code == 1000) {
+								contentShow(data.data);
+							} else {}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							mui.alert('请求超时');
+						}
+					});
+				} else {
+					$('.user-data').css("display","none");
+					$('.log-out').css("display",'block')
+				}
+
+			});
+
+			function contentShow(data) {
+				$('.user-name').text(data.nickname)
+				$('.user-phone').text(data.user_phone)  
+				$('.user-img').attr('src',data.avatar)
+			}
+
+			mui('.foot').on('tap', '.foot-list', function(e) {       
+				var targetTab = this.getAttribute('data-page');
+				mui.openWindow({
+					url: targetTab
+				});     
+			});
+			//跳转订单
+			mui('.order-box').on('tap', '.order', function() {
+//				window.localStorage.setItem('orderType', "1");
+				encryptData("orderType",{orderType:"1"})
+				mui.openWindow({
+					url: 'center/order.html'
+				});
+			});
+			//带状态跳转订单
+			mui('.order-list').on('tap', '.typeChange', function() {
+				let type = $(this).index() + 2;
+				encryptData("orderType",{orderType:type})
+				mui.openWindow({
+					url: 'center/order.html'
+				});
+			});
+			//列表url跳转
+			mui('.page-box').on('tap', '.page-list', function(e) {       
+				var targetTab = this.getAttribute('data-page');
+				if(targetTab) {
+					mui.openWindow({
+						url: 'center/' + targetTab
+					});
+				}     
+			});
+			//跳转个人资料
+			mui('.my-top').on('tap', '.user-img', function() {
+				mui.openWindow({
+					url: 'center/personData.html'
+				});     
+			});
+			//跳转个人资料
+			mui('.my-top').on('tap', '.user-phone', function() {
+				mui.openWindow({
+					url: 'center/personData.html'
+				});     
+			});
+			//点击登录
+			mui('.user-box').on('tap', '.log-out', function(e) { 
+					mui.openWindow({
+						url:  'login.html'
+					}); 
+			});
+		</script>
+	</body>
+
+</html>

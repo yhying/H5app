@@ -1,0 +1,23 @@
+@font-face {
+ font-family: 'PingFang-SC-Medium';
+ src: url('../fonts/pingfang sc medium.otf'); 
+/*其中fontName替换为你的字体名称*/
+}
+*{font-family: PingFang-SC-Medium}
+.mui-input-group:before{
+	height: 0;	
+}
+.mui-input-group:after{
+	height: 0;	
+}
+.mui-input-group .mui-input-row:after{
+	left: 0;
+}
+.mui-input-group input{
+	font-size: 14px;
+	padding:0;
+}
+/*移除底部或顶部三角,需要在删除此代码*/
+.mui-popover .mui-popover-arrow:after {
+    width: 0px;
+}

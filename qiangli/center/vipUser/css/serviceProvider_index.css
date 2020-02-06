@@ -1,0 +1,287 @@
+/*导航栏*/
+.swiper-container{
+	background-color: white;
+}
+.swiper-slide{
+	border-bottom: 10px solid #EFEFEF;
+	padding:15px 15px 0 15px;
+}
+.swiper-slide div{
+	position: relative;
+	float: left;
+	text-align: center;
+	width: calc(100% / 3);
+}
+.swiper-slide div img{
+	width:70px;
+	height: 70px;
+	border-radius: 50%;
+}
+.swiper-slide div p{
+	bottom: 0;
+	font-size: 10px;
+	/*color:white;*/
+}
+.swiper-button-prev, .swiper-container-rtl .swiper-button-next{
+	background: none;
+	left: 0;
+	height: 24px;
+	width: 20px;
+}
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev{
+	background: none;
+	right: 0;
+	height: 24px;
+	width: 20px;
+}
+/*导航栏结束*/
+.repository{
+	padding-top: 10px;
+	background-color: white;
+}
+.hot{
+	position: relative;
+	border-bottom: 1px solid #EFEFEF;
+	padding:5px 15px;
+	color:#000000;
+	background-color: white;
+	margin: 0;
+	padding: 0;
+	height: 45px;
+	line-height: 45px;
+	padding:0 15px;
+}
+.repository .re-list{
+	padding:0 15px;
+	border-bottom: 1px solid #EFEFEF;
+}
+.repository .re-list .re-list-title{
+	font-size: 15.5px;
+	margin:10px 15px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.repository .re-list .re-list-img{
+	padding:0 15px;
+}
+.repository .re-list .re-list-img img{
+	width: 100%;
+}
+.repository .re-list .re-list-bottom{
+	/*display: flex;
+    justify-content: space-between;*/
+   position: relative;
+    padding-bottom: 20px;
+}
+.repository .re-list .re-list-bottom div{
+	float: right;
+	font-size: 12px;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	transform: scale(0.8);
+	color:#666666;
+	margin-right: 10px;
+}
+.repository video{
+	width: 100%;
+}
+.mui-control-item{
+	padding: 0 10px !important;
+}
+.mui-scroll-wrapper{
+	padding-top: 0 !important;
+}
+.doctitle{
+	width: 85%;
+	display: inline-block;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+.dowload{
+	display: inline-block;
+	position: relative;
+}
+.mui-icon-arrowthindown{
+	font-size: 2rem;
+	display: inline-block;
+	position: relative;
+	margin-left: 5px;
+	top: -5px;
+}
+.package{
+	display: inline-block;
+	/*float: right;*/
+	position: absolute;
+	right: 0;
+	top: 15px;
+	margin-right: 15px;
+}
+.package img{
+	width: 30px;
+	height: 35px;
+}
+.scrollBox{
+	position: absolute;
+	margin-top: 350px;
+}
+.mui-card{
+	padding: 5px 15px;
+	margin: 0;
+	/*height: 80px;*/
+}
+.contentList{
+	list-style: none;
+	margin-top: 3px;
+}
+/*压缩包样式*/
+.zipList{
+	padding-left: 0;
+	margin: 2px 0;
+}
+.mui-card-content{
+	height: 100%;
+}
+.cardTime{
+	/*display: inline-block;
+	position: absolute;
+	bottom: 0;*/
+	margin-top: 15px;
+}
+/*压缩包样式结束*/
+
+/*上传案例样式*/
+.foot {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	display: none;
+}	
+.foot-btn{
+	text-align: center;
+	margin: 5px 0 0 0;
+}
+.foot-btn img{
+	width: 50px;
+	height: 50px;
+}
+.foottext{
+	color: #0067E6;
+	text-align: center;
+	padding-top: 0;
+}
+/*上传案例样式结束*/
+
+/*反馈样式*/
+.mui-input-row {
+	background-color: white;
+	border-bottom: 2px solid whitesmoke;
+}
+
+.page-list {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-right: 8px;
+	background-color: white;
+	margin-bottom: 5px;
+}
+
+.page-list-l {
+	font-size: .95rem;
+	color: #333333;
+    line-height: 1.1;
+    padding: 20px 10px;
+}
+.page-list-r{
+	font-size: .95rem;
+}
+.page-list-r .mui-icon {
+	font-size: 18px;
+	transform: rotate(90deg);
+}
+
+.problemFoot {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 11;
+	text-align: center;
+}
+
+.mui-btn {
+	background-color: white;
+	color: #333333;
+	height: 50px;
+	width: 100%;
+	font-size: 18px;
+	border: 0;
+}
+
+
+.msg{
+	background-color: white;
+	height: 2rem;
+	font-size: 15px;
+}
+.msg1{
+	display: inline-block;
+	line-height: 2rem;
+	margin-left: 15px;
+	font-size: 1rem
+}
+.msg2{
+	display: inline-block;
+	float: right;
+	line-height: 2rem;
+	margin-right: 15px;
+	color: #999999;
+}
+.addPocture{
+	display: inline-block;
+	margin-left: 8px;
+	width: 7rem;
+	height: 7rem;
+	background-image:url(../../images/camera.png);
+	background-size: 100% 100%;
+}
+#textarea{
+	border: none;
+	font-size: .95rem;
+	background-color: white;
+	margin: 0;
+}
+.mui-content{
+	background-color: white;
+}
+#alertBox{
+	color: #333333;
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	display: none;
+	z-index: 999;
+}
+.reason{
+	font-size: 1.3rem;
+	
+	display: block;
+	width: 100% !important;
+	background-color: white;
+	text-align: center;
+}
+.lastRadio{
+	background-color: white !important;
+}
+
+/*反馈样式结束*/

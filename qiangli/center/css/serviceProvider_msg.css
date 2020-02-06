@@ -1,0 +1,108 @@
+.navbox{
+	margin-top: 45px;
+	position:relative;
+	padding-top: 15px;
+	background-color: white;
+	border-bottom: 1px solid #F3F3F3;
+	display: flex;
+	z-index: 100;
+}
+.navbox-list {
+	text-align: center;
+	width: 33.3%;
+	font-size: 13px;
+	color:#666666;
+}
+
+.content{
+	position: absolute;
+	left: 0;
+	top: 45px;
+	width: 100%;
+	display: none;
+	color: black;
+}
+#groupMessage{
+	display: block;
+}
+.myProfileBox{
+	position:relative;
+	padding-top: 15px;
+	background-color: white;
+	border-bottom: 1px solid #F3F3F3;
+	display: flex;
+	z-index: 100;
+}
+.navbox_list{
+	text-align: center;
+	width: 50%;
+	font-size: 13px;
+	color:#666666;
+}
+.navbox-change{
+	color:#0067E6;
+	font-weight: 500;
+}
+.navbox-change>.title{
+	width: 50%;
+	margin: 0 auto;
+	border-bottom: 1px solid #0067E6;
+	padding-bottom: 5px;
+}
+.myProfileContent{
+	position: absolute;
+	left: 0;
+	top: 45px;
+	width: 100%;
+	background-color: white;
+	display: none;
+	color: black;
+}
+#case{
+	display: block;
+}
+.mui-card-content img{
+	width: 70%;
+}
+.cardTitle{
+	font-size: .95rem;
+	padding: 5px 5px 5px 0;
+	padding-bottom: 5px;
+	text-align: left;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-left: 20px;
+}
+.mui-card{
+	width: 100%;
+	margin: 0;
+	color: rgb(109,109,109);
+	
+}
+.cardTime{
+	padding-right: 15px;
+	text-align: right;
+	font-size: .8rem;
+}
+.storeCard{
+	border-top: 8px solid whitesmoke;
+}
+.mui-card-footer{
+	padding: 0;
+}
+.cardFooter{
+	width: 100%;
+	text-align: left;
+	padding-left: 15px;
+	padding-top: 15px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.footerTime{
+	text-align: right;
+	padding-right: 15px;
+	font-size: .8rem;
+}

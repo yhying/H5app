@@ -1,0 +1,128 @@
+.errBox {
+	position: relative;
+	margin-top: 45px;
+	height: 120px;
+	background: linear-gradient(to right, #1097FF, #2E82FB);
+	/* Safari */
+	background: -webkit-linear-gradient(left, #1097FF, #2E82FB);
+	/* Opera*/
+	background: -o-linear-gradient(right, #1097FF, #2E82FB);
+	/* Firefox*/
+	background: -moz-linear-gradient(right, #1097FF, #2E82FB);
+	color: white;
+}
+html,body{
+	background-color: white;
+}
+li{
+	list-style: none;
+}
+
+.errBox span {
+	display: inline-block;
+	margin-top: 40px;
+	margin-left: 25px;
+	font-size: 1.2rem
+}
+
+#errIcon {
+	height: 60px;
+	width: 60px;
+	background-color: white;
+	position: absolute;
+	top: 35px;
+	right: 50px;
+	border-radius: 50%;
+	text-align: center;
+}
+#errIcon img{
+	margin-top: 4px;
+	width: 50px;
+	height: 50px;
+}
+.contentList{
+	border-top: 5px solid #EFEFEF;
+}
+.mui-input-row {
+	font-size: .95rem;
+	position: relative;
+	height: 7rem;
+}
+
+.mui-input-row img {
+	height: 5em;
+	margin-bottom: .5rem;
+	display: inline-block;
+	width: 30%;
+}
+.mui-card-footer:before, .mui-card-header:after{
+	content: none;
+}
+.order-card{
+	position: relative;
+	line-height: 0;
+	background-color: #EFEFEF;
+	margin:0 15px;
+	padding:10px;
+}
+.order-card img{
+	width: 30vw;
+}
+.orders{
+	position: absolute;
+	top:10px;
+	left: 30vw;
+	right: 5px;
+	padding-left: 20px;
+	overflow: hidden ;
+	display: -webkit-box ;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical ;
+	word-break: break-all ;
+	line-height: 21px;
+	color:#333333;
+	font-size: 15px;
+}
+.orders p{
+	color:#333333;
+	font-size: 15px;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	line-clamp: 4;
+	-webkit-box-orient: vertical;
+	line-height: 21px;
+}
+.mui-card-header{
+	background-color: #ffffff;
+	overflow: hidden;
+}
+.mui-card-header span{
+	margin-left: 10px;
+	display: inline-block;
+	color: darkslategrey;
+	font-size: .95rem;
+	text-align: left;
+	padding-top: .25rem;
+	float: left;
+}
+.mui-card-header img{
+	height: 1.5rem;
+	width: 1.5rem;
+	float: left;
+}
+.mui-card-footer{
+	background-color: #ffffff;
+}
+.cardFooter{
+	width: 100%;
+}
+.title{
+	color: #333333;
+	font-size: 1.1rem;
+}
+.content{
+	
+}

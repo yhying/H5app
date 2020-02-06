@@ -1,0 +1,160 @@
+.mui-bar{
+	background: -webkit-linear-gradient(left, #1097FF ,#2E82FB); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(right, #1097FF, #2E82FB); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(right, #1097FF, #2E82FB); /* Firefox 3.6 - 15 */
+	background: linear-gradient(to right, #1097FF , #2E82FB); /* 标准的语法 */
+}
+.mui-title{
+	color:#ffffff;
+}
+.mui-action-back{
+	color:#ffffff;
+}
+.mui-content{
+	
+}
+.top{
+	padding:1rem;
+	text-align: right;
+	color:#0067E6;
+	font-size: 1.6rem;
+	letter-spacing: 0.1rem;
+	margin-bottom: 0.6rem;
+	background-color: #FFFFFF;
+}
+.shopList{
+	position: relative;
+	padding:1rem;
+	background-color: #ffffff;
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.3rem;
+}
+.shopList .mui-checkbox{
+	position: absolute;
+    top: 50%;
+    margin-top: -14px;
+}
+.shopList .mui-checkbox{
+	width: 28px;
+	height:  28px;
+	overflow:visible;
+}
+.shopList-img{
+	width: 7rem;
+	height: 7rem;
+	float: left;
+	margin-left: 30px;
+}
+.shopList .mui-checkbox.mui-left input[type=checkbox]{
+	left: 0;
+	top:0;
+}
+.shop-data{
+	position: absolute;
+    height: 7rem;
+    right: 15px;
+    left: 11.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.shop-data p{
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+.shop-num{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.shop-num span{
+	display: inline-block;
+	font-size: 1.6rem;
+	color:#0067E6;
+	margin-bottom: 0.4rem;
+}
+.mui-numbox{
+	height: 25px;
+	width: 80px;
+	padding:0 25px;
+	box-sizing: border-box;
+}
+.mui-numbox [class*=btn-numbox], .mui-numbox [class*=numbox-btn]{
+	width: 25px;
+	font-size: 14px;
+	line-height: 23px;
+}
+.foot{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 55px;
+	background-color: #FFFFFF;
+	display: flex;
+	align-items: center;
+	/* padding:0 1rem; */
+	justify-content: flex-end;
+}
+.foot .mui-input-row{
+	overflow: visible;
+}
+.foot .mui-input-row label{
+	padding:0 0 0 30px;
+}
+.foot .mui-checkbox{
+	position: absolute;
+	left: 10px;
+    height: 30px;
+	top:50%;
+	margin-top: -15px;
+	line-height: 30px;
+}
+.foot .mui-checkbox.mui-left input[type=checkbox]{
+	top:0;
+	left: 0;
+}
+.foot-peice{
+	margin-right: 0.5rem;
+	color:#666666;
+	font-size: 14px;
+}
+.foot-peice p{
+	margin:0;
+	color:#666666;
+}
+.foot-peice .price, .foot-peice .amount{
+	color:#0067E6;
+}
+.foot button{
+	
+}
+.foot .pay{
+	width: 120px;
+	border-radius: 0;
+	font-size: 1.6rem;
+	padding:6px 15px;
+	height: 55px;
+	color:white;
+	background: linear-gradient(to right, #1097FF, #2E82FB);
+	/* Safari */
+	background: -webkit-linear-gradient(left, #1097FF, #2E82FB);
+	/* Opera*/
+	background: -o-linear-gradient(right, #1097FF, #2E82FB);
+	/* Firefox*/
+	background: -moz-linear-gradient(right, #1097FF, #2E82FB);
+}
+.foot .deleteShop{
+	width: 80px;
+	color: #2E82FB;
+	border:1px solid #2E82FB;
+	box-sizing: border-box;
+	margin-right: 10px;
+	margin-left: 30px;
+}

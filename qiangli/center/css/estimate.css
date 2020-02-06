@@ -1,0 +1,163 @@
+html,body{
+	background-color: white;
+}
+.mui-input-row {
+	font-size: .95rem;
+	position: relative;
+	height: 7rem;
+}
+.mui-card-footer:before, .mui-card-header:after{
+	content: none;
+}
+.order-card{
+	position: relative;
+	line-height: 0;
+	background-color: #EEEEEE;
+	margin:0 15px;
+	padding:10px;
+}
+.order-card img{
+	width: 30vw;
+}
+.orders{
+	position: absolute;
+	top:10px;
+	left: 30vw;
+	right: 5px;
+	padding-left: 20px;
+	overflow: hidden ;
+	display: -webkit-box ;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical ;
+	word-break: break-all ;
+	line-height: 21px;
+	color:#333333;
+	font-size: 15px;
+}
+.orders p{
+	color:#333333;
+	font-size: 15px;
+	text-overflow: -o-ellipsis-lastline;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	line-clamp: 4;
+	-webkit-box-orient: vertical;
+	line-height: 21px;
+}
+.mui-card-header{
+	background-color: #ffffff;
+	overflow: hidden;
+}
+.mui-card-header span{
+	margin-left: 10px;
+	display: inline-block;
+	color: darkslategrey;
+	font-size: .95rem;
+	text-align: left;
+	padding-top: .25rem;
+	float: left;
+}
+.mui-card-header img{
+	height: 1.5rem;
+	width: 1.5rem;
+	float: left;
+}
+.mui-card-footer{
+	background-color: #ffffff;
+}
+.cardFooter{
+	width: 100%;
+}
+.starLevel{
+	padding-left: 15px;
+	margin-top: 15px;
+	border-top: 1px solid #EEEEEE;
+}
+.describe,.logistics,.service{
+	font-size: 16px;
+}
+.starLevel .mui-icon{
+	font-size: 24px;
+}
+.textarea{
+	border: none;
+	font-size: 16px;
+	background-color: white;
+	margin: 0;
+}
+.mui-content{
+	background-color: white;
+}
+.addPicture{
+	display: inline-block;
+	margin-left: 2.5vw;
+	width: 30vw;
+	height: 30vw; 
+	background-image:url(../images/camera.png);
+	background-position: -4px -5px;
+	background-size: 109% 108%;
+}
+li img{
+	margin-left: 2.5vw;
+	width: 30vw;
+	height: 30vw;
+	float: left;
+}
+.deleteBtn{
+	text-align: center;
+}
+ul{
+	position: relative;
+	display: inline-block !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+li{
+	display: inline-block;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.deleteBtn{
+	display: inline-block;
+	position: absolute;
+	margin-left: 8px;
+	top: -.5rem;
+	right: -.5rem;
+}
+.foot {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 9999;
+	text-align: center;
+}
+
+.mui-btn {
+	/* 标准语法 */
+			background: linear-gradient(to right, #1E90FF #2E82FB);
+			/* Safari */
+			background: -webkit-linear-gradient(left, #1E90FF, #2E82FB);
+			/* Opera*/
+			background: -o-linear-gradient(right, #1E90FF, #2E82FB);
+			/* Firefox*/
+			background: -moz-linear-gradient(right, #1E90FF, #2E82FB);
+	color: white;
+	height: 50px;
+	width: 100%;
+	font-size: 18px;
+	border: 0;
+}
+ input[type=file]{
+            display: none;
+}
+ .cryptonymBox{
+ 	padding-left: 15px;
+ 	margin-top: 10px;
+ }
+.isCryptonym{
+	font-size: 15px;
+	color: #999999;
+}

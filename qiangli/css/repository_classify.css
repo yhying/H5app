@@ -1,0 +1,129 @@
+html,body{
+	background-color: #EFEFEF;
+}
+.mui-bar{
+	background-color: white;
+}
+.order-nav{
+	position: relative;
+	z-index: 5;
+	margin-top: 45px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+	/*height: 40px;*/
+	border-top: 1px solid #EFEFEF;
+	border-bottom: 1px solid #EFEFEF;
+	box-sizing: border-box;
+}
+
+.navbox-list {
+	text-align: center;
+	width: 25%;
+	color: #333333;
+	font-size: 13px;
+	text-align: center;
+	line-height: inherit;
+	height: 100%;
+    line-height: 40px;
+}
+.navbox-change{
+	color:#0067E6;
+}
+.navbox-change>.title{
+	margin: 0 auto;
+}
+ul{
+	padding: 0;
+}
+.contentList{
+	border-top: 5px solid #EFEFEF;
+}
+#case{
+	display: block;
+}
+.mui-card{
+	color: #666666;
+}
+.mui-card-content img{
+	width: 80%;
+	margin-left: 10%;
+}
+.mui-card-content video{
+	width: 80%;
+	margin-left: 10%;
+}
+.cardTitle{
+	font-size: 1.2rem;
+	padding: 5px 5px 5px 0;
+	text-align: left;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-left: 20px;
+	color: #666666;
+}
+.mui-card{
+	width: 100%;
+	margin: 0;
+	color: rgb(109,109,109);
+	padding: 5px 10px;
+	
+}
+.cardTime{
+	padding-right: 15px;
+	text-align: right;
+	font-size: .8rem;
+	margin-top: 15px;
+	color: #666666;
+}
+.storeCard{
+	border-top: 8px solid whitesmoke;
+}
+.mui-card-footer{
+	padding: 0;
+}
+.cardFooter{
+	width: 100%;
+	text-align: left;
+	padding-left: 15px;
+	padding-top: 15px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.footerTime{
+	text-align: right;
+	padding-right: 15px;
+	font-size: .8rem;
+}
+.mui-scroll-wrapper{
+	padding-top: 0 !important;
+}
+.doctitle{
+	width: 85%;
+	display: inline-block;
+}
+.dowload{
+	display: inline-block;
+	position: relative;
+}
+.mui-icon-arrowthindown{
+	font-size: 2rem;
+	display: inline-block;
+	position: relative;
+	margin-left: 5px;
+	top: -5px;
+}
+.package{
+	display: inline-block;
+	position: relative;
+	float: right;
+	margin-right: 20px;
+}
+.package img{
+	width: 25px;
+	height: 30px;
+}

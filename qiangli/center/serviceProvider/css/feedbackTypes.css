@@ -1,0 +1,42 @@
+html,
+body {
+	background-color: #EFEFEF;
+}
+
+.page-list {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 15px;
+	padding-right: 8px;
+	height: 50px;
+	background-color: white;
+	margin-bottom: 5px;
+}
+
+.page-list-l {
+	font-size: 15px;
+	color: #333333;
+}
+
+.page-list-r .mui-icon {
+	font-size: 18px;
+}
+
+.msg{
+	background-color: #EFEFEF;
+	height: 2rem;
+	color: #666666;
+	font-size: 15px;
+}
+.msg1{
+	display: inline-block;
+	line-height: 2rem;
+	margin-left: 15px;
+}
+.msg2{
+	display: inline-block;
+	float: right;
+	line-height: 2rem;
+	margin-right: 15px;
+}

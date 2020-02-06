@@ -1,0 +1,61 @@
+html,
+body {
+	background-color: #EFEFEF;
+}
+
+.mui-bar {
+	background-color: white;
+}
+
+.user-img {
+	position: relative;
+	background: white;
+	margin-top: 45px;
+	padding: 15px;
+}
+
+.user-img img,
+.user-img input {
+	width: 66.5px;
+	height: 66.5px;
+	border-radius: 50%;
+}
+
+.user-img input {
+	position: absolute;
+	opacity: 0;
+	left: 15px;
+	top: 15px;
+}
+
+.user-main {
+	background-color: white;
+	margin-top: 10px;
+}
+
+.user-sex {
+	display: flex;
+}
+
+.mui-radio.mui-left input[type=radio] {
+	left: 0;
+}
+
+.mui-radio.mui-left label {
+	padding-left: 35px;
+}
+
+.foot-btn {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	background-color: white;
+}
+
+.foot-btn button {
+	border: 0;
+	width: 100%;
+	height: 50px;
+}

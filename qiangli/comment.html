@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/common.css" rel="stylesheet" />  
+		<link rel="stylesheet" href="css/comment.css">
+		<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+	</head>
+	<style>
+		html,
+		body {
+			background-color: #fff;
+		}
+		.mui-bar .mui-pull-left .mui-icon {
+			padding-right: 5px;
+			font-size: 28px;
+		}
+		.mui-bar .mui-btn {
+			font-weight: normal;
+			font-size: 17px;
+		}
+		.mui-bar .mui-btn-link {
+			top: 1px;
+		}
+	</style>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">1/7页<a href="#" class="mui-icon mui-icon-arrowdown"></a></h1>
+			<span mui-icon-extra mui-icon-extra-comment></span>
+		<a class="mui-icon mui-pull-right  mui-icon-star"></a></header>
+		<div class="mui-content my-content mui-clearfix">
+			<div class="my-content-title mui-clearfix" style="height: 40px">
+			<ul class="header ">
+				<li><a href="#" class=" active">全部</a></li>
+				<li><a href="#">最新</a></li>
+				<li><a href="#">楼主</a></li>
+			</ul>
+			</div>
+	     <div class="pinglun">
+			<ul id="lhui">
+					
+			</ul>
+		 </div>
+		     
+		</div>
+		<footer>
+				
+				<input type="text" class="mui-pull-left" style="width:50%;  height: 30px;
+				" placeholder="说点什么吧">
+				<div class="footer-image">
+				<a href=""><img src="images/talk.png">
+					<span class="mui-badge mui-badge-danger icon">9</span>	</a>
+					
+                <a href=""><img src="images/chat-4-1.png"></a>
+                <a href=""><img src="images/chat-4-3.png"></a>
+			</div>
+			</footer>
+		
+	</body> 
+	<script>
+		// jq链式编程切换为a添加样式类   注：jq筛选方法
+         $(function(){
+			$('.header li a').click(function(){
+		  $(this).addClass('active').parents().siblings().children().removeClass('active')
+	  })
+	  function getComment(){
+		$.ajax({
+    url: "",
+    data: {},
+    type: "POST",
+    dataType: "json",
+    success: function(data) {  
+		console.log(data);
+    }
+})
+		  var ul=$("#lhui").val();
+		  for(var i=1;i<8;i++){
+             $("#lhui").append(`<li>
+							<div><img src="images/user_img.png"><span class="name">车易点</span><i class="mui-icon  mui-icon-weibo
+								"></i><span class="Na">4楼</span> </div>
+							<p>一般是N+1，，对的。。</p>
+							<div class="pinglun-detail">
+
+								 
+								 <a href="./comment_datail.html" style="font-size:5px;">查看更多2条回复>></a>
+							</div>
+							<div class="data">
+								<span class="data-time">21小时前</span>
+								<div class="mui-pull-right">
+		
+								<a class="ping " href=""><img src="images/talk.png" ></a>
+								<span>2</span>
+								<a class="zan " href=""><img src="images/chat-4-1.png"></a><span>6</span>
+							</div>
+							</div>
+		
+						</li>`)
+		  }
+	  }
+	  getComment();
+		 })
+
+	</script>
+
+</html>

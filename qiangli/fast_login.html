@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>强力巨彩</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="css/regist.css"/>
+	<body>
+		<!--头部-->
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">快捷登录</h1>
+		</header>
+		<div class="page-main">
+			<div class="logo">
+				<img src="images/logo-12.png" alt="" />
+			</div>
+			<div class="mui-input-group">
+			    <div class="mui-input-row">
+			        <input type="text" name="cellphone" class="phone" id="phone" placeholder="请输入手机号">
+			    </div>
+			    <div class="mui-input-row codebox">
+			        <input type="text" name="code" placeholder="请输入验证码"  id="u_code">
+			        <a href="javascript:;" id="get_code">获取验证码</a>
+			    </div>
+			</div>
+		</div>
+		<!--头部-->
+		<!--底部-->
+		<footer class="foot">
+			<button type="button" class="mui-btn">登录</button>
+		</footer>
+		<!--底部-->
+		<script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			//防止软键盘调起时，底部内容随之挤上
+			//获取原始窗口的高度
+			var originalHeight = document.documentElement.clientHeight || document.body.clientHeight;
+			window.onresize = function() {
+				//软键盘弹起与隐藏  都会引起窗口的高度发生变化
+				var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
+				if(resizeHeight * 1 < originalHeight * 1) { //resizeHeight<originalHeight证明窗口被挤压了
+					$('.foot').css('display','none');
+				}else{
+					$('.foot').css('display','block');
+				}
+			}
+			//获取验证码
+			mui('.codebox').on('tap','a',function(){
+				let val = '#get_code';
+				getVaildateCode(val);
+			});
+			
+			//是否允许点击发送验证码
+  			var enable_get_vaildate_code = true;
+  			//发送验证码倒计时定时器
+  			var get_vaildate_code_timer = 0;
+  			//发送验证码倒计时
+      		var get_vaildate_code_countdown = 60;
+      		//获取短信验证码
+			function getVaildateCode(val) {
+			    let err_msg = checkCode($("input[name='cellphone']").val());
+			    if (!enable_get_vaildate_code) {
+			        return;
+			    }
+			    if(err_msg.length != 0){
+			        mui.alert(err_msg); 
+			        return;
+			    }else{
+			      	//调用短信接口
+			      	mui.ajax(baseUrl+'/api/phone/getcode',{
+						data:{
+							phone:$(".phone").val(),
+							a_type:1
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						headers:{
+							'Api-Token':'xx'
+						},    
+						success:function(data){
+							if(data.code == 1000){
+								//如果服务端返回成功后执行
+								mui.toast('验证码已发送',{ duration:'long', }) 
+								enable_get_vaildate_code = false;
+								clearInterval(get_vaildate_code_timer);
+								get_vaildate_code_timer = setInterval(() => {
+								    if (get_vaildate_code_countdown == 0) {
+								      	enable_get_vaildate_code = true;
+								      	get_vaildate_code_countdown = 60;
+								      	$(val).html('获取验证码'); 
+								      	clearInterval(get_vaildate_code_timer);
+								    } else {
+								      	get_vaildate_code_countdown -= 1;
+								      	$(val).html(get_vaildate_code_countdown); 
+								    }
+								}, 1000);
+							}
+							else{
+								mui.alert(data.msg);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							mui.alert('请求超时');
+						}
+					});
+			    }
+			}
+		  	//校验短信
+		  	/*
+		  	 * val:手机号
+		  	 */
+		    function checkCode(val) {
+		      	let err_msg = "";
+		      	const reg = /^1\d{10}$/;
+		
+		      	let cellphone_trim = val.trim();
+		      	if(cellphone_trim.length == 0){
+		        	err_msg = "手机号不能为空";
+		      	}
+		      	else if(!reg.test(cellphone_trim)){
+		        	err_msg = "手机号不正确";
+		      	}
+		      	return err_msg;
+		    }
+			//注册
+			var disabled = true;//防止多次点击求情数据
+			mui('.foot').on('tap','.mui-btn',function(){
+				let err_msg = checkRegister();
+				if (err_msg.length != 0) {
+					mui.alert(err_msg);
+		        return;
+		      	}else{
+			      	if(!disabled){
+		        		mui.alert('操作频繁');
+		        	}else{
+		        		disabled = false;
+		        		//调用登录接口
+						mui.ajax(baseUrl + '/api/user/login',{
+							data:{
+								account:$(".phone").val(),//手机号
+								p_code:$("#u_code").val(),//验证码
+								l_type:2,//2短信登录
+							},
+							dataType:'json',//服务器返回json格式数据
+							type:'post',//HTTP请求类型
+							timeout:10000,//超时时间设置为10秒；
+							headers:{
+								'Api-Token':'xx'
+							},	              
+							success:function(data){
+								//重启点击事件
+								disabled = true;
+								console.log(JSON.stringify(data));
+								//登录成功
+								if(data.code == 1000){
+									localStorage.setItem('Token',data.data.token);
+									mui.toast(data.msg,{ duration:'long', })
+									//清除数据
+									$(".phone").val('');
+									$("#u_code").val('');
+									setTimeout(function () {
+										mui.openWindow({
+									    	url:'index.html'
+										});
+									}, 1000);
+								}else{
+									mui.alert(data.msg);
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								//异常处理
+								//重启点击事件
+								disabled = true;
+								mui.alert('请求超时');
+							}
+						});
+	        		}
+		      	
+		      	}
+			})
+			//校验注册
+		    function checkRegister() {
+		      let err_msg = "";
+		      const reg = /^1\d{10}$/;
+		
+		      let cellphone_trim = $("input[name='cellphone']").val().trim();
+		      let vaildate_code_trim = $("input[name='code']").val().trim();
+		      
+		      if (cellphone_trim.length == 0) {
+		        err_msg = "手机号不能为空";
+		      } else if (!reg.test(cellphone_trim)) {
+		        err_msg = "手机号不正确";
+		      } else if (vaildate_code_trim.length == 0) {
+		        err_msg = "验证码不能为空";
+		      } 
+		      return err_msg;
+		    }
+		</script>
+	</body>
+</html>
